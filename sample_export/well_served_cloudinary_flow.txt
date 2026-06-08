@@ -1,0 +1,64 @@
+WELL-SERVED — CLOUDINARY EXPORT FLOW
+=====================================
+
+
+STEP 1 — SESSION CLOSES (Django)
+Host closes session. Django processes all participant responses and generates
+the MD and RTF file contents in memory. Cloudinary is not involved yet.
+
+
+STEP 2 — RAW ASSET UPLOAD (Cloudinary Upload API)
+Django calls Cloudinary's Upload API twice via RawMediaCloudinaryStorage,
+resource_type = raw.
+
+  Upload 1:  public_id = archives/md/YYYYMMDD_tool-slug_session_id  →  format: md
+  Upload 2:  public_id = archives/rtf/YYYYMMDD_tool-slug_session_id  →  format: rtf
+
+Cloudinary returns the public_id for each. Django saves both to the database.
+
+
+STEP 3 — MEDIAFLOWS TRIGGER
+Event:          asset uploaded
+Resource type:  raw
+Folder filter:  archives/*
+
+Each upload fires an independent workflow instance.
+
+
+STEP 4 — GET ASSET INFORMATION NODE
+Calls the Admin API to fetch the asset record.
+Outputs available to downstream nodes via $.Get_Asset_Information.result.*
+
+  Fields used:
+    public_id    — full folder path and filename
+    format       — md or rtf
+    created_at   — upload timestamp
+    resource_type — raw
+
+
+STEP 5 — UPDATE ASSET NODE: TAGS
+Applies free-text tags to the asset.
+
+  Tags written:
+    session-export
+    {{$.Get_Asset_Information.result.format}}  →  md or rtf
+
+
+STEP 6 — UPDATE ASSET NODE: STRUCTURED METADATA
+Applies typed metadata fields (defined in Settings → Metadata).
+
+  source_app     = kwacart
+  export_format  = {{$.Get_Asset_Information.result.format}}
+  export_date    = {{$.Get_Asset_Information.result.created_at}}
+
+Asset is now searchable and filterable in the Media Library.
+
+
+STEP 7 — DOWNLOAD DELIVERY (Cloudinary CDN)
+User requests a download. Django retrieves the public_id from the database
+and opens the file via RawMediaCloudinaryStorage. Cloudinary serves it via:
+
+  https://res.cloudinary.com/<cloud-name>/raw/upload/<public-id>.<format>
+
+File streams to the user's browser as an attachment. Nothing is written to
+the Heroku server.

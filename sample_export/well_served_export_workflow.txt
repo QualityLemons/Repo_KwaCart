@@ -1,0 +1,105 @@
+WELL-SERVED EXPORT WORKFLOW — SESSION CLOSE TO CLOUDINARY
+==========================================================
+
+
+STAGE 1 — HOST CLOSES THE SESSION
+
+The host is the only person who can trigger this flow. They click the Close
+Session button on the session page. The application checks that the user is
+the session host. If they are not, the request is rejected with a 404. If
+the session is already closed, the request is ignored and the user is
+redirected back to the session view.
+
+Once confirmed, the session status is set to closed and a timestamp is
+recorded. This is permanent and cannot be undone from the interface.
+
+
+STAGE 2 — PARTICIPANT RESPONSES ARE LOCKED AND PROCESSED
+
+With the session now marked as closed, the application loops through every
+participant who submitted a response. For each one, the tool's logic runs
+against their input and the result is written to their record in the
+database. If one participant's submission causes an error, that error is
+contained and the others are still processed. No data is lost.
+
+
+STAGE 3 — EXPORT FILES ARE GENERATED
+
+Once all responses are processed, the export pipeline runs. Two files are
+created from the combined session data.
+
+The first is a Markdown file. It contains the tool name, host email address,
+session close time, tool version, and each participant's output listed in
+submission order. The host is identified with a label next to their name.
+Any participant who submitted no response is noted as such rather than being
+omitted.
+
+The second is an RTF file. It contains the same content formatted for word
+processors, using bold labels for each section heading and proper line
+spacing between entries.
+
+Both files follow the same naming convention:
+
+    YYYYMMDD_tool-slug_session_id.md
+    YYYYMMDD_tool-slug_session_id.rtf
+
+
+STAGE 4 — FILES ARE UPLOADED TO CLOUDINARY
+
+The application does not write these files to the server. Instead, it sends
+them directly to Cloudinary using Django's storage API. In the local
+development environment, files are written to the local filesystem so that
+development can continue without a Cloudinary connection. In production on
+Heroku, the storage backend is Cloudinary and files go there immediately on
+generation.
+
+Cloudinary stores them as raw assets under two folders:
+
+    archives/md/
+    archives/rtf/
+
+The file paths returned by Cloudinary are saved to the session record in the
+database. These paths are what the download system uses to locate the files
+later.
+
+
+STAGE 5 — CLOUDINARY MEDIAFLOWS RUNS AUTOMATICALLY
+
+When a file lands in either of the archives folders, the MediaFlows workflow
+is triggered automatically. It does not require any action from the user or
+the application.
+
+The workflow fetches the asset's metadata, reads the file format from the
+asset information, and then applies two things to the asset.
+
+First, it applies tags. Every export file receives the tag session-export,
+plus a tag matching the file format, either md or rtf.
+
+Second, it applies structured metadata. The source application is recorded
+as kwacart, the export format is set based on the file type, and the
+export date is recorded. This metadata is stored inside Cloudinary and is
+visible in the Media Library without needing to open the file or query the
+Django database.
+
+
+STAGE 6 — PARTICIPANTS CAN DOWNLOAD THE FILES
+
+After the session is closed, both the host and all participants can visit
+the session page and see the combined results on screen. Download buttons
+appear for the MD file and the RTF file.
+
+When a download is requested, the application checks that the user is either
+the session host or a participant who submitted a response during the
+session. Anyone else receives a 404. The file is then streamed directly from
+Cloudinary to the user's browser as an attachment. No copy of the file is
+made on the Heroku server at any point.
+
+
+WHAT HAPPENS IF SOMETHING GOES WRONG
+
+If the export generation or Cloudinary upload fails, the session close is
+not reversed. The session remains closed and all participant data remains
+safely in the database. The download buttons will be absent because no file
+path was saved, and the server log will contain a message identifying the
+session ID and the reason for the failure. The user sees a warning message
+on screen but is not shown technical details.
