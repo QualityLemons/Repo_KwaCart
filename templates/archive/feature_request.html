@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Request a feature — KwaCart{% endblock %}
+
+{% block content %}
+
+<nav aria-label="Breadcrumb" style="font-size:0.875rem; color:#64748b; margin-bottom:1.25rem;">
+    <a href="/" style="color:#5D3A9B; text-decoration:none;">Home</a>
+    &rsaquo; Request a feature
+</nav>
+
+<div style="max-width:560px;">
+
+    <h1 style="margin-bottom:0.4rem;">Request a feature</h1>
+    <p style="color:#64748b; margin-bottom:2rem;">
+        Got an idea for something KwaCart should do?
+        Tell us what you need — we read every request.
+    </p>
+
+    {% if success %}
+
+        <div style="background:#f0fdfa; border:2px solid #40B0A6; border-radius:8px;
+                    padding:1.25rem 1.5rem; margin-bottom:1.5rem;">
+            <strong style="color:#0d6b66;">Request received — thank you!</strong>
+            <p style="margin:0.3rem 0 0; color:#0d6b66; font-size:0.95rem;">
+                We&rsquo;ve logged your idea. If you left an email address,
+                we&rsquo;ll be in touch when it&rsquo;s built.
+            </p>
+        </div>
+
+        <p style="font-size:0.9rem; color:#64748b;">
+            Want to send another idea?
+            <a href="/request-a-feature/" style="color:#5D3A9B;">Submit another request</a>.
+        </p>
+
+    {% else %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <p class="non-field-errors">{{ form.non_field_errors|join:" " }}</p>
+            {% endif %}
+
+            <div style="margin-bottom:1.1rem;">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+                {% if form.name.errors %}
+                <p id="{{ form.name.id_for_label }}-error" class="field-error">
+                    {{ form.name.errors|join:", " }}
+                </p>
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom:1.1rem;">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                <p id="{{ form.email.id_for_label }}-error" class="field-error">
+                    {{ form.email.errors|join:", " }}
+                </p>
+                {% endif %}
+                {% if form.email.help_text %}
+                <p style="font-size:0.82rem; color:#64748b; margin-top:0.25rem;">
+                    {{ form.email.help_text }}
+                </p>
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom:1.1rem;">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {% if form.title.errors %}
+                <p id="{{ form.title.id_for_label }}-error" class="field-error">
+                    {{ form.title.errors|join:", " }}
+                </p>
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom:1.4rem;">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {% if form.description.errors %}
+                <p id="{{ form.description.id_for_label }}-error" class="field-error">
+                    {{ form.description.errors|join:", " }}
+                </p>
+                {% endif %}
+            </div>
+
+            <button type="submit"
+                    style="padding:0.65rem 1.6rem; background:#5D3A9B; color:#fff;
+                           border:none; border-radius:5px; font-size:1rem;
+                           cursor:pointer; font-family:inherit; font-weight:600;">
+                Submit request
+            </button>
+        </form>
+
+        <p style="margin-top:1.5rem; font-size:0.85rem; color:#64748b;">
+            Your details are stored securely and used only to follow up on your request.
+            No marketing emails, no third parties.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
