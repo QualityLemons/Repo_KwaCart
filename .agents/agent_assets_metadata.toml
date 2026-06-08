@@ -1,0 +1,139 @@
+uploads = []
+
+[[generated]]
+id = "dAPgMtVwiALlFziVxEuzc"
+uri = "file://attached_assets/logo_options/kwa_option_a.png"
+type = "image"
+title = "kwa logo option A flat gaggle"
+
+[[generated]]
+id = "QEBK03ZgEflXJskNoQ-Mk"
+uri = "file://attached_assets/logo_options/kwa_option_b.png"
+type = "image"
+title = "kwa logo option B serif text below"
+
+[[generated]]
+id = "us0ZhjMoNNL64vqEkYcqh"
+uri = "file://attached_assets/logo_options/kwa_option_c.png"
+type = "image"
+title = "kwa logo option C speech bubble horizontal"
+
+[[generated]]
+id = "jqjMWieKSsGXxNjQfal77"
+uri = "file://attached_assets/logo_options/kwa_duck_a.png"
+type = "image"
+title = "kwa single duck speech bubble"
+
+[[generated]]
+id = "V3maQB7rnzt_eBoxBhZFh"
+uri = "file://attached_assets/logo_options/kwa_duck_b.png"
+type = "image"
+title = "kwa single duck text below"
+
+[[generated]]
+id = "VcnhSNGsH_hW0FEHOKMk7"
+uri = "file://attached_assets/logo_options/kwa_duck_c.png"
+type = "image"
+title = "kwa single duck text beside"
+
+[[generated]]
+id = "-o0stto-HdeRrNasiFarN"
+uri = "file://attached_assets/logo_options/duck_silhouette_a.png"
+type = "image"
+title = "duck silhouette standing"
+
+[[generated]]
+id = "HwTXJBKjJXPCe_DW_UVeW"
+uri = "file://attached_assets/logo_options/duck_silhouette_b.png"
+type = "image"
+title = "duck silhouette waddling"
+
+[[generated]]
+id = "AgH4upjthXnUZ-2eH9fiK"
+uri = "file://attached_assets/logo_options/duck_silhouette_c.png"
+type = "image"
+title = "duck silhouette quacking"
+
+[[outputs]]
+id = "so8H9uzBmTtq2JB1rasO2"
+uri = "file://README.md"
+type = "text"
+title = "Well-Served README"
+
+[[outputs]]
+id = "g6Whm-co6yNGPbWYPMxB0"
+uri = "file://sample_export/sample_session_export.md"
+type = "text"
+title = "Sample Session Export — Markdown"
+
+[[outputs]]
+id = "Iocblm3yc8zUqU8g3CcZw"
+uri = "file://sample_export/sample_session_export.rtf"
+type = "unspecified"
+title = "Sample Session Export — RTF"
+
+[[outputs]]
+id = "znRUV7vdkj5i0Li9RbCFg"
+uri = "file://sample_export/well_served_export_workflow.txt"
+type = "text"
+title = "Well-Served Export Workflow"
+
+[[outputs]]
+id = "8YRUwfzbsqWo80ffMKHeU"
+uri = "file://sample_export/well_served_cloudinary_flow.txt"
+type = "text"
+title = "Well-Served Cloudinary Flow — Concise"
+
+[[outputs]]
+id = "nzrhLqqKnCRt4tD1AkuOg"
+uri = "file://attached_assets/logo_options/kwa_option_a.png"
+type = "image"
+title = "Option A — flat gaggle, text beside"
+
+[[outputs]]
+id = "BgHV7EaO56Asq6pYnrp9B"
+uri = "file://attached_assets/logo_options/kwa_option_b.png"
+type = "image"
+title = "Option B — serif text below"
+
+[[outputs]]
+id = "I9eXQQ-DBXW48flm5joG-"
+uri = "file://attached_assets/logo_options/kwa_option_c.png"
+type = "image"
+title = "Option C — horizontal line, speech bubble"
+
+[[outputs]]
+id = "BEjNMeuvnuahU8sFvk-bC"
+uri = "file://attached_assets/logo_options/kwa_duck_a.png"
+type = "image"
+title = "Option A — speech bubble"
+
+[[outputs]]
+id = "zAe-AVyMbR8IDwXZjRqwf"
+uri = "file://attached_assets/logo_options/kwa_duck_b.png"
+type = "image"
+title = "Option B — text below"
+
+[[outputs]]
+id = "KnUZKwwgCrCDi05T86_3h"
+uri = "file://attached_assets/logo_options/kwa_duck_c.png"
+type = "image"
+title = "Option C — text beside"
+
+[[outputs]]
+id = "ilVmSrcRuaBDFDdaKw9OV"
+uri = "file://attached_assets/logo_options/duck_silhouette_a.png"
+type = "image"
+title = "Option A — standing"
+
+[[outputs]]
+id = "0j5z5yjkqjmHIVF5_hq5G"
+uri = "file://attached_assets/logo_options/duck_silhouette_b.png"
+type = "image"
+title = "Option B — waddling"
+
+[[outputs]]
+id = "-SVPtgZO7d3EQMHiOU7PQ"
+uri = "file://attached_assets/logo_options/duck_silhouette_c.png"
+type = "image"
+title = "Option C — mid-quack"
