@@ -1,0 +1,31 @@
+{
+  "name": "KwaCart",
+  "description": "A Liberating Structures facilitation platform built with Django.",
+  "keywords": ["django", "python", "facilitation", "liberating-structures"],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": {
+      "description": "Django settings module to use.",
+      "value": "config.settings.production"
+    },
+    "SECRET_KEY": {
+      "description": "A long random string used for cryptographic signing. Must be kept secret.",
+      "generator": "secret"
+    },
+    "ALLOWED_HOSTS": {
+      "description": "Comma-separated list of allowed hostnames (e.g. your-app.herokuapp.com)."
+    },
+    "CSRF_TRUSTED_ORIGINS": {
+      "description": "Comma-separated trusted origins for CSRF checks (e.g. https://your-app.herokuapp.com)."
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:essential-0"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
