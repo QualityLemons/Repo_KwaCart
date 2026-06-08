@@ -1,0 +1,25 @@
+Yes, Cloudinary can support .md and .rtf files, as long as they’re not on the blocked list. They’ll be uploaded as raw assets (stored as-is), so you can deliver them via a URL, but you won’t be able to transform them. (https://cloudinary.com/documentation/upload_parameters) (https://cloudinary.com/documentation/cloudinary_glossary) 
+ The only formats that are rejected by default are certain executable and potentially harmful file types (like .exe, .apk, .bat, .sh, etc.). (https://cloudinary.com/documentation/ts_why_does_cloudinary_reject_the_file_format_of_some_files_im_uploading) 
+ So .md and .rtf should be fine to upload and deliver as raw files. 
+ 
+Sources:
+Customizing uploads | Documentation (https://cloudinary.com/documentation/upload_parameters)
+Cloudinary Image & Video Glossary | Documentation (https://cloudinary.com/documentation/cloudinary_glossary)
+Why Does Cloudinary Reject The File Format Of Some Files I'm Uploading? | Documentation (https://cloudinary.com/documentation/ts_why_does_cloudinary_reject_the_file_format_of_some_files_im_uploading)
+
+06:14 PM | Ask Cloudinary AI: Is that what you were looking for?
+
+06:14 PM | John Parman: What are some workflows I can find for outputting MD and RTF files from raw data?
+
+06:14 PM | Ask Cloudinary AI: For MD and RTF, Cloudinary treats them as raw files, so there isn’t a built-in “convert raw data into MD/RTF” workflow. What you can do is use raw_convert to generate related files from certain raw uploads (for example, convert an Office document to a PDF image, or generate a transcript from a video). (https://cloudinary.com/documentation/upload_parameters) (https://cloudinary.com/documentation/image_upload_api_reference) (https://cloudinary.com/blog/uploading_managing_and_delivering_pdfs) 
+ If your goal is “raw data → MD/RTF”, the practical workflow is: 
+ - Generate the MD/RTF outside Cloudinary, then upload it as a raw asset for storage and delivery. 
+- Use MediaFlows to automate steps like metadata enrichment, routing for approval, and delivery notifications once the file is ready. (https://cloudinary.com/guides/automations/digital-asset-workflows) (https://cloudinary.com/documentation/dam_manage_individual_assets) 
+ If you tell me what your “raw data” is (JSON, database, CMS export, etc.), I can suggest a clean pipeline for that specific case. 
+ 
+Sources:
+Customizing uploads | Documentation (https://cloudinary.com/documentation/upload_parameters)
+Upload API Reference | Documentation (https://cloudinary.com/documentation/image_upload_api_reference)
+How to Upload, Manage, and Deliver PDFs to Cloudinary (https://cloudinary.com/blog/uploading_managing_and_delivering_pdfs)
+A Complete Guide to Digital Asset Workflows | Cloudinary (https://cloudinary.com/guides/automations/digital-asset-workflows)
+Assets (Digital Asset Management) - Manage Individual Media Assets | Documentation (https://cloudinary.com/documentation/dam_manage_individual_assets)

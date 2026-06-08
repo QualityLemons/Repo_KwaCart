@@ -1,0 +1,30 @@
+Your environment is configured in dynamic folders mode. In this mode, the asset's folder (asset_folder) is independent of the slashes in the public_id.
+
+Your Django code sets public_id = "archives/md/..." and public_id = "archives/rtf/...". Those slashes form a path inside the public_id, not an asset folder. Unless your RawMediaCloudinaryStorage upload call explicitly sets an asset_folder parameter (e.g., asset_folder="archives/md"), the uploaded assets will land in the home folder with no asset folder set.
+
+This affects which trigger filter to use:
+
+    Option A — Filter by asset_folder (the recommended key in dynamic mode): Only works if your upload call explicitly sets asset_folder to archives/md or archives/rtf. If it doesn't, the flow will never trigger.
+    Option B — Filter by public_id prefix using a folder filter on folder: In dynamic mode this is non-standard; the system recommends asset_folder.
+    Option C — Skip folder filter entirely, filter only by resource_type = raw: Simplest and safest. The flow fires for every raw upload. Acceptable if raw uploads are rare in your environment.
+    Option D — Filter by resource_type = raw + a tag prefilter: Have Django add a tag like well-served at upload time; the flow filters on that tag. Most reliable.
+
+Which option matches your setup? If your Django upload call already passes asset_folder="archives/md" (or similar), confirm Option A and I'll filter on asset_folder starts_with archives (with subfolders). Otherwise pick B, C, or D.
+Updated plan summary (pending your answer above)
+
+Flow name: WellServed-ArchiveTag
+
+    Trigger [OnAssetUpload] with filters:
+        Asset type = raw
+        Folder filter (depends on your answer above)
+    [GetAssetInformation] — fetches format, created_at, public_id
+    [UpdateTags] — adds tags session-export,{{format}} (the Update Tags field is a comma-separated string, which matches your spec exactly)
+    [UpdateSourceApp] — Update Contextual Metadata: source_app = well-served
+    [UpdateExportFormat] — Update Contextual Metadata: export_format = {{format}}
+    [UpdateExportDate] — Update Contextual Metadata: export_date = {{created_at}}
+
+The Update Contextual Metadata block sets one key/value per instance, so the three contextual metadata fields require three separate blocks.
+
+Please confirm:
+
+    Folder filter option (A / B / C / D).
