@@ -1604,31 +1604,39 @@ The shared stylesheet `static/css/base.css` was validated against the [W3C CSS V
 
 ### JavaScript — JSHint
 
-All 11 JavaScript files in `static/js/` were checked using **JSHint 2.13.6** with the configuration below. The result is **0 errors** across all files.
+All 19 JavaScript files in `static/js/` (excluding vendored libraries) were checked using **JSHint 2.13.6** with the configuration below. The result is **0 errors** across all files.
 
 ```json
 {
   "browser": true,
   "esversion": 11,
-  "globals": { "getCookie": true, "QRCode": true }
+  "globals": { "getCookie": true, "QRCode": true, "marked": true }
 }
 ```
 
 Files checked (all pass with 0 errors):
 
-| File | Notes |
+| File | Inline directives |
 |---|---|
+| `accessibility_theme.js` | — |
+| `archive_md_preview.js` | — |
+| `aria_wiring.js` | — |
 | `autosave.js` | — |
-| `canvas_tool.js` | — |
+| `draft_init.js` | — |
 | `drawing_canvas.js` | — |
-| `qr_display.js` | — |
-| `session_control.js` | — |
+| `form_submit.js` | — |
+| `guest_poll.js` | — |
+| `inclusive_pacing.js` | `laxbreak: true` for multi-line ternaries |
+| `multimedia_input.js` | — |
+| `pathway_finder.js` | `laxbreak: true`, `-W097` (global strict), `/* global SpeechSynthesisUtterance */` |
+| `pause_reminder.js` | — |
+| `qrcode_init.js` | — |
+| `session_autosave.js` | — |
+| `session_composing.js` | — |
 | `session_poll.js` | `laxbreak: true` for multi-line ternaries |
-| `timer.js` | `/* jshint esversion:11, laxbreak:true, shadow:true, -W082, -W058 */` inline directive |
+| `timer.js` | `laxbreak: true`, `-W082`, `-W058` (function declarations in blocks) |
 | `tool_try_timer.js` | `laxbreak: true` for multi-line ternaries |
-| `waiting_list.js` | — |
-| `feature_request.js` | — |
-| `signup.js` | — |
+| `verbal_breakout.js` | — |
 
 ![JSHint validator](docs/validation/js_jshint.png)
 
