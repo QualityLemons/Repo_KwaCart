@@ -33,6 +33,7 @@ KwaCart is a Django-based facilitation platform built around **Liberating Struct
 20. [Lighthouse Audit](#lighthouse-audit)
 21. [Testing](#testing)
 22. [Credits](#credits)
+23. [Changelog](#changelog)
 
 ---
 
@@ -76,7 +77,7 @@ The value of these outcomes is proportional to the trust placed in them — and 
 | Layer | Technology |
 |---|---|
 | Language | Python 3.12 |
-| Framework | Django 6.0.4 |
+| Framework | Django 6.0.6 |
 | Database (dev) | SQLite (`db.sqlite3`) |
 | Database (production) | PostgreSQL (Heroku Postgres add-on) |
 | Static files | WhiteNoise 6.6 |
@@ -808,7 +809,7 @@ This means every export in the Cloudinary Media Library is filterable by tool, f
 
 ## Data Models
 
-The complete database contains **19 tables**: 6 application tables (owned by the KwaCart app code), 9 Django framework tables (managed by Django's core and contrib apps), and 4 third-party tables (managed by django-axes for brute-force protection). All three groups are documented below.
+The complete database contains **15 tables**: 6 application tables (owned by the KwaCart app code) and 9 Django framework tables (managed by Django's core and contrib apps). Both groups are documented below. Brute-force login protection is handled in application code (see [Security](#security)) rather than by a database-backed package, so no additional tables are required for it.
 
 ### SQL Table Name Reference
 
@@ -831,12 +832,8 @@ Django names every table `{app_label}_{model_name}` (lowercase). The mapping bet
 | `django_admin_log` | Django admin action log | Django contrib |
 | `django_migrations` | Migration history tracker | Django core |
 | `django_session` | Server-side session store | Django contrib |
-| `axes_accessattempt` | Axes login attempt aggregator | django-axes |
-| `axes_accessattemptexpiration` | Axes attempt expiry record | django-axes |
-| `axes_accessfailurelog` | Axes individual failure record | django-axes |
-| `axes_accesslog` | Axes successful login/logout record | django-axes |
 
-The ERD diagrams below cover the six application tables. Framework and third-party tables are described in the [Framework and Third-party Tables](#framework-and-third-party-tables) subsection.
+The ERD diagrams below cover the six application tables. Framework tables are described in the [Framework and Third-party Tables](#framework-and-third-party-tables) subsection.
 
 ---
 
@@ -1138,7 +1135,7 @@ All three export file fields store Cloudinary storage paths (or relative local p
 
 ### Framework and Third-party Tables
 
-These tables are created and managed by Django's built-in apps and the django-axes package. KwaCart does not define models for them directly; they are described here so that the full database schema is accounted for.
+These tables are created and managed by Django's built-in apps. KwaCart does not define models for them directly; they are described here so that the full database schema is accounted for.
 
 ---
 
@@ -1256,71 +1253,6 @@ Server-side session storage. Each row is one browser session, keyed by the sessi
 
 ---
 
-#### django-axes tables
-
-[django-axes](https://django-axes.readthedocs.io/) provides brute-force login protection. It records every login attempt and locks out IP addresses or usernames that exceed the configured failure threshold. KwaCart uses axes to protect the `/accounts/login/` endpoint.
-
-##### `axes_accessattempt`
-
-Aggregated record of login failures per `(username, ip_address, user_agent)` combination. The `failures_since_start` counter is incremented on each failure; when it reaches the lockout threshold the account or IP is blocked.
-
-| Column | SQL type | Description |
-|---|---|---|
-| `id` | `INT NOT NULL PK` | Auto-increment |
-| `user_agent` | `VARCHAR(255) NOT NULL` | Browser user-agent string |
-| `ip_address` | `VARCHAR(39) NULL` | Client IP (IPv4 or IPv6) |
-| `username` | `VARCHAR(255) NULL` | Email address attempted |
-| `http_accept` | `VARCHAR(1025) NOT NULL` | `Accept` header value |
-| `path_info` | `VARCHAR(255) NOT NULL` | URL path of the login endpoint |
-| `attempt_time` | `DATETIME NOT NULL` | Timestamp of the first failure in this attempt group |
-| `get_data` | `TEXT NOT NULL` | Captured GET parameters |
-| `post_data` | `TEXT NOT NULL` | Captured POST parameters (credentials are masked) |
-| `failures_since_start` | `INT NOT NULL` | Running count of failures for this combination |
-
-**Unique constraint:** `(username, ip_address, user_agent)`
-
-##### `axes_accessattemptexpiration`
-
-One-to-one extension of `axes_accessattempt` that records when a locked-out attempt should automatically expire.
-
-| Column | SQL type | Description |
-|---|---|---|
-| `access_attempt_id` | `INT NOT NULL PK FK → axes_accessattempt` | One-to-one link |
-| `expires_at` | `DATETIME NOT NULL` | When the lockout expires and the attempt counter resets |
-
-##### `axes_accessfailurelog`
-
-Append-only log of every individual login failure. Unlike `axes_accessattempt` (which aggregates), each row here is one failed request.
-
-| Column | SQL type | Description |
-|---|---|---|
-| `id` | `INT NOT NULL PK` | Auto-increment |
-| `user_agent` | `VARCHAR(255) NOT NULL` | Browser user-agent string |
-| `ip_address` | `VARCHAR(39) NULL` | Client IP |
-| `username` | `VARCHAR(255) NULL` | Email address attempted |
-| `http_accept` | `VARCHAR(1025) NOT NULL` | `Accept` header value |
-| `path_info` | `VARCHAR(255) NOT NULL` | URL path |
-| `attempt_time` | `DATETIME NOT NULL` | Timestamp of this specific failure |
-| `locked_out` | `BOOLEAN NOT NULL` | TRUE if this failure triggered a lockout |
-
-##### `axes_accesslog`
-
-Records every **successful** login and logout event. Used to compute the session duration and to detect anomalous login patterns.
-
-| Column | SQL type | Description |
-|---|---|---|
-| `id` | `INT NOT NULL PK` | Auto-increment |
-| `user_agent` | `VARCHAR(255) NOT NULL` | Browser user-agent string |
-| `ip_address` | `VARCHAR(39) NULL` | Client IP |
-| `username` | `VARCHAR(255) NULL` | Email address that logged in |
-| `http_accept` | `VARCHAR(1025) NOT NULL` | `Accept` header value |
-| `path_info` | `VARCHAR(255) NOT NULL` | URL path of the login endpoint |
-| `attempt_time` | `DATETIME NOT NULL` | When the user logged in |
-| `logout_time` | `DATETIME NULL` | When the user logged out; NULL if still active |
-| `session_hash` | `VARCHAR(64) NOT NULL` | Hash of the Django session key for this login |
-
----
-
 ## User Accounts
 
 Authentication is email-based (no username). The custom `User` model uses `email` as `USERNAME_FIELD`. Django's built-in password validators are enforced at the model layer via `validate_password()`.
@@ -1366,7 +1298,7 @@ The production stack is:
 | Component | Technology | Role |
 |---|---|---|
 | Application server | Gunicorn 25.x | Runs the Django WSGI application |
-| Web framework | Django 6.0.4 | Handles routing, authentication, sessions, and ORM |
+| Web framework | Django 6.0.6 | Handles routing, authentication, sessions, and ORM |
 | Database | PostgreSQL (Heroku Postgres) | Stores all user, session, and archive data |
 | Static files | WhiteNoise | Serves CSS, JS, and fonts directly from Gunicorn — no separate CDN needed |
 | Media and exports | Cloudinary | Stores user-generated export files (HTML, Markdown, RTF) outside the dyno filesystem |
@@ -1481,6 +1413,16 @@ Every route that accesses or modifies user data is guarded before the view body 
 
 Public routes (landing page, about, free try-it tools, waiting list, feature request, login, register) carry no login requirement by design. Guest session participants authenticate via a URL-embedded `guest_token` UUID rather than a Django account; the `session_status` poll endpoint validates the `guest_instance_id` stored in the browser session and returns `403` if it is absent or invalid.
 
+**Brute-force and spam throttling.** A small shared helper, `config/rate_limit.py`, backs three independent per-client-IP throttles built on Django's cache framework (no extra service required — `LocMemCache` is sufficient for a single-process deployment):
+
+| Endpoint | Budget | Lockout | Behaviour once exceeded |
+|---|---|---|---|
+| `/accounts/login/` (`UserLoginView.post`) | 8 attempts / 5 min | 15 min | Returns `429` before credentials are evaluated at all, so a correct password does not bypass the lockout |
+| `/waiting-list/` (`waiting_list_signup`) | 5 submissions / 10 min | 30 min | Returns `429` before the form is validated or saved |
+| `/request-a-feature/` (`feature_request`) | 5 submissions / 10 min | 30 min | Returns `429` before the form is validated or saved |
+
+The same pattern (a per-IP attempt counter plus a lockout key in the cache) is also used independently in `tools/views.py` to throttle companion pairing-code guesses against an open session. `FeatureRequestForm.description` additionally has a server-side `max_length=4000` to prevent unbounded storage growth from a single public submission.
+
 ### 3 — Ownership and object-level permissions
 
 Authenticated users can only access and modify their own data. Every view that retrieves a user-owned object passes `user=request.user` (or `host=request.user`) directly to `get_object_or_404`, so a crafted URL that substitutes another user's primary key receives a `404` — not a `403`, which would confirm the record exists:
@@ -1511,6 +1453,8 @@ Authenticated users can only access and modify their own data. Every view that r
 | Gunicorn | Pinned to ≥ 23.0.0 (addresses HTTP request-smuggling CVEs in 21.x) |
 | Canvas file hashing | SHA-256 content-addressable PNG filenames prevent path traversal in `media/drawings/` |
 | Audit log | Login events, tool submissions, and file downloads are recorded with IP address and timestamp in `AuditLog` |
+| Sanitized Markdown preview | The inline archive "Preview" modal renders participant-controlled Markdown client-side via `marked.js`; the resulting HTML is passed through vendored [DOMPurify](https://github.com/cure53/DOMPurify) (`static/js/libraries/purify.min.js`) before assignment to `innerHTML` in `archive_md_preview.js`, closing a stored-XSS path where a session participant's `payload_output` text could otherwise execute as raw HTML/JS in another user's browser. The preview fails closed (shows an error) if DOMPurify is unavailable rather than falling back to unsanitized output. |
+| Dependency patching | Django is kept current with upstream security releases (currently 6.0.6) |
 
 ---
 
@@ -1610,7 +1554,7 @@ All 19 JavaScript files in `static/js/` (excluding vendored libraries) were chec
 {
   "browser": true,
   "esversion": 11,
-  "globals": { "getCookie": true, "QRCode": true, "marked": true }
+  "globals": { "getCookie": true, "QRCode": true, "marked": true, "DOMPurify": true }
 }
 ```
 
@@ -1956,16 +1900,17 @@ Liberating Structures — created by Henri Lipmanowicz and Keith McCandless — 
 
 ### JavaScript libraries (vendored — not installed via a package manager)
 
-Both files below are included verbatim from their upstream releases and have not been modified. An attribution comment has been added at the top of each file.
+All three files below are included verbatim from their upstream releases and have not been modified. An attribution comment has been added at the top of each file.
 
 | Library | Licence | File | Purpose |
 |---|---|---|---|
 | [qrcode.js](https://github.com/davidshimjs/qrcodejs) by davidshimjs | MIT | `static/js/libraries/qrcode.min.js` | Client-side QR code generation for the guest-join link on the session page |
 | [marked.js](https://github.com/markedjs/marked) by Christopher Jeffrey | MIT | `static/js/libraries/marked.min.js` | Markdown parsing and HTML rendering used by the inline archive preview modal |
+| [DOMPurify](https://github.com/cure53/DOMPurify) by Mario Heiderich / cure53 | Apache-2.0 / MPL-2.0 | `static/js/libraries/purify.min.js` | Sanitizes the HTML produced by `marked.js` before it is inserted into the page, preventing stored XSS via participant-submitted Markdown |
 
 ### Learner-written code
 
-All code **not** listed in the sections above was written by the project author. This includes all Python source files in `accounts/`, `archive/`, `tools/`, `exporters/`, and `config/`; all CSS files in `static/css/`; all HTML templates in `templates/`; all migration files; and all JavaScript files in `static/js/` except the two vendored libraries above.
+All code **not** listed in the sections above was written by the project author. This includes all Python source files in `accounts/`, `archive/`, `tools/`, `exporters/`, and `config/`; all CSS files in `static/css/`; all HTML templates in `templates/`; all migration files; and all JavaScript files in `static/js/` except the three vendored libraries above.
 
 Within the author-written JavaScript, a small number of well-established patterns were adapted from canonical external sources. Each is attributed with an inline comment directly above the relevant code:
 
@@ -1976,3 +1921,15 @@ Within the author-written JavaScript, a small number of well-established pattern
 | `static/js/autosave.js` | `debounce()` — standard clearTimeout/setTimeout debounce wrapper | [MDN — Debounce](https://developer.mozilla.org/en-US/docs/Glossary/Debounce) |
 | `static/js/pathway_finder.js` | `shuffle()` — Fisher-Yates (Durstenfeld) in-place array shuffle | [Wikipedia — Fisher–Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) |
 | `static/js/archive_md_preview.js` | `getFocusable()` / `trapFocus()` — Tab/Shift+Tab focus containment inside a dialog | [WAI-ARIA APG — Dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) |
+
+---
+
+## Changelog
+
+Notable changes — especially security fixes and framework upgrades — are tracked in [CHANGELOG.md](CHANGELOG.md) rather than duplicated here. Recent highlights:
+
+- Upgraded Django 6.0.4 → 6.0.6 (patches PYSEC-2026-201).
+- Fixed a stored XSS vulnerability in the collaborative archive Markdown preview by sanitizing `marked.js` output with vendored DOMPurify before it reaches `innerHTML`.
+- Added per-IP rate limiting to `/accounts/login/`, `/waiting-list/`, and `/request-a-feature/` to curb brute-force and spam abuse.
+
+See [CHANGELOG.md](CHANGELOG.md) for the full, dated history.
