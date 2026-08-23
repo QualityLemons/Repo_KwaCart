@@ -57,6 +57,13 @@ class ToolSession(models.Model):
             'Null disables the reminder entirely. Default is 300 (5 minutes).'
         ),
     )
+    timer_enabled = models.BooleanField(
+        default=True,
+        help_text=(
+            'When false, the session timer is hidden for everyone and the room '
+            'runs at its own pace. Hosts can toggle this during an open session.'
+        ),
+    )
 
     inclusive_pacing = models.BooleanField(
         default=False,

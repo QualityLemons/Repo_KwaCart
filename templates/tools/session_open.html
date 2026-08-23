@@ -71,7 +71,21 @@
 </div>
 
 {% include "tools/info_box.html" %}
+
+{% if tool_meta.phases or tool_meta.timer_seconds %}
+<div id="session-timer-region"{% if not timer_enabled %} hidden{% endif %}>
 {% include "tools/_timer.html" with timer_session_id=session.id is_host=is_host timer_started_at=timer_started_at timer_paused_at=timer_paused_at pause_reminder_threshold_sec=pause_reminder_threshold_sec pause_reminder_threshold_js=pause_reminder_threshold_js %}
+</div>
+<div id="untimed-session-banner"
+     {% if timer_enabled %}hidden{% endif %}
+     style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px;
+            padding:0.85rem 1rem; margin:0.5rem 0 1rem;"
+     role="status"
+     aria-live="polite">
+    <strong style="color:#334155;">Untimed session</strong>
+    <span style="color:#475569;"> — take the time you need. The host will close the session when everyone is ready.</span>
+</div>
+{% endif %}
 
 <!-- ── Participant response form ── -->
 <h2>Your response</h2>
@@ -151,9 +165,45 @@
 </ul>
 
 {% if is_host %}
+{% if tool_meta.phases or tool_meta.timer_seconds %}
+<!-- ── Timer on/off (host only) ── -->
+<details id="timer-enabled-settings"
+         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;"
+         open>
+    <summary style="cursor:pointer; font-size:0.9rem; color:#5D3A9B; font-weight:600;">
+        Session timer
+    </summary>
+    <div style="margin-top:0.75rem;">
+        <p style="font-size:0.875rem; color:#475569; margin:0 0 0.6rem;">
+            Turn the countdown off when people need more time, or when a timed
+            structure does not fit the room. You can turn it back on later.
+        </p>
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <label style="display:flex; align-items:center; gap:0.4rem;
+                          font-size:0.875rem; font-weight:600; color:#1e293b; cursor:pointer;">
+                <input type="checkbox" id="timer-enabled-toggle"
+                       {% if timer_enabled %}checked{% endif %}
+                       style="width:1rem; height:1rem; cursor:pointer;">
+                Use session timer
+            </label>
+            <button type="button" id="timer-enabled-save"
+                    style="padding:0.4rem 0.9rem; background:#5D3A9B; color:#fff;
+                           border:none; border-radius:5px; font-size:0.875rem;
+                           cursor:pointer; font-family:inherit;"
+                    data-save-url="{% url 'tools:session_set_timer_enabled' session.id %}">
+                Save
+            </button>
+            <span id="timer-enabled-status"
+                  aria-live="polite"
+                  style="font-size:0.85rem; color:#15803d; display:none;"></span>
+        </div>
+    </div>
+</details>
+{% endif %}
+
 <!-- ── Pause reminder settings (host only) ── -->
 <details id="pause-reminder-settings"
-         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;">
+         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;"{% if not timer_enabled %} hidden{% endif %}>
     <summary style="cursor:pointer; font-size:0.9rem; color:#5D3A9B; font-weight:600;">
         Pause reminder settings
     </summary>
@@ -249,6 +299,7 @@
 <script src="{% static 'js/timer.js' %}"></script>
 {% if tool_meta.show_canvas %}<script src="{% static 'js/drawing_canvas.js' %}"></script>{% endif %}
 {% if is_host %}<script src="{% static 'js/pause_reminder.js' %}"></script>{% endif %}
+{% if is_host %}<script src="{% static 'js/timer_enabled.js' %}"></script>{% endif %}
 <script src="{% static 'js/draft_init.js' %}"></script>
 <script src="{% static 'js/session_autosave.js' %}"></script>
 <script src="{% static 'js/session_poll.js' %}"></script>

@@ -448,6 +448,7 @@ def session_detail(request, session_id):
         'timer_paused_at': timer_paused_at,
         'pause_reminder_threshold_sec': threshold,
         'pause_reminder_threshold_js': pause_reminder_threshold_js,
+        'timer_enabled': session.timer_enabled,
         'initial_responder_names': initial_responder_names,
     })
 
@@ -595,6 +596,7 @@ def session_status(request, session_id):
         # timer widget without needing a full page reload.
         'timer_phases': tool_meta.get('phases') or None,
         'timer_seconds': tool_meta.get('timer_seconds') or 0,
+        'timer_enabled': session.timer_enabled,
         'participants': [
             {
                 'display_name': p.user.email if p.user_id else (p.guest_name or 'Guest'),
@@ -617,6 +619,8 @@ def timer_start(request, session_id):
     session = get_object_or_404(ToolSession, id=session_id, host=request.user)
     if session.status != 'open':
         return JsonResponse({'error': 'session not open'}, status=400)
+    if not session.timer_enabled:
+        return JsonResponse({'error': 'timer disabled for this session'}, status=400)
     session.timer_started_at = timezone.now()
     session.save(update_fields=['timer_started_at'])
     return JsonResponse({'timer_started_at': session.timer_started_at.isoformat()})
@@ -662,6 +666,34 @@ def session_set_pause_reminder(request, session_id):
     return JsonResponse({
         'pause_reminder_threshold_sec': session.pause_reminder_threshold_sec
     })
+
+
+@login_required
+@require_POST
+def session_set_timer_enabled(request, session_id):
+    """Host turns the session timer on or off for everyone in the room.
+
+    Disabling clears any in-progress countdown so participants are not left
+    looking at a stale timer. The flag is broadcast on the next status poll.
+    """
+    session = get_object_or_404(ToolSession, id=session_id, host=request.user)
+    if session.status != 'open':
+        return JsonResponse({'error': 'session not open'}, status=400)
+
+    enabled = request.POST.get('timer_enabled', 'true') == 'true'
+    session.timer_enabled = enabled
+    update_fields = ['timer_enabled']
+    if not enabled:
+        session.timer_started_at = None
+        session.timer_paused_at = None
+        session.timer_elapsed_before_pause = 0
+        update_fields.extend([
+            'timer_started_at',
+            'timer_paused_at',
+            'timer_elapsed_before_pause',
+        ])
+    session.save(update_fields=update_fields)
+    return JsonResponse({'timer_enabled': session.timer_enabled})
 
 
 # --- Guest participant flow --------------------------------------------------
@@ -785,6 +817,7 @@ def guest_respond(request, session_id, guest_token):
         'timer_paused_at': timer_paused_at,
         'pause_reminder_threshold_sec': threshold,
         'pause_reminder_threshold_js': pause_reminder_threshold_js,
+        'timer_enabled': session.timer_enabled,
     })
 
 

@@ -18,7 +18,21 @@
 </p>
 
 {% include "tools/info_box.html" %}
+
+{% if tool_meta.phases or tool_meta.timer_seconds %}
+<div id="session-timer-region"{% if not timer_enabled %} hidden{% endif %}>
 {% include "tools/_timer.html" with timer_session_id=session.id is_host=False timer_started_at=timer_started_at timer_paused_at=timer_paused_at pause_reminder_threshold_sec=pause_reminder_threshold_sec pause_reminder_threshold_js=pause_reminder_threshold_js %}
+</div>
+<div id="untimed-session-banner"
+     {% if timer_enabled %}hidden{% endif %}
+     style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px;
+            padding:0.85rem 1rem; margin:0.5rem 0 1rem;"
+     role="status"
+     aria-live="polite">
+    <strong style="color:#334155;">Untimed session</strong>
+    <span style="color:#475569;"> — take the time you need. The host will close the session when everyone is ready.</span>
+</div>
+{% endif %}
 
 <h2>Your response</h2>
 

@@ -78,6 +78,23 @@
             consecutiveErrors = 0;
             if (pollStatusEl) { pollStatusEl.textContent = 'live'; pollStatusEl.style.color = ''; }
 
+            if (typeof data.timer_enabled === 'boolean') {
+                if (typeof window.applySessionTimerEnabled === 'function') {
+                    window.applySessionTimerEnabled(data.timer_enabled);
+                } else {
+                    var timerRegion = document.getElementById('session-timer-region');
+                    var banner = document.getElementById('untimed-session-banner');
+                    if (timerRegion) {
+                        if (data.timer_enabled) timerRegion.removeAttribute('hidden');
+                        else timerRegion.setAttribute('hidden', '');
+                    }
+                    if (banner) {
+                        if (data.timer_enabled) banner.setAttribute('hidden', '');
+                        else banner.removeAttribute('hidden');
+                    }
+                }
+            }
+
             if (data.status === 'closed') {
                 sessionClosed = true;
                 if (IS_HOST) {

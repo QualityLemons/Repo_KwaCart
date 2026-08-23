@@ -28,6 +28,9 @@ urlpatterns = [
     path('session/<uuid:session_id>/pause-reminder/',
          views.session_set_pause_reminder,
          name='session_set_pause_reminder'),
+    path('session/<uuid:session_id>/timer-enabled/',
+         views.session_set_timer_enabled,
+         name='session_set_timer_enabled'),
 
     path('session/<uuid:session_id>/guest/<uuid:guest_token>/', views.guest_join, name='guest_join'),
     path('session/<uuid:session_id>/guest/<uuid:guest_token>/respond/', views.guest_respond, name='guest_respond'),
