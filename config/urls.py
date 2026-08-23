@@ -12,8 +12,6 @@ URL map
 ``/accounts/``          → accounts app (login, logout, sign-up)
 ``/tools/``             → tools app (catalog, draft, session, guest flows)
 ``/archive/``           → archive app (dashboard, detail, downloads)
-``/waiting-list/``      → waiting-list sign-up page
-``/request-a-feature/`` → feature-request submission page
 ``/join/``              → companion-pairing entry (3-digit code)
 ``/join/<code>/``       → companion-pairing redirect to guest_join
 """
@@ -53,8 +51,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('tools/', include('tools.urls')),
     path('archive/', include('archive.urls')),
-    path('waiting-list/', include('archive.urls_waiting_list')),
-    path('request-a-feature/', include('archive.urls_feature_request')),
     # Companion pairing — short /join/<code>/ URLs for secondary-device entry.
     path('join/', pairing_entry, name='pairing_entry'),
     path('join/<str:code>/', pairing_join, name='pairing_join'),

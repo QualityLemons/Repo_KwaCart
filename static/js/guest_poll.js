@@ -24,38 +24,6 @@
     var sessionClosed     = false;
     var pollTimer         = null;
 
-    /* ── Hybrid pacing banner elements ── */
-    var _earlyPreviewBanner = document.getElementById('ip-early-preview');
-    var _vbAacBanner        = document.getElementById('vb-aac-banner');
-    var _vbGroupBanner      = document.getElementById('vb-group-banner');
-
-    /* Reacts to inclusive_pacing + timer_started_at + verbal_breakout from each
-       poll response, showing the right contextual banner to the participant.
-         ip-early-preview: IP active and timer not yet started — participant
-                           can start composing before the countdown begins.
-         vb-aac-banner:    verbal breakout active + participant is composing —
-                           reassures them their digital window is still open.
-         vb-group-banner:  verbal breakout active + participant not composing —
-                           prompts them to join the spoken discussion. */
-    function applyHybridPacing(data) {
-        var ip           = !!data.inclusive_pacing;
-        var timerStarted = !!data.timer_started_at;
-        var vb           = !!data.verbal_breakout;
-        var composingBtn = document.getElementById('aac-composing-btn');
-        var isComposing  = composingBtn &&
-                           composingBtn.getAttribute('aria-pressed') === 'true';
-        if (_earlyPreviewBanner) {
-            _earlyPreviewBanner.style.display = (ip && !timerStarted) ? '' : 'none';
-        }
-        if (_vbAacBanner) {
-            _vbAacBanner.style.display = (vb && isComposing) ? '' : 'none';
-        }
-        if (_vbGroupBanner) {
-            _vbGroupBanner.style.display = (vb && !isComposing) ? '' : 'none';
-        }
-    }
-
-    /* ── Announce to screen readers ── */
     function announce(msg) {
         if (!_announcer) return;
         _announcer.textContent = '';
@@ -102,7 +70,6 @@
                 wasReconnecting = false;
             }
             consecutiveErrors = 0;
-            applyHybridPacing(data);
 
             if (data.status === 'closed') {
                 sessionClosed = true;

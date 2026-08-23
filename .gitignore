@@ -43,6 +43,9 @@ replit.md
 # Playwright browser binaries (installed locally, not committed)
 .playwright-browsers/
 
+# Type checker cache
+.mypy_cache/
+
 # Ignore pasted Django error dump files (may contain env vars)
 attached_assets/Pasted--*Error*.txt
 attached_assets/Pasted--*error*.txt

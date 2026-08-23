@@ -5,7 +5,6 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/timer.css' %}">
-<link rel="stylesheet" href="{% static 'css/multimedia_input.css' %}">
 <link rel="stylesheet" href="{% static 'css/session_waiting.css' %}">
 {% if tool_meta.show_canvas %}<link rel="stylesheet" href="{% static 'css/drawing_canvas.css' %}">{% endif %}
 {% endblock %}
@@ -72,39 +71,7 @@
 </div>
 
 {% include "tools/info_box.html" %}
-{% include "tools/_timer.html" with timer_session_id=session.id is_host=is_host timer_started_at=timer_started_at timer_paused_at=timer_paused_at pause_reminder_threshold_sec=pause_reminder_threshold_sec pause_reminder_threshold_js=pause_reminder_threshold_js inclusive_pacing=inclusive_pacing inclusive_pacing_multiplier=inclusive_pacing_multiplier %}
-
-{% if not is_host %}
-<!-- ── Hybrid Pacing banners (participant-only) ──
-     All three start as display:none. session_poll.js shows/hides them based on
-     inclusive_pacing, timer_started_at, and verbal_breakout in each poll
-     response. Placed above the form so they are immediately visible. -->
-<div id="ip-early-preview"
-     style="display:none; background:#f0fdf4; border:1px solid #86efac; border-radius:6px;
-            padding:0.75rem 1rem; margin-bottom:0.75rem;"
-     aria-live="polite">
-    <strong>&#128221; Inclusive Pacing active</strong> &mdash;
-    You can start composing your response now, before the group timer begins.
-    Take the time you need.
-</div>
-<div id="vb-aac-banner"
-     style="display:none; background:#fffbeb; border:1px solid #fcd34d; border-radius:6px;
-            padding:0.75rem 1rem; margin-bottom:0.75rem;"
-     aria-live="polite">
-    <strong>&#128483;&#65039; Verbal discussion in progress</strong> &mdash;
-    The group has moved to a spoken conversation. Take your time &mdash;
-    your digital submission window is still open.
-    Continue composing and save when you&rsquo;re ready.
-</div>
-<div id="vb-group-banner"
-     style="display:none; background:#eff6ff; border:1px solid #93c5fd; border-radius:6px;
-            padding:0.75rem 1rem; margin-bottom:0.75rem;"
-     aria-live="polite">
-    <strong>&#128172; Verbal discussion in progress</strong> &mdash;
-    Join the spoken conversation with your group.
-    AAC participants are still composing their digital responses.
-</div>
-{% endif %}
+{% include "tools/_timer.html" with timer_session_id=session.id is_host=is_host timer_started_at=timer_started_at timer_paused_at=timer_paused_at pause_reminder_threshold_sec=pause_reminder_threshold_sec pause_reminder_threshold_js=pause_reminder_threshold_js %}
 
 <!-- ── Participant response form ── -->
 <h2>Your response</h2>
@@ -158,43 +125,6 @@
 {% else %}
 <p><em>This tool has no input form configured yet.</em></p>
 {% endif %}
-
-<!-- ── Multimedia Input Bridge ── -->
-<!-- Participants add audio clips or symbol-board images alongside their text
-     response. Files go via Django to Cloudinary; nothing is stored on
-     Heroku's ephemeral disk. -->
-{{ instance.attachments|json_script:"mmi-existing-attachments" }}
-<div class="mmi-panel"
-     data-upload-url="{% url 'tools:session_attachment_upload' session.id %}"
-     data-remove-url="{% url 'tools:session_attachment_remove' session.id %}">
-    <p class="mmi-panel__heading">Add to your response</p>
-    <div class="mmi-mode-row" role="group" aria-label="Input method">
-        <button type="button" class="btn mmi-mode-btn" aria-pressed="true" data-mode="text">
-            &#128221;&nbsp;Text
-        </button>
-        <button type="button" class="btn mmi-mode-btn" aria-pressed="false" data-mode="audio">
-            &#127908;&nbsp;Audio
-        </button>
-        <button type="button" class="btn mmi-mode-btn" aria-pressed="false" data-mode="image">
-            &#128444;&nbsp;Image
-        </button>
-    </div>
-    <div class="mmi-audio-controls" hidden>
-        <button type="button" class="btn mmi-record-btn">&#9679;&nbsp;Start Recording</button>
-        <span class="mmi-record-timer" hidden>0:00</span>
-        <p class="mmi-audio-hint">Speak, or play your speech-generating device close to the microphone.</p>
-    </div>
-    <div class="mmi-image-controls" hidden>
-        <label class="mmi-image-label" for="mmi-image-input">Choose image or screenshot</label>
-        <input type="file" id="mmi-image-input" class="mmi-image-input"
-               accept="image/*"
-               aria-label="Upload a symbol board screenshot or photograph">
-        <p class="mmi-image-hint">Accepted: PNG, JPG, WebP, GIF &mdash; max 10&nbsp;MB</p>
-    </div>
-    <div class="mmi-uploading" hidden aria-live="polite">Uploading&hellip;</div>
-    <p class="mmi-error" hidden role="alert"></p>
-    <ul class="mmi-attachments" aria-label="Uploaded attachments"></ul>
-</div>
 
 <!-- ── Screen-reader live region for poll announcements ── -->
 <div class="sr-only" aria-live="polite" aria-atomic="true" id="session-announcer"
@@ -262,70 +192,6 @@
     </div>
 </details>
 
-<!-- ── Inclusive Pacing (host only) ── -->
-<details id="inclusive-pacing-settings"
-         style="margin-top:1rem; padding-top:1rem; border-top:1px solid #e2e8f0;">
-    <summary style="cursor:pointer; font-size:0.9rem; color:#5D3A9B; font-weight:600;">
-        Inclusive Pacing
-    </summary>
-    <div style="margin-top:0.75rem;">
-        <p style="font-size:0.875rem; color:#475569; margin:0 0 0.6rem;">
-            Give AAC and slow-input participants extra time. When active, each participant
-            sees a personal countdown that continues beyond the group&rsquo;s timer at
-            the multiplier you choose. The group timer and session pacing are unaffected.
-        </p>
-        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-            <label style="display:flex; align-items:center; gap:0.4rem;
-                          font-size:0.875rem; font-weight:600; color:#1e293b; cursor:pointer;">
-                <input type="checkbox" id="inclusive-pacing-toggle"
-                       {% if inclusive_pacing %}checked{% endif %}
-                       style="width:1rem; height:1rem; cursor:pointer;">
-                Enable Inclusive Pacing
-            </label>
-            <select id="inclusive-pacing-multiplier"
-                    aria-label="Time multiplier for extended personal timer"
-                    style="padding:0.35rem 0.6rem; border:1px solid #cbd5e1; border-radius:5px;
-                           font-size:0.875rem; font-family:inherit; background:#fff; cursor:pointer;">
-                <option value="3" {% if inclusive_pacing_multiplier == 3 %}selected{% endif %}>3&times; &mdash; 3 min for every 1</option>
-                <option value="5" {% if inclusive_pacing_multiplier == 5 %}selected{% endif %}>5&times; &mdash; 5 min for every 1</option>
-            </select>
-            <button type="button" id="inclusive-pacing-save"
-                    style="padding:0.4rem 0.9rem; background:#5D3A9B; color:#fff;
-                           border:none; border-radius:5px; font-size:0.875rem;
-                           cursor:pointer; font-family:inherit;"
-                    data-save-url="{% url 'tools:session_set_inclusive_pacing' session.id %}">
-                Save
-            </button>
-            <span id="inclusive-pacing-status"
-                  aria-live="polite"
-                  style="font-size:0.85rem; color:#15803d; display:none;"></span>
-        </div>
-        <!-- ── Verbal Breakout sub-section ──
-             Sub-feature of Inclusive Pacing: lets the host signal the room to
-             start a verbal discussion while AAC participants continue composing.
-             verbal_breakout.js drives the toggle; the panel is shown/hidden
-             when the Inclusive Pacing checkbox changes. -->
-        <div id="verbal-breakout-panel"
-             style="margin-top:0.85rem; padding-top:0.85rem; border-top:1px solid #e2e8f0;"
-             {% if not inclusive_pacing %}hidden{% endif %}>
-            <p style="font-size:0.875rem; color:#475569; margin:0 0 0.6rem;">
-                When the group timer ends, move participants to a verbal discussion
-                while AAC participants continue composing digitally. Those who have
-                pressed &ldquo;I&rsquo;m Composing&rdquo; will be reassured their
-                submission window is still open.
-            </p>
-            <button type="button" id="verbal-breakout-btn"
-                    data-activate-url="{% url 'tools:session_set_verbal_breakout' session.id %}"
-                    class="btn{% if session.verbal_breakout_active %} btn-primary{% endif %}"
-                    aria-pressed="{{ session.verbal_breakout_active|yesno:'true,false' }}">
-                {% if session.verbal_breakout_active %}&#9646;&#9646; End verbal discussion{% else %}&#128172; Start verbal discussion{% endif %}
-            </button>
-            <span id="verbal-breakout-status" aria-live="polite"
-                  style="font-size:0.85rem; margin-left:0.75rem; display:none;"></span>
-        </div>
-    </div>
-</details>
-
 <!-- ── Close session form ── -->
 <form method="post" action="{% url 'tools:session_close' session.id %}"
       style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;"
@@ -341,34 +207,6 @@
     The page will refresh automatically once that happens.
 </p>
 {% endif %}
-
-<!-- ── AAC Composition Presence Flag ── -->
-<!-- Participants composing in external AAC software can signal the host
-     so they are not cut off before they have had a chance to contribute. -->
-<div id="aac-presence"
-     data-composing-url="{% url 'tools:session_mark_composing' session.id %}"
-     style="margin-top:1.5rem; padding:1rem 1.25rem;
-            background:#fffbeb; border:1px solid #fcd34d; border-radius:6px;">
-    <p style="margin:0 0 0.3rem; font-size:0.9rem; font-weight:600; color:#92400e;">
-        Using external composition software? (AAC, Grid&nbsp;3, etc.)
-    </p>
-    <p style="margin:0 0 0.75rem; font-size:0.82rem; color:#78350f; line-height:1.5;">
-        If you compose your response in a separate app, press the button so
-        the host knows you are working and will wait for you.
-    </p>
-    <button type="button"
-            id="aac-composing-btn"
-            aria-pressed="false"
-            style="padding:0.55rem 1.1rem; background:#d97706; color:#fff;
-                   border:none; border-radius:5px; font-size:0.9rem;
-                   cursor:pointer; font-family:inherit; font-weight:600;">
-        &#128483;&#65039; I&rsquo;m Composing
-    </button>
-    <span id="aac-composing-status"
-          aria-live="polite"
-          style="display:inline-block; margin-left:0.75rem;
-                 font-size:0.82rem; color:#92400e;"></span>
-</div>
 
 <p style="margin-top:1.5rem;"><a href="{% url 'tools:catalog' %}">&larr; Back to catalog</a></p>
 
@@ -411,13 +249,7 @@
 <script src="{% static 'js/timer.js' %}"></script>
 {% if tool_meta.show_canvas %}<script src="{% static 'js/drawing_canvas.js' %}"></script>{% endif %}
 {% if is_host %}<script src="{% static 'js/pause_reminder.js' %}"></script>{% endif %}
-{% if is_host %}<script src="{% static 'js/inclusive_pacing.js' %}"></script>{% endif %}
-{% if is_host %}<script src="{% static 'js/verbal_breakout.js' %}"></script>{% endif %}
-<script src="{% static 'js/multimedia_input.js' %}"></script>
-<!-- draft_init.js provides getCookie() and adds .tool-input to form fields,
-     both required by session_autosave.js. Load before the autosave script. -->
 <script src="{% static 'js/draft_init.js' %}"></script>
 <script src="{% static 'js/session_autosave.js' %}"></script>
-<script src="{% static 'js/session_composing.js' %}"></script>
 <script src="{% static 'js/session_poll.js' %}"></script>
 {% endblock %}

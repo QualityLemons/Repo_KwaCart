@@ -16,13 +16,14 @@
     },
     "CSRF_TRUSTED_ORIGINS": {
       "description": "Comma-separated trusted origins for CSRF checks (e.g. https://your-app.herokuapp.com)."
+    },
+    "DATABASE_URL": {
+      "description": "Optional Postgres URL. Omit to use SQLite (cheapest default)."
+    },
+    "CLOUDINARY_URL": {
+      "description": "Optional Cloudinary URL for media/exports. Omit to store files on the dyno volume."
     }
   },
-  "addons": [
-    {
-      "plan": "heroku-postgresql:essential-0"
-    }
-  ],
   "buildpacks": [
     {
       "url": "heroku/python"
