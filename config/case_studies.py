@@ -19,6 +19,36 @@ CASE_STUDIES = {
             'A coach used Helping Heuristics to walk through four ways of helping, '
             'so T could reflect at his own pace and agree small, deliberate next steps.'
         ),
+        'tool_explainer': {
+            'heading': 'How Helping Heuristics works',
+            'summary': (
+                'A short coaching structure for exploring a challenge without rushing to fix it. '
+                'In groups of three (client, coach, observer), you try four different ways of '
+                'helping — about 2 minutes each — then debrief what helped most.'
+            ),
+            'steps': [
+                {
+                    'label': 'Quiet Presence',
+                    'text': 'Listen with care. No advice, no questions — just space to speak.',
+                },
+                {
+                    'label': 'Guided Discovery',
+                    'text': 'Ask open questions so the person discovers their own insight.',
+                },
+                {
+                    'label': 'Loving Provocation',
+                    'text': 'Offer a gentle, honest challenge — and notice what lands.',
+                },
+                {
+                    'label': 'Process Mindfulness',
+                    'text': 'Accept every offer and notice new possibilities together.',
+                },
+                {
+                    'label': 'Debrief',
+                    'text': 'Reflect on which style helped, and what to try next time.',
+                },
+            ],
+        },
         'steps': [
             {
                 'key': 'challenge',
@@ -109,6 +139,33 @@ CASE_STUDIES = {
             'and what would make communication less stressful — so everyone could agree '
             'a shared plan rather than leaving it to one person.'
         ),
+        'tool_explainer': {
+            'heading': 'How 1-2-4-All works',
+            'summary': (
+                'A simple way to turn one question into shared ideas — even in a large group. '
+                'Everyone thinks alone first, then builds the idea in pairs, then fours, '
+                'then shares one standout idea with everyone. Quiet voices get heard; '
+                'the group owns the result.'
+            ),
+            'steps': [
+                {
+                    'label': '1 — Alone',
+                    'text': 'Silent self-reflection on the question (about 1 minute).',
+                },
+                {
+                    'label': '2 — Pairs',
+                    'text': 'Share and build on each other’s ideas (about 2 minutes).',
+                },
+                {
+                    'label': '4 — Fours',
+                    'text': 'Join another pair; refine what matters most (about 4 minutes).',
+                },
+                {
+                    'label': 'All',
+                    'text': 'Each group shares one standout idea with everyone (about 5 minutes).',
+                },
+            ],
+        },
         'steps': [
             {
                 'key': 'challenge',

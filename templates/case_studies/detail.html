@@ -42,6 +42,21 @@
         <p class="cs-context">{{ study.context }}</p>
     </header>
 
+    {% if study.tool_explainer %}
+    <aside class="cs-tool-explainer" aria-labelledby="cs-tool-explainer-heading">
+        <h2 id="cs-tool-explainer-heading">{{ study.tool_explainer.heading }}</h2>
+        <p class="cs-tool-explainer-summary">{{ study.tool_explainer.summary }}</p>
+        <ol class="cs-tool-explainer-steps">
+            {% for item in study.tool_explainer.steps %}
+            <li>
+                <strong>{{ item.label }}</strong>
+                <span>{{ item.text }}</span>
+            </li>
+            {% endfor %}
+        </ol>
+    </aside>
+    {% endif %}
+
     <div class="cs-progress" role="list" aria-label="Case study steps">
         {% for step in study.steps %}
         <button type="button"
