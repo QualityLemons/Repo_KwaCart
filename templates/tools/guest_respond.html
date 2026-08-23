@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ tool_meta.title }} <small style="color:#64748b;">— live session</small></h1>
+<h1>{{ tool_meta.title }} <small style="color:var(--ink-muted);">— live session</small></h1>
 
-<p style="color:#475569;">
+<p style="color:var(--ink-muted);">
     You're joining as <strong>{{ instance.guest_name }}</strong>.
     Fill in the form below and save your response before the host closes the session.
 </p>
@@ -25,12 +25,12 @@
 </div>
 <div id="untimed-session-banner"
      {% if timer_enabled %}hidden{% endif %}
-     style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px;
+     style="background:var(--brand-wash); border:1px solid var(--border-strong); border-radius:6px;
             padding:0.85rem 1rem; margin:0.5rem 0 1rem;"
      role="status"
      aria-live="polite">
-    <strong style="color:#334155;">Untimed session</strong>
-    <span style="color:#475569;"> — take the time you need. The host will close the session when everyone is ready.</span>
+    <strong style="color:var(--ink-soft);">Untimed session</strong>
+    <span style="color:var(--ink-muted);"> — take the time you need. The host will close the session when everyone is ready.</span>
 </div>
 {% endif %}
 
@@ -75,7 +75,7 @@
     <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
         <button type="submit" class="btn btn-primary">Save my response</button>
         <span id="buffer-status"
-              style="font-size:0.8rem; color:#64748b;"
+              style="font-size:0.8rem; color:var(--ink-muted);"
               aria-live="polite"></span>
     </div>
 </form>
@@ -86,7 +86,7 @@
 <div class="sr-only" aria-live="polite" aria-atomic="true" id="session-announcer"
      data-status-url="{% url 'tools:session_status' session.id %}"></div>
 
-<p style="margin-top:1.5rem; color:#64748b;">
+<p style="margin-top:1.5rem; color:var(--ink-muted);">
     The host will close the session when everyone is done.
     This page will refresh automatically once that happens.
 </p>

@@ -10,7 +10,7 @@
 {% block content %}
 <h1>{{ record.tool_slug|title }}</h1>
 
-<p style="color:#64748b; margin-top:-0.5rem;">
+<p style="color:var(--ink-muted); margin-top:-0.5rem;">
     Submitted {{ record.submitted_at|date:"Y-m-d H:i" }}
     &middot; version {{ record.tool_version }}
     &middot; {{ record.user.email }}
@@ -21,11 +21,11 @@
     <h2>Results</h2>
     {% for key, value in record.payload_output.items %}
     <div style="margin-bottom:1.25rem;">
-        <strong style="display:block; margin-bottom:0.25rem; color:#334155;">
+        <strong style="display:block; margin-bottom:0.25rem; color:var(--ink-soft);">
             {{ key|human_key }}
         </strong>
         <div style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;
-                    background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px;
+                    background:var(--brand-wash); border:1px solid var(--border); border-radius:6px;
                     padding:0.75rem 1rem; line-height:1.6;">{{ value }}</div>
     </div>
     {% endfor %}
@@ -37,11 +37,11 @@
     <h2>Your input</h2>
     {% for key, value in record.payload_input.items %}
     <div style="margin-bottom:1.25rem;">
-        <strong style="display:block; margin-bottom:0.25rem; color:#334155;">
+        <strong style="display:block; margin-bottom:0.25rem; color:var(--ink-soft);">
             {{ key|human_key }}
         </strong>
         <div style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;
-                    background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px;
+                    background:var(--brand-wash); border:1px solid var(--border); border-radius:6px;
                     padding:0.75rem 1rem; line-height:1.6;">{{ value }}</div>
     </div>
     {% endfor %}
@@ -57,7 +57,7 @@
         Preview Markdown
     </button>
     <a class="btn" href="{% url 'archive:download' record.id 'md' %}"
-       style="background:#fff; border:1px solid #cbd5e1; color:#475569;">
+       style="background:#fff; border:1px solid var(--border-strong); color:var(--ink-muted);">
         Download .md
     </a>
     {% endif %}
@@ -67,7 +67,7 @@
     <a href="{% url 'archive:dashboard' %}" style="margin-left:0.5rem;">&larr; Back to archive</a>
 </div>
 
-<details style="margin-top:2.5rem; border-top:1px solid #e2e8f0; padding-top:1.5rem;">
+<details style="margin-top:2.5rem; border-top:1px solid var(--border); padding-top:1.5rem;">
     <summary style="cursor:pointer; color:#dc2626; font-size:0.9rem; width:fit-content;">
         Delete this record
     </summary>
@@ -86,9 +86,9 @@
             </button>
             <button type="button"
                     onclick="this.closest('details').removeAttribute('open')"
-                    style="margin-left:0.75rem; background:none; border:1px solid #94a3b8;
+                    style="margin-left:0.75rem; background:none; border:1px solid var(--ink-muted);
                            border-radius:6px; padding:0.5rem 1rem; font-size:0.9rem;
-                           cursor:pointer; color:#475569;">
+                           cursor:pointer; color:var(--ink-muted);">
                 Cancel
             </button>
         </form>

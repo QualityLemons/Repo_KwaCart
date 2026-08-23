@@ -106,7 +106,7 @@ input[type="search"]:focus,
 input[type="url"]:focus {
     outline: none;
     border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(176, 16, 80, 0.15);
+    box-shadow: 0 0 0 3px rgba(14, 124, 123, 0.18);
 }
 textarea { resize: vertical; }
 label {

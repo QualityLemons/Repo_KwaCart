@@ -66,7 +66,7 @@
 }
 .phase-segment.done { background: #3b82f6; }
 .phase-segment.active { background: #bfdbfe; box-shadow: 0 0 0 2px #bfdbfe; }
-.phase-segment.upcoming { background: #94a3b8; }
+.phase-segment.upcoming { background: var(--ink-muted); }
 .phase-segment-fill {
     position: absolute;
     top: 0;
@@ -187,7 +187,7 @@
     font-size: 0.78rem;
     padding: 0.25rem 0.65rem;
     color: var(--ink-muted);
-    border-color: #94a3b8;
+    border-color: var(--ink-muted);
     background: var(--brand-wash);
     min-height: auto;
 }

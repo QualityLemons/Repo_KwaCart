@@ -16,7 +16,7 @@
                 text:       guestUrl,
                 width:      200,
                 height:     200,
-                colorDark:  '#0f172a',
+                colorDark:  'var(--ink)',
                 colorLight: '#ffffff',
             });
             generated = true;

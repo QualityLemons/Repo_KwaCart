@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ tool_meta.title }} <small style="color:#64748b;">— live session</small></h1>
+<h1>{{ tool_meta.title }} <small style="color:var(--ink-muted);">— live session</small></h1>
 
 <!-- ── Signed-in participant share link ── -->
 <div style="background:#eef6ff; border:1px solid #cfe2ff; padding:0.8rem 1rem;
@@ -78,12 +78,12 @@
 </div>
 <div id="untimed-session-banner"
      {% if timer_enabled %}hidden{% endif %}
-     style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px;
+     style="background:var(--brand-wash); border:1px solid var(--border-strong); border-radius:6px;
             padding:0.85rem 1rem; margin:0.5rem 0 1rem;"
      role="status"
      aria-live="polite">
-    <strong style="color:#334155;">Untimed session</strong>
-    <span style="color:#475569;"> — take the time you need. The host will close the session when everyone is ready.</span>
+    <strong style="color:var(--ink-soft);">Untimed session</strong>
+    <span style="color:var(--ink-muted);"> — take the time you need. The host will close the session when everyone is ready.</span>
 </div>
 {% endif %}
 
@@ -132,7 +132,7 @@
     <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
         <button type="submit" class="btn btn-primary">Save my response</button>
         <span id="buffer-status"
-              style="font-size:0.8rem; color:#64748b;"
+              style="font-size:0.8rem; color:var(--ink-muted);"
               aria-live="polite"></span>
     </div>
 </form>
@@ -150,15 +150,15 @@
 <h2 style="margin-top:2rem;">
     Participants
     (<span id="participant-count">{{ participants|length }}</span>)
-    <small style="color:#64748b; font-weight:normal;">
+    <small style="color:var(--ink-muted); font-weight:normal;">
         — <span id="poll-status">live</span>
     </small>
 </h2>
 <ul id="participant-list">
     {% for p in participants %}
     <li>
-        {% if p.user_id %}{{ p.user.email }}{% else %}{{ p.guest_name|default:"Guest" }} <span style="color:#64748b;">(guest)</span>{% endif %}
-        {% if p.user_id == session.host_id %}<span style="color:#64748b;">(host)</span>{% endif %}
+        {% if p.user_id %}{{ p.user.email }}{% else %}{{ p.guest_name|default:"Guest" }} <span style="color:var(--ink-muted);">(guest)</span>{% endif %}
+        {% if p.user_id == session.host_id %}<span style="color:var(--ink-muted);">(host)</span>{% endif %}
         {% if p.payload_input %} &mdash; <span style="color:#15803d;">response saved</span>{% endif %}
     </li>
     {% endfor %}
@@ -168,26 +168,26 @@
 {% if tool_meta.phases or tool_meta.timer_seconds %}
 <!-- ── Timer on/off (host only) ── -->
 <details id="timer-enabled-settings"
-         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;"
+         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border);"
          open>
-    <summary style="cursor:pointer; font-size:0.9rem; color:#5D3A9B; font-weight:600;">
+    <summary style="cursor:pointer; font-size:0.9rem; color:var(--brand); font-weight:600;">
         Session timer
     </summary>
     <div style="margin-top:0.75rem;">
-        <p style="font-size:0.875rem; color:#475569; margin:0 0 0.6rem;">
+        <p style="font-size:0.875rem; color:var(--ink-muted); margin:0 0 0.6rem;">
             Turn the countdown off when people need more time, or when a timed
             structure does not fit the room. You can turn it back on later.
         </p>
         <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
             <label style="display:flex; align-items:center; gap:0.4rem;
-                          font-size:0.875rem; font-weight:600; color:#1e293b; cursor:pointer;">
+                          font-size:0.875rem; font-weight:600; color:var(--ink); cursor:pointer;">
                 <input type="checkbox" id="timer-enabled-toggle"
                        {% if timer_enabled %}checked{% endif %}
                        style="width:1rem; height:1rem; cursor:pointer;">
                 Use session timer
             </label>
             <button type="button" id="timer-enabled-save"
-                    style="padding:0.4rem 0.9rem; background:#5D3A9B; color:#fff;
+                    style="padding:0.4rem 0.9rem; background:var(--brand); color:#fff;
                            border:none; border-radius:5px; font-size:0.875rem;
                            cursor:pointer; font-family:inherit;"
                     data-save-url="{% url 'tools:session_set_timer_enabled' session.id %}">
@@ -203,22 +203,22 @@
 
 <!-- ── Pause reminder settings (host only) ── -->
 <details id="pause-reminder-settings"
-         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;"{% if not timer_enabled %} hidden{% endif %}>
-    <summary style="cursor:pointer; font-size:0.9rem; color:#5D3A9B; font-weight:600;">
+         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border);"{% if not timer_enabled %} hidden{% endif %}>
+    <summary style="cursor:pointer; font-size:0.9rem; color:var(--brand); font-weight:600;">
         Pause reminder settings
     </summary>
     <div style="margin-top:0.75rem;">
-        <p style="font-size:0.875rem; color:#475569; margin:0 0 0.6rem;">
+        <p style="font-size:0.875rem; color:var(--ink-muted); margin:0 0 0.6rem;">
             The timer shows a visual reminder to the host when the session has been
             paused for too long. Adjust or disable it for this session.
         </p>
         <label for="pause-reminder-select"
-               style="font-size:0.875rem; font-weight:600; color:#1e293b;">
+               style="font-size:0.875rem; font-weight:600; color:var(--ink);">
             Remind me after:
         </label>
         <div style="display:flex; align-items:center; gap:0.75rem; margin-top:0.4rem; flex-wrap:wrap;">
             <select id="pause-reminder-select"
-                    style="padding:0.4rem 0.6rem; border:1px solid #cbd5e1; border-radius:5px;
+                    style="padding:0.4rem 0.6rem; border:1px solid var(--border-strong); border-radius:5px;
                            font-size:0.9rem; font-family:inherit; background:#fff;">
                 <option value="">Disabled</option>
                 <option value="60">1 minute</option>
@@ -228,7 +228,7 @@
                 <option value="600">10 minutes</option>
             </select>
             <button type="button" id="pause-reminder-save"
-                    style="padding:0.4rem 0.9rem; background:#5D3A9B; color:#fff;
+                    style="padding:0.4rem 0.9rem; background:var(--brand); color:#fff;
                            border:none; border-radius:5px; font-size:0.875rem;
                            cursor:pointer; font-family:inherit;"
                     data-save-url="{% url 'tools:session_set_pause_reminder' session.id %}"
@@ -244,7 +244,7 @@
 
 <!-- ── Close session form ── -->
 <form method="post" action="{% url 'tools:session_close' session.id %}"
-      style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;"
+      style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border);"
       data-confirm="Close the session? Participants will no longer be able to edit, and the combined results will be revealed to everyone with the link."
       data-loading-text="Closing&hellip;">
     {% csrf_token %}
@@ -252,7 +252,7 @@
 </form>
 
 {% else %}
-<p style="margin-top:2rem; color:#64748b;">
+<p style="margin-top:2rem; color:var(--ink-muted);">
     The host will close the session when everyone is done.
     The page will refresh automatically once that happens.
 </p>

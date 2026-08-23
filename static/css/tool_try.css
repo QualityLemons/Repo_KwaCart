@@ -25,7 +25,7 @@
 /* ── Results section ── */
 .try-result {
     background: #f0fdfa;
-    border: 2px solid #40B0A6;
+    border: 2px solid var(--accent);
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 2rem;
@@ -93,8 +93,8 @@
 
 /* ── Soft post-download CTA ── */
 .sandbox-cta {
-    background: #fdf4ff;
-    border: 1px solid #d8b4fe;
+    background: var(--brand-soft);
+    border: 1px solid var(--border-strong);
     border-radius: 8px;
     padding: 1.25rem 1.5rem;
     margin-bottom: 2rem;
@@ -104,7 +104,7 @@
     align-items: center;
 }
 .sandbox-cta__text { flex: 1; min-width: 220px; }
-.sandbox-cta__text strong { color: #581c87; display: block; margin-bottom: 0.25rem; }
+.sandbox-cta__text strong { color: var(--brand-dark); display: block; margin-bottom: 0.25rem; }
 .sandbox-cta__text p { margin: 0; font-size: 0.9rem; color: var(--ink-muted); }
 .sandbox-cta__actions {
     display: flex;
@@ -144,7 +144,7 @@
     align-items: center;
 }
 .try-nudge__text { flex: 1; min-width: 220px; }
-.try-nudge__text strong { color: #3d2469; }
+.try-nudge__text strong { color: var(--brand-dark); }
 .try-nudge__text p { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--ink-muted); }
 .try-nudge__link {
     display: inline-block;
@@ -228,7 +228,7 @@
 }
 .try-timer__bar-track {
     margin-top: 0.75rem;
-    background: #e2d8f5;
+    background: var(--brand-soft);
     border-radius: 4px;
     height: 5px;
     overflow: hidden;

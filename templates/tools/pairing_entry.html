@@ -15,8 +15,8 @@
 }
 
 .ps-card {
-    background: #1e293b;
-    color: #f8fafc;
+    background: var(--ink);
+    color: var(--brand-wash);
     border-radius: 14px;
     padding: 2.5rem 2rem;
     width: 100%;
@@ -29,14 +29,14 @@
     font-size: 0.75rem;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: #94a3b8;
+    color: var(--ink-muted);
     margin: 0 0 1rem;
 }
 
 .ps-question {
     font-size: 1.35rem;
     font-weight: 700;
-    color: #f8fafc;
+    color: var(--brand-wash);
     margin: 0 0 1.75rem;
     line-height: 1.3;
 }
@@ -45,13 +45,13 @@
     display: block;
     width: 100%;
     padding: 1rem;
-    border: 2px solid #475569;
+    border: 2px solid var(--ink-muted);
     border-radius: 8px;
     font-size: 2rem;
     font-weight: 700;
     font-family: ui-monospace, Menlo, monospace;
-    background: #0f172a;
-    color: #f8fafc;
+    background: var(--ink);
+    color: var(--brand-wash);
     box-sizing: border-box;
     text-align: center;
     letter-spacing: 0.4em;
@@ -60,12 +60,12 @@
 
 .ps-input:focus {
     outline: none;
-    border-color: #f59e0b;
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+    border-color: var(--highlight);
+    box-shadow: 0 0 0 3px rgba(240, 196, 25, 0.28);
 }
 
 .ps-input::placeholder {
-    color: #334155;
+    color: var(--ink-soft);
     letter-spacing: 0.2em;
 }
 
@@ -80,8 +80,8 @@
     width: 100%;
     margin-top: 1.25rem;
     padding: 0.9rem;
-    background: #f59e0b;
-    color: #1c1917;
+    background: var(--highlight);
+    color: var(--highlight-ink);
     border: none;
     border-radius: 8px;
     font-size: 1.05rem;
@@ -93,14 +93,14 @@
 
 .ps-btn:hover,
 .ps-btn:focus-visible {
-    background: #d97706;
-    outline: 2px solid #f8fafc;
+    background: #e0b50f;
+    outline: 2px solid var(--brand-wash);
     outline-offset: 2px;
 }
 
 .ps-hint {
     font-size: 0.78rem;
-    color: #64748b;
+    color: var(--ink-muted);
     margin: 1.25rem 0 0;
     line-height: 1.55;
 }

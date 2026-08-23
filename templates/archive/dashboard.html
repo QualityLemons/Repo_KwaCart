@@ -18,13 +18,13 @@
             <col style="width:42%"><col style="width:23%"><col style="width:13%"><col style="width:22%">
         </colgroup>
         <thead>
-            <tr style="text-align:left; border-bottom:1px solid #e2e8f0;">
+            <tr style="text-align:left; border-bottom:1px solid var(--border);">
                 <th scope="col">Tool</th><th scope="col">Submitted</th><th scope="col">Version</th><th scope="col"><span class="sr-only">Actions</span></th>
             </tr>
         </thead>
         <tbody>
             {% for r in records %}
-            <tr style="border-bottom:1px solid #f1f5f9;">
+            <tr style="border-bottom:1px solid var(--brand-wash);">
                 <td style="word-break:break-word; overflow-wrap:anywhere; padding:0.4rem 0.25rem 0.4rem 0;">{{ r.tool_slug }}</td>
                 <td style="padding:0.4rem 0.25rem;">{{ r.submitted_at|date:"Y-m-d H:i" }}</td>
                 <td style="padding:0.4rem 0.25rem;">{{ r.tool_version }}</td>
@@ -69,20 +69,20 @@
             <col style="width:20%"><col style="width:20%"><col style="width:15%">
         </colgroup>
         <thead>
-            <tr style="text-align:left; border-bottom:1px solid #e2e8f0;">
+            <tr style="text-align:left; border-bottom:1px solid var(--border);">
                 <th scope="col">Tool</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Started</th><th scope="col">Closed</th><th scope="col"><span class="sr-only">Actions</span></th>
             </tr>
         </thead>
         <tbody>
             {% for s in sessions %}
-            <tr style="border-bottom:1px solid #f1f5f9;">
+            <tr style="border-bottom:1px solid var(--brand-wash);">
                 <td style="word-break:break-word; overflow-wrap:anywhere; padding:0.4rem 0.25rem 0.4rem 0;">{{ s.tool_slug }}</td>
                 <td style="padding:0.4rem 0.25rem;">{% if s.host_id == user.id %}Host{% else %}Participant{% endif %}</td>
                 <td style="padding:0.4rem 0.25rem;">
                     {% if s.status == 'open' %}
-                        <span style="color:#40B0A6;">Open</span>
+                        <span style="color:var(--accent);">Open</span>
                     {% else %}
-                        <span style="color:#64748b;">Closed</span>
+                        <span style="color:var(--ink-muted);">Closed</span>
                     {% endif %}
                 </td>
                 <td style="padding:0.4rem 0.25rem;">{{ s.created_at|date:"Y-m-d H:i" }}</td>

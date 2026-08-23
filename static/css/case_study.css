@@ -215,7 +215,7 @@
     padding: 2rem 1.25rem;
     background: linear-gradient(135deg, var(--brand-wash) 0%, var(--brand-soft) 100%);
     border-radius: 10px;
-    border: 1px solid #e9d5ff;
+    border: 1px solid var(--band-muted);
 }
 .cs-cta h2 {
     font-size: 1.25rem;

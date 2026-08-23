@@ -22,7 +22,7 @@
 /* ── Easy-read / Accessibility Mode toggle bar ── */
 .easy-read-bar {
     background: var(--brand-soft);
-    border-bottom: 1px solid #d8b4fe;
+    border-bottom: 1px solid var(--border-strong);
     padding: 0.6rem 1.5rem;
 }
 .easy-read-bar-inner {
@@ -41,7 +41,7 @@
 
 /* ── Hero ── */
 .a-hero {
-    background: linear-gradient(135deg, var(--brand-wash) 0%, #e0d4f7 100%);
+    background: linear-gradient(135deg, var(--brand-wash) 0%, var(--brand-soft) 100%);
     padding: 4rem 1.5rem 3rem;
     text-align: center;
 }
@@ -223,7 +223,7 @@
     text-align: center;
 }
 .ct-green  { background: #22c55e; }
-.ct-amber  { background: #f59e0b; }
+.ct-amber  { background: var(--highlight); color: var(--highlight-ink); }
 .ct-red    { background: #ef4444; }
 
 /* ── Composition Flag graphic ── */
@@ -356,7 +356,7 @@
     text-align: center;
     box-shadow: 0 0 0 4px var(--brand-soft);
 }
-.am-note { font-size: 0.68rem; color: #94a3b8; text-align: center; max-width: 100px; }
+.am-note { font-size: 0.68rem; color: var(--ink-muted); text-align: center; max-width: 100px; }
 .am-arrow {
     display: flex;
     flex-direction: column;
@@ -426,7 +426,7 @@
 .a-tool-body h4 { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin: 0; }
 .a-tool-tagline { font-size: 0.82rem; color: var(--ink-muted); font-style: italic; margin: 0; line-height: 1.4; }
 .a-tool-meta { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.3rem; }
-.a-tool-time { font-size: 0.75rem; color: #94a3b8; display: flex; align-items: center; gap: 0.25rem; }
+.a-tool-time { font-size: 0.75rem; color: var(--ink-muted); display: flex; align-items: center; gap: 0.25rem; }
 .a-tool-badge {
     font-size: 0.68rem;
     font-weight: 700;

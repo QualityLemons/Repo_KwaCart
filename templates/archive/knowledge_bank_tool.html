@@ -9,14 +9,14 @@
 
 {% block content %}
 <p style="margin-bottom:0.5rem;">
-    <a href="{% url 'archive:knowledge_bank' %}" style="color:#7c3aed; font-size:0.9rem;">
+    <a href="{% url 'archive:knowledge_bank' %}" style="color:var(--brand); font-size:0.9rem;">
         &larr; Knowledge Bank
     </a>
 </p>
 
 <h1 style="margin-bottom:0.15rem;">{{ tool_title }}</h1>
 {% if tool_tagline %}
-<p style="color:#64748b; margin-top:0; margin-bottom:2rem;">{{ tool_tagline }}</p>
+<p style="color:var(--ink-muted); margin-top:0; margin-bottom:2rem;">{{ tool_tagline }}</p>
 {% endif %}
 
 {# ── Solo submissions ───────────────────────────────────────────────────── #}
@@ -27,7 +27,7 @@
         <col style="width:44%"><col style="width:20%"><col style="width:12%"><col style="width:24%">
     </colgroup>
     <thead>
-        <tr style="text-align:left; border-bottom:1px solid #e2e8f0;">
+        <tr style="text-align:left; border-bottom:1px solid var(--border);">
             <th style="padding:0.4rem 0.25rem 0.4rem 0;">Submitted</th>
             <th style="padding:0.4rem 0.25rem;">Version</th>
             <th></th>
@@ -36,11 +36,11 @@
     </thead>
     <tbody>
         {% for r in records %}
-        <tr style="border-bottom:1px solid #f1f5f9;">
-            <td style="padding:0.4rem 0.25rem 0.4rem 0; color:#475569;">
+        <tr style="border-bottom:1px solid var(--brand-wash);">
+            <td style="padding:0.4rem 0.25rem 0.4rem 0; color:var(--ink-muted);">
                 {{ r.submitted_at|date:"Y-m-d H:i" }}
             </td>
-            <td style="padding:0.4rem 0.25rem; color:#94a3b8; font-size:0.85rem;">
+            <td style="padding:0.4rem 0.25rem; color:var(--ink-muted); font-size:0.85rem;">
                 {{ r.tool_version }}
             </td>
             <td style="padding:0.4rem 0.25rem;">
@@ -71,7 +71,7 @@
     </tbody>
 </table>
 {% else %}
-<p style="color:#94a3b8;">No solo submissions for this tool yet.</p>
+<p style="color:var(--ink-muted);">No solo submissions for this tool yet.</p>
 {% endif %}
 
 {# ── Sessions ───────────────────────────────────────────────────────────── #}
@@ -83,7 +83,7 @@
         <col style="width:22%"><col style="width:22%"><col style="width:34%">
     </colgroup>
     <thead>
-        <tr style="text-align:left; border-bottom:1px solid #e2e8f0;">
+        <tr style="text-align:left; border-bottom:1px solid var(--border);">
             <th style="padding:0.4rem 0.25rem 0.4rem 0;">Role</th>
             <th style="padding:0.4rem 0.25rem;">Status</th>
             <th style="padding:0.4rem 0.25rem;">Started</th>
@@ -93,21 +93,21 @@
     </thead>
     <tbody>
         {% for s in sessions %}
-        <tr style="border-bottom:1px solid #f1f5f9;">
-            <td style="padding:0.4rem 0.25rem 0.4rem 0; color:#475569;">
+        <tr style="border-bottom:1px solid var(--brand-wash);">
+            <td style="padding:0.4rem 0.25rem 0.4rem 0; color:var(--ink-muted);">
                 {% if s.host_id == user.id %}Host{% else %}Participant{% endif %}
             </td>
             <td style="padding:0.4rem 0.25rem;">
                 {% if s.status == 'open' %}
-                    <span style="color:#40B0A6;">Open</span>
+                    <span style="color:var(--accent);">Open</span>
                 {% else %}
-                    <span style="color:#94a3b8;">Closed</span>
+                    <span style="color:var(--ink-muted);">Closed</span>
                 {% endif %}
             </td>
-            <td style="padding:0.4rem 0.25rem; color:#64748b; font-size:0.9rem;">
+            <td style="padding:0.4rem 0.25rem; color:var(--ink-muted); font-size:0.9rem;">
                 {{ s.created_at|date:"Y-m-d H:i" }}
             </td>
-            <td style="padding:0.4rem 0.25rem; color:#64748b; font-size:0.9rem;">
+            <td style="padding:0.4rem 0.25rem; color:var(--ink-muted); font-size:0.9rem;">
                 {% if s.closed_at %}{{ s.closed_at|date:"Y-m-d H:i" }}{% else %}—{% endif %}
             </td>
             <td style="padding:0.4rem 0; display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
@@ -139,7 +139,7 @@
     </tbody>
 </table>
 {% else %}
-<p style="color:#94a3b8;">No sessions for this tool yet.</p>
+<p style="color:var(--ink-muted);">No sessions for this tool yet.</p>
 {% endif %}
 {% endblock %}
 

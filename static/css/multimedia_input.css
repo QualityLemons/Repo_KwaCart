@@ -33,7 +33,7 @@
     min-height: 3.25rem;
     font-size: 1rem;
     font-weight: 700;
-    border: 2px solid #94a3b8;
+    border: 2px solid var(--ink-muted);
     background: #fff;
     color: var(--ink-soft);
     border-radius: 8px;

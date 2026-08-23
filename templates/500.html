@@ -8,23 +8,23 @@
         *, *::before, *::after { box-sizing: border-box; }
         body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f8fafc;
-            color: #222;
+            font-family: "Figtree", "Segoe UI", sans-serif;
+            background: #F7F9F9;
+            color: #1C1228;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         nav {
-            background: #f5f0ff;
+            background: #F4F7F7;
             padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
             gap: 1rem;
-            border-bottom: 1px solid #e2d9f3;
+            border-bottom: 1px solid #D0DADB;
         }
         nav a {
-            color: #5D3A9B;
+            color: #B01050;
             text-decoration: none;
             font-weight: 600;
         }
@@ -34,39 +34,43 @@
             align-items: center;
             justify-content: center;
             padding: 4rem 1rem;
+            background:
+                radial-gradient(ellipse 70% 50% at 90% 10%, rgba(14, 124, 123, 0.12) 0%, transparent 50%),
+                linear-gradient(165deg, #F4F7F7 0%, #EEF5F5 45%, #D8F3F2 100%);
         }
         .error-box {
             text-align: center;
             max-width: 38rem;
         }
         .error-code {
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 5rem;
             margin: 0;
             line-height: 1;
-            color: #5D3A9B;
+            color: #B01050;
         }
         h1 {
             margin: 0.5rem 0 1rem;
             font-size: 1.75rem;
         }
         p {
-            color: #64748b;
+            color: #5C5470;
             margin-bottom: 2rem;
             line-height: 1.6;
         }
         .btn {
             display: inline-block;
             padding: 0.5rem 1.25rem;
-            border: 1px solid #5D3A9B;
+            border: 1px solid #B01050;
             border-radius: 6px;
-            color: #5D3A9B;
+            color: #B01050;
             background: #fff;
             text-decoration: none;
             font-size: 0.95rem;
             font-family: inherit;
         }
         .btn-primary {
-            background: #5D3A9B;
+            background: #B01050;
             color: #fff;
         }
         .btn-group {
@@ -78,9 +82,10 @@
         footer {
             padding: 1rem 1.5rem;
             text-align: center;
+            color: #5C5470;
             font-size: 0.85rem;
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #D0DADB;
+            background: #fff;
         }
     </style>
 </head>
@@ -88,24 +93,16 @@
     <nav>
         <a href="/">KwaCart</a>
     </nav>
-
     <main>
         <div class="error-box">
             <p class="error-code" aria-hidden="true">500</p>
             <h1>Something went wrong</h1>
-            <p>
-                An unexpected error occurred on our end.<br>
-                Please try again in a moment, or go back to the home page.
-            </p>
+            <p>An unexpected error occurred. Please try again in a moment.</p>
             <div class="btn-group">
                 <a href="/" class="btn btn-primary">Go to home page</a>
-                <a href="/accounts/login/" class="btn">Log in</a>
             </div>
         </div>
     </main>
-
-    <footer>
-        KwaCart &mdash; a Liberating Structures facilitation platform.
-    </footer>
+    <footer>KwaCart &mdash; a Liberating Structures facilitation platform.</footer>
 </body>
 </html>

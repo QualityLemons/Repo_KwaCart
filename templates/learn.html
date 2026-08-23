@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn how to use KwaCart</title>
-    <link rel="stylesheet" href="{% static 'css/brand.css' %}">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=noblush">
     <style>
         /* ── Page-level layout ─────────────────────────────────── */
         .learn-hero {
@@ -91,7 +91,7 @@
         .chapter-label.purple  { background: var(--brand-dark); }
         .chapter-label.teal    { background: var(--accent); }
         .chapter-label.amber   { background: var(--highlight-ink); }
-        .chapter-label.blue    { background: #1d4ed8; }
+        .chapter-label.blue    { background: var(--accent); }
         .chapter-label.green   { background: #15803d; }
         .chapter-label.rose    { background: var(--brand); }
 
@@ -146,7 +146,7 @@
         .step-num.purple  { background: var(--brand-dark); }
         .step-num.teal    { background: var(--accent); }
         .step-num.amber   { background: var(--highlight-ink); }
-        .step-num.blue    { background: #1d4ed8; }
+        .step-num.blue    { background: var(--accent); }
         .step-num.green   { background: #15803d; }
         .step-num.rose    { background: var(--brand); }
 
@@ -175,9 +175,9 @@
         .callout.purple { background: var(--brand-soft); border-left: 4px solid var(--brand-dark); }
         .callout.teal   { background: #f0fdfa; border-left: 4px solid var(--accent); }
         .callout.amber  { background: #fffbeb; border-left: 4px solid var(--highlight-ink); }
-        .callout.blue   { background: #eff6ff; border-left: 4px solid #1d4ed8; }
+        .callout.blue   { background: #eff6ff; border-left: 4px solid var(--accent); }
         .callout.green  { background: #f0fdf4; border-left: 4px solid #15803d; }
-        .callout.rose   { background: #fff1f2; border-left: 4px solid var(--brand); }
+        .callout.rose   { background: var(--brand-soft); border-left: 4px solid var(--brand); }
 
         /* ── AAC equipment table ───────────────────────────────── */
         .equip-table {
@@ -189,10 +189,10 @@
         .equip-table th {
             text-align: left;
             padding: 0.5rem 0.75rem;
-            background: #fff1f2;
+            background: var(--brand-soft);
             color: var(--brand);
             font-weight: 700;
-            border-bottom: 2px solid #fecdd3;
+            border-bottom: 2px solid var(--border);
         }
         .equip-table td {
             padding: 0.55rem 0.75rem;
@@ -705,7 +705,7 @@
                 for participants who use AAC devices or need extra time to compose their responses.
                 A <strong>Verbal Breakout</strong> signal lets you tell the room to move to spoken
                 discussion while AAC users continue typing digitally.
-                See <a href="#aac" style="color:#1d4ed8;">Chapter&nbsp;5</a> for a full guide to all AAC features available during live sessions.
+                See <a href="#aac" style="color:var(--accent);">Chapter&nbsp;5</a> for a full guide to all AAC features available during live sessions.
             </p>
         </div>
     </div>
@@ -843,7 +843,7 @@
     </h3>
     <div class="mini-grid">
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🟢</div>
             <h4>Calm Timer</h4>
             <p>
@@ -856,7 +856,7 @@
             </p>
         </div>
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">✏️</div>
             <h4>Composition Presence Flag</h4>
             <p>
@@ -869,7 +869,7 @@
             </p>
         </div>
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">⏳</div>
             <h4>Inclusive Pacing</h4>
             <p>
@@ -881,7 +881,7 @@
             </p>
         </div>
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🗣️</div>
             <h4>Verbal Breakout</h4>
             <p>
@@ -913,22 +913,22 @@
         </div>
     </div>
     <div class="mini-grid" style="margin-top:1rem;">
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🎯</div>
             <h4>Large targets</h4>
             <p>All buttons and interactive elements become larger and further apart — easier to select with eye gaze, a head pointer, or a switch.</p>
         </div>
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🧊</div>
             <h4>Frozen layout</h4>
             <p>Nothing moves or shifts unexpectedly. The page layout is locked so that scanning grids stay in the positions your device expects.</p>
         </div>
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">⏸️</div>
             <h4>No animations</h4>
             <p>All transitions, fades, and motion effects are disabled. The interface is completely still — better for people who find motion distracting or distressing.</p>
         </div>
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">💾</div>
             <h4>Remembered between visits</h4>
             <p>Your preference is saved in your browser. Accessibility Mode stays on until you turn it off — you do not have to set it again each visit.</p>
@@ -1003,7 +1003,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>AAC software<br><span style="font-weight:400; color:#94a3b8; font-size:0.8rem;">(text output apps)</span></td>
+                <td>AAC software<br><span style="font-weight:400; color:var(--ink-muted); font-size:0.8rem;">(text output apps)</span></td>
                 <td>
                     Grid&nbsp;3 (Smartbox) &nbsp;·&nbsp;
                     Snap Core First (Tobii Dynavox) &nbsp;·&nbsp;

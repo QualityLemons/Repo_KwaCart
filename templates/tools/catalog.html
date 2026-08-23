@@ -44,7 +44,7 @@
         {{ draft.tool_slug }} &middot; {{ draft.submitted_at|date:"j M" }}
     </a>
     {% endfor %}
-    <a href="{% url 'archive:dashboard' %}" class="cz-chip" style="color:#94a3b8;">
+    <a href="{% url 'archive:dashboard' %}" class="cz-chip" style="color:var(--ink-muted);">
         All archive &rarr;
     </a>
 </div>
@@ -53,14 +53,14 @@
 {% for category, tools in categories.items %}
 <section style="margin-bottom:2rem;">
     <h2 style="font-size:1rem; text-transform:uppercase; letter-spacing:0.06em;
-               color:#64748b; font-weight:700; margin-bottom:0.75rem;">
+               color:var(--ink-muted); font-weight:700; margin-bottom:0.75rem;">
         {{ category }}
     </h2>
     <div class="tool-grid">
         {% for tool in tools %}
         <div class="tool-card tool-card--solo">
             <h3 style="margin-top:0; margin-bottom:0.3rem;">{{ tool.title }}</h3>
-            <p style="font-size:0.85rem; color:#475569; margin:0 0 0.85rem; line-height:1.5;">
+            <p style="font-size:0.85rem; color:var(--ink-muted); margin:0 0 0.85rem; line-height:1.5;">
                 {{ tool.tagline|default:tool.what }}
             </p>
             <a href="{% url 'tools:draft_new' tool.slug %}" class="btn cz-btn-solo">
@@ -111,14 +111,14 @@
 {% for category, tools in categories.items %}
 <section style="margin-bottom:2rem;">
     <h2 style="font-size:1rem; text-transform:uppercase; letter-spacing:0.06em;
-               color:#64748b; font-weight:700; margin-bottom:0.75rem;">
+               color:var(--ink-muted); font-weight:700; margin-bottom:0.75rem;">
         {{ category }}
     </h2>
     <div class="tool-grid">
         {% for tool in tools %}
         <div class="tool-card tool-card--live">
             <h3 style="margin-top:0; margin-bottom:0.3rem;">{{ tool.title }}</h3>
-            <p style="font-size:0.85rem; color:#475569; margin:0 0 0.85rem; line-height:1.5;">
+            <p style="font-size:0.85rem; color:var(--ink-muted); margin:0 0 0.85rem; line-height:1.5;">
                 {{ tool.tagline|default:tool.what }}
             </p>
             <form method="post" action="{% url 'tools:session_create' tool.slug %}"
@@ -186,14 +186,14 @@
         {% for category, tools in categories.items %}
         <section style="margin-bottom:2rem;">
             <h2 style="font-size:1rem; text-transform:uppercase; letter-spacing:0.06em;
-                       color:#64748b; font-weight:700; margin-bottom:0.75rem;">
+                       color:var(--ink-muted); font-weight:700; margin-bottom:0.75rem;">
                 {{ category }}
             </h2>
             <div class="tool-grid">
                 {% for tool in tools %}
                 <div class="tool-card">
                     <h3 style="margin-top:0; margin-bottom:0.3rem;">{{ tool.title }}</h3>
-                    <p style="font-size:0.85rem; color:#475569; margin:0 0 0.85rem; line-height:1.5;">
+                    <p style="font-size:0.85rem; color:var(--ink-muted); margin:0 0 0.85rem; line-height:1.5;">
                         {{ tool.tagline|default:tool.what }}
                     </p>
                     <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">

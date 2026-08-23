@@ -157,7 +157,7 @@
 .a11y-theme .ps-input {
     padding:   1rem       !important;
     font-size: 1.15rem    !important;
-    border:    3px solid #f59e0b !important;
+    border:    3px solid var(--highlight) !important;
 }
 
 .a11y-theme .ns-btn,
@@ -262,7 +262,7 @@
 .a11y-toggle-btn {
     padding:     0.35rem 0.75rem;
     background:  transparent;
-    border:      1px solid #94a3b8;
+    border:      1px solid var(--ink-muted);
     border-radius: 4px;
     font-size:   0.8rem;
     color:       var(--ink-muted);
