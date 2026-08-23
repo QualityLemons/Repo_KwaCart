@@ -53,7 +53,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #5D3A9B;
+    background: var(--brand);
     animation: swl-pulse 1.4s ease-in-out infinite both;
 }
 

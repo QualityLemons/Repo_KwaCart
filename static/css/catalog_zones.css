@@ -1,7 +1,7 @@
 /* ── Catalog Zones ── */
 /* Visual identity for the two distinct product modes:
    Solo  — teal, contemplative, individual
-   Live  — purple (brand), energetic, group                          */
+   Live  — berry brand, energetic, group                          */
 
 /* ── Mode picker (default / no mode selected) ── */
 .cz-intro {
@@ -44,8 +44,8 @@
     background: #f0fdfa;
 }
 .cz-pick-card--live {
-    border-color: #c4b5fd;
-    background: #faf5ff;
+    border-color: var(--border-strong);
+    background: var(--brand-wash);
 }
 
 .cz-pick-icon {
@@ -62,7 +62,7 @@
     line-height: 1.2;
 }
 .cz-pick-card--solo .cz-pick-title  { color: #0d9488; }
-.cz-pick-card--live .cz-pick-title  { color: #5D3A9B; }
+.cz-pick-card--live .cz-pick-title  { color: var(--brand); }
 
 .cz-pick-body {
     font-size: 0.875rem;
@@ -80,7 +80,7 @@
     gap: 0.25rem;
 }
 .cz-pick-card--solo .cz-pick-cta { color: #0d9488; }
-.cz-pick-card--live .cz-pick-cta { color: #5D3A9B; }
+.cz-pick-card--live .cz-pick-cta { color: var(--brand); }
 
 /* ── "Browse all" toggle ── */
 .cz-browse-toggle {
@@ -107,11 +107,11 @@
     flex-wrap: wrap;
 }
 .cz-banner--solo { background: #f0fdfa; border-color: #5eead4; }
-.cz-banner--live { background: #faf5ff; border-color: #c4b5fd; }
+.cz-banner--live { background: var(--brand-wash); border-color: var(--border-strong); }
 .cz-banner__icon { font-size: 1.1rem; }
 .cz-banner__title { font-weight: 700; }
 .cz-banner--solo .cz-banner__title { color: #0d9488; }
-.cz-banner--live .cz-banner__title { color: #5D3A9B; }
+.cz-banner--live .cz-banner__title { color: var(--brand); }
 .cz-banner__sep  { color: #cbd5e1; }
 .cz-banner__sub  { color: #64748b; }
 .cz-banner__links { margin-left: auto; display: flex; gap: 0.75rem; }
@@ -152,15 +152,15 @@
 }
 .cz-chip:hover { background: #f1f5f9; text-decoration: none; }
 .cz-chip--live {
-    border-color: #ddd6fe;
-    background: #faf5ff;
-    color: #5D3A9B;
+    border-color: var(--border);
+    background: var(--brand-wash);
+    color: var(--brand);
 }
-.cz-chip--live:hover { background: #ede9fe; }
+.cz-chip--live:hover { background: var(--brand-soft); }
 
 /* ── Tool card mode variants ── */
 .tool-card--solo  { border-left: 4px solid #5eead4; }
-.tool-card--live  { border-left: 4px solid #a78bfa; }
+.tool-card--live  { border-left: 4px solid var(--band-muted); }
 
 .cz-btn-solo {
     background: #0d9488;
@@ -175,7 +175,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%);
+    background: linear-gradient(135deg, var(--ink-soft) 0%, #6d28d9 100%);
     color: #fff;
     border-radius: 0.75rem;
     padding: 1rem 1.25rem;
@@ -195,7 +195,7 @@
     flex: 1;
     font-size: 0.9rem;
     line-height: 1.4;
-    color: #ede9fe;
+    color: var(--brand-soft);
 }
 .cz-pathway-promo__text strong {
     display: block;
@@ -220,8 +220,8 @@
     display: inline-block;
     font-size: 0.7rem;
     font-weight: 700;
-    background: #ede9fe;
-    color: #5D3A9B;
+    background: var(--brand-soft);
+    color: var(--brand);
     border-radius: 4px;
     padding: 0.1rem 0.4rem;
     margin-bottom: 0.4rem;

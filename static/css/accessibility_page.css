@@ -9,7 +9,7 @@
     position: absolute;
     left: -9999px;
     top: 0.5rem;
-    background: #5D3A9B;
+    background: var(--brand);
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -21,7 +21,7 @@
 
 /* ── Easy-read / Accessibility Mode toggle bar ── */
 .easy-read-bar {
-    background: #f5f0ff;
+    background: var(--brand-soft);
     border-bottom: 1px solid #d8b4fe;
     padding: 0.6rem 1.5rem;
 }
@@ -35,20 +35,20 @@
 }
 .easy-read-bar-label {
     font-size: 0.9rem;
-    color: #5D3A9B;
+    color: var(--brand);
     font-weight: 600;
 }
 
 /* ── Hero ── */
 .a-hero {
-    background: linear-gradient(135deg, #f8f3ff 0%, #e0d4f7 100%);
+    background: linear-gradient(135deg, var(--brand-wash) 0%, #e0d4f7 100%);
     padding: 4rem 1.5rem 3rem;
     text-align: center;
 }
 .a-hero-inner { max-width: 680px; margin: 0 auto; }
 .a-hero-icon {
     font-size: 3.5rem;
-    color: #5D3A9B;
+    color: var(--brand);
     margin-bottom: 1rem;
 }
 .a-hero h1 {
@@ -81,7 +81,7 @@
     align-items: center;
     gap: 0.6rem;
 }
-.a-section-title i { color: #5D3A9B; }
+.a-section-title i { color: var(--brand); }
 .a-section-sub {
     color: #64748b;
     margin-bottom: 2.5rem;
@@ -107,7 +107,7 @@
 .feature-card-flip > * { direction: ltr; }
 
 .feature-card-graphic {
-    background: #faf5ff;
+    background: var(--brand-wash);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -169,7 +169,7 @@
     gap: 0.4rem;
     align-items: flex-start;
 }
-.feature-where i { color: #5D3A9B; margin-top: 0.15rem; flex-shrink: 0; }
+.feature-where i { color: var(--brand); margin-top: 0.15rem; flex-shrink: 0; }
 
 /* ── Calm Timer graphic ── */
 .ct-demo {
@@ -208,7 +208,7 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.82rem;
-    color: #5D3A9B;
+    color: var(--brand);
     font-weight: 600;
     padding-left: 90px;
 }
@@ -275,7 +275,7 @@
     align-items: center;
     gap: 0.3rem;
     font-size: 0.75rem;
-    color: #5D3A9B;
+    color: var(--brand);
     font-weight: 600;
 }
 .cf-arrow i { font-size: 1.4rem; }
@@ -334,7 +334,7 @@
 }
 .am-label { font-size: 0.75rem; font-weight: 700; color: #64748b; }
 .am-btn-small {
-    background: #5D3A9B;
+    background: var(--brand);
     color: #fff;
     border-radius: 4px;
     padding: 0.3rem 0.6rem;
@@ -342,7 +342,7 @@
     font-weight: 600;
 }
 .am-btn-large {
-    background: #5D3A9B;
+    background: var(--brand);
     color: #fff;
     border-radius: 8px;
     min-width: 80px;
@@ -354,7 +354,7 @@
     font-weight: 700;
     padding: 0.5rem 1rem;
     text-align: center;
-    box-shadow: 0 0 0 4px #ede9fe;
+    box-shadow: 0 0 0 4px var(--brand-soft);
 }
 .am-note { font-size: 0.68rem; color: #94a3b8; text-align: center; max-width: 100px; }
 .am-arrow {
@@ -383,7 +383,7 @@
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #e2e8f0;
 }
-.tool-group-heading i { color: #E66100; }
+.tool-group-heading i { color: var(--accent); }
 
 .a-tools-grid {
     display: grid;
@@ -401,11 +401,11 @@
     transition: border-color 0.15s, box-shadow 0.15s;
 }
 .a-tool-card:hover {
-    border-color: #c4b5fd;
+    border-color: var(--border-strong);
     box-shadow: 0 2px 8px rgba(93,58,155,0.08);
 }
 .a-tool-card-free {
-    border-color: #E1BE6A;
+    border-color: var(--highlight);
     background: #fffdf0;
 }
 .a-tool-card-free:hover { border-color: #d4ae55; }
@@ -413,12 +413,12 @@
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    background: #ede9fe;
+    background: var(--brand-soft);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: #5D3A9B;
+    color: var(--brand);
     font-size: 1rem;
 }
 .a-tool-card-free .a-tool-icon { background: #fef9c3; color: #854d0e; }
@@ -436,10 +436,10 @@
     border-radius: 3px;
 }
 .a-tool-badge-warmup { background: #dcfce7; color: #15803d; }
-.a-tool-badge-free   { background: #E1BE6A; color: #3a1a6b; }
+.a-tool-badge-free   { background: var(--highlight); color: var(--highlight-ink); }
 .a-tool-try-link {
     font-size: 0.8rem;
-    color: #5D3A9B;
+    color: var(--brand);
     font-weight: 600;
     text-decoration: none;
 }

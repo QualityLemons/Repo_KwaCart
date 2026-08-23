@@ -2,7 +2,7 @@
     position: absolute;
     left: -9999px;
     top: 0;
-    background: #5D3A9B;
+    background: var(--brand);
     color: #fff;
     padding: 0.5rem 1rem;
     z-index: 100;
@@ -24,7 +24,7 @@
     gap: 0.35rem;
     align-items: center;
 }
-.cs-breadcrumb a { color: #5D3A9B; text-decoration: none; }
+.cs-breadcrumb a { color: var(--brand); text-decoration: none; }
 
 .cs-header { margin-bottom: 2rem; }
 .cs-badge {
@@ -33,8 +33,8 @@
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #5D3A9B;
-    background: #f5f0ff;
+    color: var(--brand);
+    background: var(--brand-soft);
     padding: 0.2rem 0.55rem;
     border-radius: 4px;
     margin-right: 0.5rem;
@@ -49,31 +49,33 @@
 }
 .cs-header h1 {
     font-size: clamp(1.75rem, 4vw, 2.25rem);
-    font-weight: 800;
-    color: #0f172a;
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--ink);
     margin: 0.75rem 0 0.5rem;
     line-height: 1.2;
 }
 .cs-subtitle {
     font-size: 1.05rem;
-    color: #475569;
+    color: var(--ink-muted);
     margin-bottom: 1rem;
 }
 .cs-context {
     font-size: 0.95rem;
-    color: #64748b;
+    color: var(--ink-muted);
     line-height: 1.65;
     padding: 1rem 1.15rem;
-    background: #f8fafc;
-    border-left: 4px solid #5D3A9B;
+    background: var(--brand-wash);
+    border-left: 4px solid var(--brand);
     border-radius: 0 6px 6px 0;
 }
 
 .cs-tool-explainer {
     margin: 0 0 2rem;
     padding: 1.25rem 1.35rem;
-    background: #fff;
-    border: 1.5px solid #e2e8f0;
+    background: var(--surface-raised);
+    border: 1.5px solid var(--border);
     border-radius: 10px;
 }
 .cs-tool-explainer h2 {
@@ -103,7 +105,7 @@
     color: #64748b;
     line-height: 1.5;
     padding-left: 0.85rem;
-    border-left: 3px solid #c4b5fd;
+    border-left: 3px solid var(--accent);
 }
 .cs-tool-explainer-steps strong {
     color: #1e293b;
@@ -132,11 +134,11 @@
     color: #64748b;
     transition: border-color 0.15s, background 0.15s;
 }
-.cs-progress-dot:hover { border-color: #c4b5fd; }
+.cs-progress-dot:hover { border-color: var(--border-strong); }
 .cs-progress-dot.active {
-    border-color: #5D3A9B;
-    background: #f5f0ff;
-    color: #5D3A9B;
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand);
     font-weight: 600;
 }
 .cs-progress-num {
@@ -151,7 +153,7 @@
     font-weight: 700;
 }
 .cs-progress-dot.active .cs-progress-num {
-    background: #5D3A9B;
+    background: var(--brand);
     color: #fff;
 }
 .cs-progress-label { display: none; }
@@ -168,7 +170,7 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: #5D3A9B;
+    color: var(--brand);
     margin-bottom: 0.35rem;
 }
 .cs-step-title {
@@ -211,7 +213,7 @@
 .cs-cta {
     text-align: center;
     padding: 2rem 1.25rem;
-    background: linear-gradient(135deg, #f8f3ff 0%, #eeddf7 100%);
+    background: linear-gradient(135deg, var(--brand-wash) 0%, var(--brand-soft) 100%);
     border-radius: 10px;
     border: 1px solid #e9d5ff;
 }
