@@ -23,11 +23,16 @@ from django.urls import include, path
 
 from tools.views import pairing_entry, pairing_join
 
+from .case_study_views import case_study_detail
+from .case_studies import list_case_studies
+
 
 # home and about are simple template-only views.  Defining them inline here
 # avoids creating a dedicated views.py just for two trivial render() calls.
 def home(request):
-    return render(request, 'landing.html')
+    return render(request, 'landing.html', {
+        'case_studies': list_case_studies(),
+    })
 
 
 def about(request):
@@ -47,6 +52,7 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('accessibility/', accessibility, name='accessibility'),
     path('learn/', learn, name='learn'),
+    path('case-studies/<slug:slug>/', case_study_detail, name='case_study_detail'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('tools/', include('tools.urls')),
