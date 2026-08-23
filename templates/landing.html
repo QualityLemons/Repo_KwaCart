@@ -175,26 +175,6 @@
     </div>
 </section>
 
-<!-- ── Case studies ── -->
-<section class="section" id="case-studies">
-    <h2 class="section-title">See it in practice</h2>
-    <p class="section-sub">
-        Real facilitation outputs turned into click-through walkthroughs — so you can
-        picture how a tool might work before you run your own session.
-    </p>
-    <div class="case-study-grid">
-        {% for study in case_studies %}
-        <a href="{% url 'case_study_detail' study.slug %}" class="case-study-card">
-            <span class="case-study-card-icon" aria-hidden="true">{{ study.use_case_icon }}</span>
-            <span class="case-study-card-tool">{{ study.tool_title }}</span>
-            <h3>{{ study.title }}</h3>
-            <p>{{ study.subtitle }}</p>
-            <span class="case-study-card-link">Walk through the example &rarr;</span>
-        </a>
-        {% endfor %}
-    </div>
-</section>
-
 <!-- ── AAC teaser ── -->
 <section class="section" id="aac-section">
     <div class="aac-teaser">
