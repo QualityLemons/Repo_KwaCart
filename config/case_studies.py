@@ -92,6 +92,77 @@ CASE_STUDIES = {
             },
         ],
     },
+    'shape-a-communication-plan': {
+        'slug': 'shape-a-communication-plan',
+        'title': 'Shaping a communication plan',
+        'subtitle': (
+            'A support team uses 1-2-4-All to find a workable way for D — who is mute '
+            'and still learning to spell — to express everyday needs.'
+        ),
+        'tool_slug': '1-2-4-all',
+        'tool_title': '1-2-4-All',
+        'use_case_icon': '💬',
+        'date': '23 August 2026',
+        'context': (
+            'D cannot speak and uses a letter board, but cannot yet spell many words. '
+            'A support team ran 1-2-4-All to surface what already works, who can help teach, '
+            'and what would make communication less stressful — so everyone could agree '
+            'a shared plan rather than leaving it to one person.'
+        ),
+        'steps': [
+            {
+                'key': 'challenge',
+                'title': 'The challenge',
+                'phase': 'What needs a plan?',
+                'content': (
+                    'D is mute and cannot speak. She can use a letter board, but she is not '
+                    'able to spell a lot of words yet. The team needs a communication plan '
+                    'that meets her needs now — without waiting until spelling catches up — '
+                    'and that more than one supporter can help with.'
+                ),
+            },
+            {
+                'key': 'self_reflection',
+                'title': 'Self Reflection',
+                'phase': 'Phase 1 — alone (1 min)',
+                'content': (
+                    'I am now able to use my keyboard to type words, but I know that I am '
+                    'alone in my area for being able to do this. D is not able to speak and '
+                    'is mute. D can use a letter board but is not able to spell a lot of words.'
+                ),
+            },
+            {
+                'key': 'pair_ideas',
+                'title': 'Pair Ideas',
+                'phase': 'Phase 2 — in pairs (2 min)',
+                'content': (
+                    'When I learned to use a letter board I was able to learn with Lorraine. '
+                    'Lorraine left a few years ago and has not come back. Trudy says that she '
+                    'will teach D and maybe R could help? I could help and maybe D could have '
+                    'a picture board instead.'
+                ),
+            },
+            {
+                'key': 'foursome_ideas',
+                'title': 'Foursome Ideas',
+                'phase': 'Phase 3 — in fours (4 min)',
+                'content': (
+                    'R and Trudy agreed to share with Timothee and D that they will help D '
+                    'learn to use a letterboard and help to make a picture board of their '
+                    'favourite things if they don\'t know how to spell them.'
+                ),
+            },
+            {
+                'key': 'standout_idea',
+                'title': 'Standout Idea',
+                'phase': 'Phase 4 — share with all (5 min)',
+                'content': (
+                    'A picture board would be easier for D to be able to communicate her needs '
+                    'without being stressed about spelling.'
+                ),
+            },
+        ],
+    },
 }
 
 
