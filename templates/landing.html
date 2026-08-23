@@ -22,6 +22,7 @@
             <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">{% csrf_token %}</form>
         {% else %}
             <a href="{% url 'about' %}">About</a>
+            <a href="#pricing">Pricing</a>
             <a href="{% url 'accessibility' %}">Accessibility</a>
             <a href="{% url 'accounts:login' %}">Log in</a>
             <a href="{% url 'accounts:signup' %}" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
@@ -316,7 +317,7 @@
 <!-- ── How it works ── -->
 <section class="section">
     <h2 class="section-title">How the full platform works</h2>
-    <p class="section-sub">Register free to unlock live group sessions with all Liberating Structures tools.</p>
+    <p class="section-sub">Subscribe as an individual host to unlock live group sessions with all Liberating Structures tools.</p>
 
     <div class="steps">
         <div class="step">
@@ -342,13 +343,65 @@
     </div>
 </section>
 
+<hr class="divider">
+
+<!-- ── Pricing ── -->
+<section class="section" id="pricing">
+    <h2 class="section-title">Simple subscription pricing</h2>
+    <p class="section-sub">
+        Start as an individual host. Move to Organisation only when a second person on your
+        team needs their own host login — guests always join free.
+    </p>
+
+    <div class="pricing-grid">
+        <article class="pricing-card pricing-card--featured">
+            <p class="pricing-eyebrow">For individuals</p>
+            <h3 class="pricing-name">Individual</h3>
+            <p class="pricing-tagline">One host login — run live sessions with your groups.</p>
+            <p class="pricing-price">
+                <span class="pricing-amount">£12</span>
+                <span class="pricing-period">/ month</span>
+            </p>
+            <p class="pricing-alt">or <strong>£100 / year</strong> (save £44)</p>
+            <ul class="pricing-features">
+                <li>Full Liberating Structures toolkit</li>
+                <li>Live hosted sessions with QR / link join</li>
+                <li>Guest participants never need an account</li>
+                <li>Session archive with Markdown &amp; RTF export</li>
+                <li>Built-in AAC-friendly pacing support</li>
+            </ul>
+            <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-large pricing-cta">Start Individual</a>
+        </article>
+
+        <article class="pricing-card">
+            <p class="pricing-eyebrow">Upsell when you grow</p>
+            <h3 class="pricing-name">Organisation</h3>
+            <p class="pricing-tagline">For teams where more than one person needs to host.</p>
+            <p class="pricing-price">
+                <span class="pricing-amount">£36</span>
+                <span class="pricing-period">/ month</span>
+            </p>
+            <p class="pricing-alt">or <strong>£300 / year</strong> (save £132)</p>
+            <ul class="pricing-features">
+                <li>Everything in Individual</li>
+                <li>Additional host logins for your team</li>
+                <li>Shared organisational archive</li>
+                <li>Best when a second colleague needs to run sessions</li>
+                <li>Simple upgrade — no per-participant fees</li>
+            </ul>
+            <a href="{% url 'accounts:signup' %}" class="btn btn-large pricing-cta">Start Organisation</a>
+            <p class="pricing-note">Choose this when a second person needs a host login.</p>
+        </article>
+    </div>
+</section>
+
 <!-- ── CTA band ── -->
 <section class="cta-band">
-    <h2>Interested in the full platform?</h2>
-    <p>Register free for all tools, unlimited sessions, and a full archive.</p>
+    <h2>Ready to host your next session?</h2>
+    <p>£12/month or £100/year for individuals — Organisation when your team needs a second host.</p>
     <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
-        <a href="{% url 'accounts:signup' %}" class="btn btn-primary-inv btn-large">Register now</a>
-        <a href="{% url 'accounts:login' %}" class="btn btn-large">Log in</a>
+        <a href="#pricing" class="btn btn-primary-inv btn-large">See pricing</a>
+        <a href="{% url 'accounts:signup' %}" class="btn btn-large">Register</a>
     </div>
 </section>
 

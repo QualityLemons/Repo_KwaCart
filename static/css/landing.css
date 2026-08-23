@@ -538,3 +538,112 @@ h1, h2, h3, .nav-brand, .story-intro-name, .ls-stat-num {
     padding: 0; margin: -1px; overflow: hidden;
     clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
+
+/* ── Pricing ── */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+}
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 1.75rem 1.5rem;
+    background: var(--surface-raised);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+}
+.pricing-card--featured {
+    border-color: var(--brand);
+    background: linear-gradient(165deg, #fff 0%, var(--brand-wash) 100%);
+    box-shadow: 0 8px 28px rgba(176, 16, 80, 0.08);
+}
+.pricing-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin: 0;
+}
+.pricing-card--featured .pricing-eyebrow { color: var(--brand); }
+.pricing-name {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+}
+.pricing-tagline {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.35rem;
+    line-height: 1.5;
+}
+.pricing-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin: 0.25rem 0 0;
+}
+.pricing-amount {
+    font-family: var(--font-display);
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+.pricing-period {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+}
+.pricing-alt {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem;
+}
+.pricing-features {
+    list-style: none;
+    margin: 0.5rem 0 1rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    flex: 1;
+}
+.pricing-features li {
+    position: relative;
+    padding-left: 1.15rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+}
+.pricing-features li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--accent);
+}
+.pricing-card--featured .pricing-features li::before { background: var(--brand); }
+.pricing-cta {
+    align-self: stretch;
+    text-align: center;
+}
+.pricing-note {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    margin: 0.15rem 0 0;
+    text-align: center;
+    line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+}
