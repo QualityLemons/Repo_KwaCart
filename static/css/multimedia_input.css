@@ -7,16 +7,16 @@
 .mmi-panel {
     margin-top: 1.5rem;
     padding: 1rem 1.1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 8px;
-    background: #f8fafc;
+    background: var(--brand-wash);
 }
 
 .mmi-panel__heading {
     margin: 0 0 0.75rem;
     font-size: 0.9rem;
     font-weight: 700;
-    color: #334155;
+    color: var(--ink-soft);
     letter-spacing: 0.02em;
 }
 
@@ -35,7 +35,7 @@
     font-weight: 700;
     border: 2px solid #94a3b8;
     background: #fff;
-    color: #334155;
+    color: var(--ink-soft);
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -101,7 +101,7 @@
 .mmi-image-hint {
     margin: 0;
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--ink-muted);
     line-height: 1.5;
 }
 
@@ -118,7 +118,7 @@
     display: inline-block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #334155;
+    color: var(--ink-soft);
     margin-bottom: 0.3rem;
     cursor: pointer;
 }
@@ -126,7 +126,7 @@
 .mmi-image-input {
     display: block;
     font-size: 0.9rem;
-    color: #334155;
+    color: var(--ink-soft);
     cursor: pointer;
     padding: 0.4rem 0;
     min-height: 2.5rem;
@@ -158,7 +158,7 @@
 }
 
 .mmi-attachment-card {
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border-strong);
     border-radius: 6px;
     padding: 0.6rem 0.8rem;
     background: #fff;
@@ -172,9 +172,9 @@
     max-width: min(18rem, 100%);
     max-height: 12rem;
     border-radius: 4px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     object-fit: contain;
-    background: #f1f5f9;
+    background: var(--brand-wash);
     display: block;
 }
 

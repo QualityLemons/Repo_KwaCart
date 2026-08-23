@@ -23,6 +23,7 @@
             <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">{% csrf_token %}</form>
         {% else %}
             <a href="{% url 'about' %}" style="font-weight:600;">About</a>
+            <a href="{% url 'pricing' %}">Pricing</a>
             <a href="{% url 'accessibility' %}">Accessibility</a>
             <a href="{% url 'accounts:login' %}">Log in</a>
         {% endif %}

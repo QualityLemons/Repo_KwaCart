@@ -10,7 +10,7 @@
     <style>
         /* ── Page-level layout ─────────────────────────────────── */
         .learn-hero {
-            background: linear-gradient(135deg, #3a1a6b 0%, #0d9488 100%);
+            background: linear-gradient(135deg, var(--brand-dark) 0%, var(--accent) 100%);
             color: #fff;
             padding: 4rem 1.5rem 3rem;
             text-align: center;
@@ -20,7 +20,7 @@
             font-weight: 800;
             margin: 0 0 0.75rem;
         }
-        .learn-hero h1 span { color: #E1BE6A; }
+        .learn-hero h1 span { color: var(--highlight); }
         .learn-hero p {
             font-size: 1.15rem;
             opacity: 0.9;
@@ -30,7 +30,7 @@
         }
         .learn-back {
             display: inline-block;
-            color: #E1BE6A;
+            color: var(--highlight);
             font-size: 0.9rem;
             text-decoration: none;
             margin-bottom: 1.25rem;
@@ -50,18 +50,18 @@
         .chapter-nav a {
             padding: 0.4rem 1rem;
             border-radius: 20px;
-            background: #f1f5f9;
-            color: #334155;
+            background: var(--brand-wash);
+            color: var(--ink-soft);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
             transition: background 0.15s, color 0.15s;
         }
         .chapter-nav a:hover {
-            background: #3a1a6b;
+            background: var(--brand-dark);
             color: #fff;
-            border-color: #3a1a6b;
+            border-color: var(--brand-dark);
         }
 
         /* ── Section wrapper ───────────────────────────────────── */
@@ -71,7 +71,7 @@
             padding: 3.5rem 1.5rem;
         }
         .learn-section + .learn-section {
-            border-top: 2px solid #f1f5f9;
+            border-top: 2px solid var(--brand-wash);
         }
 
         /* ── Chapter header ────────────────────────────────────── */
@@ -88,12 +88,12 @@
             border-radius: 20px;
             margin-bottom: 0.75rem;
         }
-        .chapter-label.purple  { background: #3a1a6b; }
-        .chapter-label.teal    { background: #0d9488; }
-        .chapter-label.amber   { background: #b45309; }
+        .chapter-label.purple  { background: var(--brand-dark); }
+        .chapter-label.teal    { background: var(--accent); }
+        .chapter-label.amber   { background: var(--highlight-ink); }
         .chapter-label.blue    { background: #1d4ed8; }
         .chapter-label.green   { background: #15803d; }
-        .chapter-label.rose    { background: #9d174d; }
+        .chapter-label.rose    { background: var(--brand); }
 
         .chapter-icon {
             font-size: 2.5rem;
@@ -103,12 +103,12 @@
         .chapter-title {
             font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 800;
-            color: #1e1b4b;
+            color: var(--ink);
             margin: 0 0 0.6rem;
         }
         .chapter-intro {
             font-size: 1.05rem;
-            color: #475569;
+            color: var(--ink-muted);
             line-height: 1.7;
             max-width: 640px;
             margin: 0 0 2rem;
@@ -126,8 +126,8 @@
             display: flex;
             gap: 1rem;
             align-items: flex-start;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: var(--brand-wash);
+            border: 1px solid var(--border);
             border-radius: 0.75rem;
             padding: 1rem 1.25rem;
         }
@@ -143,23 +143,23 @@
             font-size: 1rem;
             color: #fff;
         }
-        .step-num.purple  { background: #3a1a6b; }
-        .step-num.teal    { background: #0d9488; }
-        .step-num.amber   { background: #b45309; }
+        .step-num.purple  { background: var(--brand-dark); }
+        .step-num.teal    { background: var(--accent); }
+        .step-num.amber   { background: var(--highlight-ink); }
         .step-num.blue    { background: #1d4ed8; }
         .step-num.green   { background: #15803d; }
-        .step-num.rose    { background: #9d174d; }
+        .step-num.rose    { background: var(--brand); }
 
         .step-body strong {
             display: block;
             font-size: 1rem;
-            color: #1e293b;
+            color: var(--ink);
             margin-bottom: 0.2rem;
         }
         .step-body p {
             margin: 0;
             font-size: 0.9rem;
-            color: #64748b;
+            color: var(--ink-muted);
             line-height: 1.55;
         }
 
@@ -172,12 +172,12 @@
             gap: 0.9rem;
             align-items: flex-start;
         }
-        .callout.purple { background: #f5f3ff; border-left: 4px solid #3a1a6b; }
-        .callout.teal   { background: #f0fdfa; border-left: 4px solid #0d9488; }
-        .callout.amber  { background: #fffbeb; border-left: 4px solid #b45309; }
+        .callout.purple { background: var(--brand-soft); border-left: 4px solid var(--brand-dark); }
+        .callout.teal   { background: #f0fdfa; border-left: 4px solid var(--accent); }
+        .callout.amber  { background: #fffbeb; border-left: 4px solid var(--highlight-ink); }
         .callout.blue   { background: #eff6ff; border-left: 4px solid #1d4ed8; }
         .callout.green  { background: #f0fdf4; border-left: 4px solid #15803d; }
-        .callout.rose   { background: #fff1f2; border-left: 4px solid #9d174d; }
+        .callout.rose   { background: #fff1f2; border-left: 4px solid var(--brand); }
 
         /* ── AAC equipment table ───────────────────────────────── */
         .equip-table {
@@ -190,38 +190,38 @@
             text-align: left;
             padding: 0.5rem 0.75rem;
             background: #fff1f2;
-            color: #9d174d;
+            color: var(--brand);
             font-weight: 700;
             border-bottom: 2px solid #fecdd3;
         }
         .equip-table td {
             padding: 0.55rem 0.75rem;
-            color: #475569;
-            border-bottom: 1px solid #f1f5f9;
+            color: var(--ink-muted);
+            border-bottom: 1px solid var(--brand-wash);
             vertical-align: top;
             line-height: 1.45;
         }
         .equip-table tr:last-child td { border-bottom: none; }
-        .equip-table td:first-child { font-weight: 600; color: #1e293b; white-space: nowrap; }
+        .equip-table td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
         @media (max-width: 580px) {
             .equip-table, .equip-table thead, .equip-table tbody,
             .equip-table th, .equip-table td, .equip-table tr { display: block; }
             .equip-table thead { display: none; }
             .equip-table td { padding: 0.35rem 0; border-bottom: none; }
-            .equip-table td:first-child { color: #9d174d; margin-top: 0.75rem; }
-            .equip-table tr { border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem; }
+            .equip-table td:first-child { color: var(--brand); margin-top: 0.75rem; }
+            .equip-table tr { border-bottom: 1px solid var(--brand-wash); padding-bottom: 0.5rem; }
         }
         .callout-icon { font-size: 1.5rem; flex-shrink: 0; }
         .callout-text strong {
             display: block;
             font-size: 0.95rem;
-            color: #1e293b;
+            color: var(--ink);
             margin-bottom: 0.25rem;
         }
         .callout-text p {
             margin: 0;
             font-size: 0.875rem;
-            color: #475569;
+            color: var(--ink-muted);
             line-height: 1.55;
         }
 
@@ -234,7 +234,7 @@
         }
         .mini-card {
             background: #fff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
             border-radius: 0.75rem;
             padding: 1.1rem 1.2rem;
         }
@@ -242,12 +242,12 @@
         .mini-card h4 {
             margin: 0 0 0.35rem;
             font-size: 0.95rem;
-            color: #1e293b;
+            color: var(--ink);
         }
         .mini-card p {
             margin: 0;
             font-size: 0.85rem;
-            color: #64748b;
+            color: var(--ink-muted);
             line-height: 1.5;
         }
 
@@ -260,8 +260,8 @@
         }
         @media (max-width: 520px) { .download-pair { grid-template-columns: 1fr; } }
         .dl-card {
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: var(--brand-wash);
+            border: 2px solid var(--border);
             border-radius: 0.75rem;
             padding: 1.1rem 1.25rem;
             text-align: center;
@@ -271,14 +271,14 @@
             font-size: 1.6rem;
             font-weight: 900;
             font-family: ui-monospace, monospace;
-            color: #3a1a6b;
+            color: var(--brand-dark);
             background: #ede9fe;
             padding: 0.2rem 0.6rem;
             border-radius: 0.4rem;
             margin-bottom: 0.5rem;
         }
-        .dl-card h4 { margin: 0 0 0.3rem; font-size: 0.95rem; color: #1e293b; }
-        .dl-card p { margin: 0; font-size: 0.8rem; color: #64748b; line-height: 1.5; }
+        .dl-card h4 { margin: 0 0 0.3rem; font-size: 0.95rem; color: var(--ink); }
+        .dl-card p { margin: 0; font-size: 0.8rem; color: var(--ink-muted); line-height: 1.5; }
 
         /* ── "What to do next" use list ───────────────────────── */
         .use-list {
@@ -291,17 +291,17 @@
             gap: 0.85rem;
             align-items: flex-start;
             background: #fff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
             border-radius: 0.75rem;
             padding: 1rem 1.2rem;
         }
         .use-row-icon { font-size: 1.6rem; flex-shrink: 0; }
-        .use-row h4 { margin: 0 0 0.2rem; font-size: 0.95rem; color: #1e293b; }
-        .use-row p { margin: 0; font-size: 0.85rem; color: #64748b; line-height: 1.5; }
+        .use-row h4 { margin: 0 0 0.2rem; font-size: 0.95rem; color: var(--ink); }
+        .use-row p { margin: 0; font-size: 0.85rem; color: var(--ink-muted); line-height: 1.5; }
 
         /* ── CTA at bottom ─────────────────────────────────────── */
         .learn-cta {
-            background: linear-gradient(135deg, #3a1a6b 0%, #0d9488 100%);
+            background: linear-gradient(135deg, var(--brand-dark) 0%, var(--accent) 100%);
             padding: 3.5rem 1.5rem;
             text-align: center;
             color: #fff;
@@ -311,7 +311,7 @@
         .learn-cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
         .btn-inv {
             background: #fff;
-            color: #3a1a6b;
+            color: var(--brand-dark);
             padding: 0.7rem 1.5rem;
             border-radius: 0.5rem;
             font-weight: 700;
@@ -354,6 +354,7 @@
             </form>
         {% else %}
             <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'pricing' %}">Pricing</a>
             <a href="{% url 'learn' %}" style="font-weight:600;">How to use</a>
             <a href="{% url 'accounts:login' %}">Log in</a>
             <a href="{% url 'accounts:signup' %}" class="btn btn-primary"
@@ -622,7 +623,7 @@
                 with any AAC software that produces keyboard output — including Grid&nbsp;3,
                 Snap Core First, Proloquo2Go, and Clicker&nbsp;8.
                 There is no time pressure in solo mode, so you can compose at whatever pace suits you.
-                See <a href="#aac" style="color:#9d174d;">Chapter&nbsp;5</a> for the full guide to AAC features.
+                See <a href="#aac" style="color:var(--brand);">Chapter&nbsp;5</a> for the full guide to AAC features.
             </p>
         </div>
     </div>
@@ -709,7 +710,7 @@
         </div>
     </div>
 
-    <h3 style="margin-top:2rem; margin-bottom:0.75rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.75rem; font-size:1.1rem; color:var(--ink);">
         Session tools available to hosts
     </h3>
     <div class="mini-grid">
@@ -776,7 +777,7 @@
     </p>
 
     {# ── Input methods ── #}
-    <h3 style="margin-top:0; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:0; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Ways to add your response
     </h3>
     <div class="use-list">
@@ -837,7 +838,7 @@
     </div>
 
     {# ── Timer features ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Timer features designed for AAC users
     </h3>
     <div class="mini-grid">
@@ -896,7 +897,7 @@
     </div>
 
     {# ── Accessibility Mode ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Accessibility Mode
     </h3>
     <div class="callout rose">
@@ -935,10 +936,10 @@
     </div>
 
     {# ── Connecting AAC equipment ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Connecting your AAC equipment
     </h3>
-    <p style="color:#475569; font-size:0.95rem; line-height:1.7; margin:0 0 1rem;">
+    <p style="color:var(--ink-muted); font-size:0.95rem; line-height:1.7; margin:0 0 1rem;">
         KwaCart runs entirely in a web browser, so it works with any AAC hardware or software
         that can control a browser on a computer, tablet, or phone.
         You do not need to install a special app or configure KwaCart — just set up your
@@ -983,10 +984,10 @@
     </ol>
 
     {# ── Compatible AAC equipment list ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.5rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.5rem; font-size:1.1rem; color:var(--ink);">
         Potentially compatible AAC equipment and software
     </h3>
-    <p style="color:#64748b; font-size:0.85rem; line-height:1.6; margin:0 0 0.25rem;">
+    <p style="color:var(--ink-muted); font-size:0.85rem; line-height:1.6; margin:0 0 0.25rem;">
         This is a reference list, not a guarantee of compatibility.
         KwaCart has been designed to follow web accessibility standards so that it works
         with any device that can control a browser. If you encounter a problem with a specific
@@ -1135,7 +1136,7 @@
         </li>
     </ol>
 
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Two download formats — what is the difference?
     </h3>
     <div class="download-pair">
@@ -1159,7 +1160,7 @@
         </div>
     </div>
 
-    <h3 style="margin-top:2.25rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2.25rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         What can you do with your files once you have downloaded them?
     </h3>
     <div class="use-list">

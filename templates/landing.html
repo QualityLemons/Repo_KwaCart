@@ -22,7 +22,7 @@
             <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">{% csrf_token %}</form>
         {% else %}
             <a href="{% url 'about' %}">About</a>
-            <a href="#pricing">Pricing</a>
+            <a href="{% url 'pricing' %}">Pricing</a>
             <a href="{% url 'accessibility' %}">Accessibility</a>
             <a href="{% url 'accounts:login' %}">Log in</a>
             <a href="{% url 'accounts:signup' %}" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
@@ -42,7 +42,8 @@
         </p>
         <div class="hero-actions">
             <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-large">Register now</a>
-            <a href="#free-tools" class="btn btn-large">Try it free &darr;</a>
+            <a href="{% url 'home' %}#free-tools" class="btn btn-large">Try it free &darr;</a>
+            <a href="{% url 'pricing' %}" class="btn btn-large">Pricing</a>
         </div>
     </div>
 </section>
@@ -230,7 +231,8 @@
 </section>
 
 <!-- ── Learn how to use KwaCart ── -->
-<section class="section" style="background:#f8fafc; border-top:2px solid #e2e8f0; border-bottom:2px solid #e2e8f0;">
+<!-- ── Learn teaser ── -->
+<section class="section learn-teaser">
     <div style="max-width:720px; margin:0 auto; text-align:center; padding:0 1rem;">
         <div style="font-size:3rem; margin-bottom:0.75rem;" aria-hidden="true">📖</div>
         <h2 class="section-title" style="margin-bottom:0.5rem;">New to KwaCart?</h2>
@@ -343,64 +345,12 @@
     </div>
 </section>
 
-<hr class="divider">
-
-<!-- ── Pricing ── -->
-<section class="section" id="pricing">
-    <h2 class="section-title">Simple subscription pricing</h2>
-    <p class="section-sub">
-        Start as an individual host. Move to Organisation only when a second person on your
-        team needs their own host login — guests always join free.
-    </p>
-
-    <div class="pricing-grid">
-        <article class="pricing-card pricing-card--featured">
-            <p class="pricing-eyebrow">For individuals</p>
-            <h3 class="pricing-name">Individual</h3>
-            <p class="pricing-tagline">One host login — run live sessions with your groups.</p>
-            <p class="pricing-price">
-                <span class="pricing-amount">£12</span>
-                <span class="pricing-period">/ month</span>
-            </p>
-            <p class="pricing-alt">or <strong>£100 / year</strong> (save £44)</p>
-            <ul class="pricing-features">
-                <li>Full Liberating Structures toolkit</li>
-                <li>Live hosted sessions with QR / link join</li>
-                <li>Guest participants never need an account</li>
-                <li>Session archive with Markdown &amp; RTF export</li>
-                <li>Built-in AAC-friendly pacing support</li>
-            </ul>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-large pricing-cta">Start Individual</a>
-        </article>
-
-        <article class="pricing-card">
-            <p class="pricing-eyebrow">Upsell when you grow</p>
-            <h3 class="pricing-name">Organisation</h3>
-            <p class="pricing-tagline">For teams where more than one person needs to host.</p>
-            <p class="pricing-price">
-                <span class="pricing-amount">£36</span>
-                <span class="pricing-period">/ month</span>
-            </p>
-            <p class="pricing-alt">or <strong>£300 / year</strong> (save £132)</p>
-            <ul class="pricing-features">
-                <li>Everything in Individual</li>
-                <li>Additional host logins for your team</li>
-                <li>Shared organisational archive</li>
-                <li>Best when a second colleague needs to run sessions</li>
-                <li>Simple upgrade — no per-participant fees</li>
-            </ul>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-large pricing-cta">Start Organisation</a>
-            <p class="pricing-note">Choose this when a second person needs a host login.</p>
-        </article>
-    </div>
-</section>
-
 <!-- ── CTA band ── -->
 <section class="cta-band">
-    <h2>Ready to host your next session?</h2>
-    <p>£12/month or £100/year for individuals — Organisation when your team needs a second host.</p>
+    <h2>Interested in the full platform?</h2>
+    <p>Subscribe from £12/month — or try two tools free right now, no account needed.</p>
     <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
-        <a href="#pricing" class="btn btn-primary-inv btn-large">See pricing</a>
+        <a href="{% url 'pricing' %}" class="btn btn-primary-inv btn-large">See pricing</a>
         <a href="{% url 'accounts:signup' %}" class="btn btn-large">Register</a>
     </div>
 </section>

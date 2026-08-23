@@ -7,7 +7,7 @@
 .cz-intro {
     margin: 0 0 0.25rem;
     font-size: 0.9rem;
-    color: #64748b;
+    color: var(--ink-muted);
 }
 
 .cz-picker {
@@ -67,7 +67,7 @@
 .cz-pick-body {
     font-size: 0.875rem;
     line-height: 1.55;
-    color: #475569;
+    color: var(--ink-muted);
     margin: 0 0 1.1rem;
     flex: 1;
 }
@@ -112,11 +112,11 @@
 .cz-banner__title { font-weight: 700; }
 .cz-banner--solo .cz-banner__title { color: #0d9488; }
 .cz-banner--live .cz-banner__title { color: var(--brand); }
-.cz-banner__sep  { color: #cbd5e1; }
-.cz-banner__sub  { color: #64748b; }
+.cz-banner__sep  { color: var(--border-strong); }
+.cz-banner__sub  { color: var(--ink-muted); }
 .cz-banner__links { margin-left: auto; display: flex; gap: 0.75rem; }
-.cz-banner__links a { font-size: 0.8rem; color: #64748b; white-space: nowrap; }
-.cz-banner__links a:hover { color: #1e293b; }
+.cz-banner__links a { font-size: 0.8rem; color: var(--ink-muted); white-space: nowrap; }
+.cz-banner__links a:hover { color: var(--ink); }
 
 /* ── Recent activity chips ── */
 .cz-activity {
@@ -127,7 +127,7 @@
     margin-bottom: 1.25rem;
     padding: 0.6rem 0.85rem;
     background: #fff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 8px;
 }
 .cz-activity__label {
@@ -141,16 +141,16 @@
 }
 .cz-chip {
     font-size: 0.78rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 20px;
     padding: 0.2rem 0.65rem;
     text-decoration: none;
     white-space: nowrap;
-    background: #f8fafc;
-    color: #475569;
+    background: var(--brand-wash);
+    color: var(--ink-muted);
     transition: background 0.1s;
 }
-.cz-chip:hover { background: #f1f5f9; text-decoration: none; }
+.cz-chip:hover { background: var(--brand-wash); text-decoration: none; }
 .cz-chip--live {
     border-color: var(--border);
     background: var(--brand-wash);
@@ -175,7 +175,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(135deg, var(--ink-soft) 0%, #6d28d9 100%);
+    background: linear-gradient(135deg, var(--ink-soft) 0%, var(--brand) 100%);
     color: #fff;
     border-radius: 0.75rem;
     padding: 1rem 1.25rem;

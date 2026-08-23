@@ -1,10 +1,10 @@
 /* ── Breadcrumb nav ── */
-.breadcrumb { font-size: 0.875rem; color: #64748b; margin-bottom: 1.25rem; }
+.breadcrumb { font-size: 0.875rem; color: var(--ink-muted); margin-bottom: 1.25rem; }
 .breadcrumb a { color: var(--brand); text-decoration: none; }
 
 /* ── Page header ── */
 .try-header {
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
     padding-bottom: 1.25rem;
     margin-bottom: 1.75rem;
 }
@@ -19,8 +19,8 @@
     border-radius: 3px;
 }
 .try-header h1 { margin: 0.5rem 0 0.4rem; font-size: 1.9rem; }
-.try-tagline { color: #64748b; font-style: italic; margin: 0 0 0.6rem; }
-.try-what { color: #334155; max-width: 640px; margin: 0; }
+.try-tagline { color: var(--ink-muted); font-style: italic; margin: 0 0 0.6rem; }
+.try-what { color: var(--ink-soft); max-width: 640px; margin: 0; }
 
 /* ── Results section ── */
 .try-result {
@@ -37,7 +37,7 @@
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: #64748b;
+    color: var(--ink-muted);
     margin-bottom: 0.3rem;
 }
 .try-result__value {
@@ -47,7 +47,7 @@
     border-radius: 5px;
     padding: 0.75rem 1rem;
     margin: 0;
-    color: #1e293b;
+    color: var(--ink);
 }
 
 /* ── Sandbox download bar ── */
@@ -82,12 +82,12 @@
     outline-offset: 2px;
 }
 .try-download__btn:disabled {
-    background: #64748b;
+    background: var(--ink-muted);
     cursor: default;
 }
 .try-download__hint {
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--ink-muted);
     margin: 0;
 }
 
@@ -105,7 +105,7 @@
 }
 .sandbox-cta__text { flex: 1; min-width: 220px; }
 .sandbox-cta__text strong { color: #581c87; display: block; margin-bottom: 0.25rem; }
-.sandbox-cta__text p { margin: 0; font-size: 0.9rem; color: #475569; }
+.sandbox-cta__text p { margin: 0; font-size: 0.9rem; color: var(--ink-muted); }
 .sandbox-cta__actions {
     display: flex;
     flex-direction: column;
@@ -124,7 +124,7 @@
     white-space: nowrap;
     transition: background 0.15s;
 }
-.sandbox-cta__signup:hover { background: #6d28d9; }
+.sandbox-cta__signup:hover { background: var(--brand); }
 .sandbox-cta__waitlist {
     font-size: 0.8rem;
     color: var(--brand-mid);
@@ -145,7 +145,7 @@
 }
 .try-nudge__text { flex: 1; min-width: 220px; }
 .try-nudge__text strong { color: #3d2469; }
-.try-nudge__text p { margin: 0.3rem 0 0; font-size: 0.9rem; color: #475569; }
+.try-nudge__text p { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--ink-muted); }
 .try-nudge__link {
     display: inline-block;
     padding: 0.6rem 1.2rem;
@@ -158,7 +158,7 @@
 }
 
 /* ── Divider and "Try again" heading ── */
-.try-divider { border: none; border-top: 1px solid #e2e8f0; margin-bottom: 1.75rem; }
+.try-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 1.75rem; }
 .try-again-heading { font-size: 1.1rem; margin-bottom: 1rem; }
 
 /* ── Error message ── */
@@ -174,8 +174,8 @@
 /* ── Countdown timer widget ── */
 .try-timer {
     margin-bottom: 1.5rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--brand-wash);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1rem 1.25rem;
 }
@@ -194,7 +194,7 @@
     color: var(--brand);
     margin: 0 0 0.2rem;
 }
-.try-timer__label-value { font-size: 0.9rem; color: #334155; margin: 0; }
+.try-timer__label-value { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
 .try-timer__controls { display: flex; align-items: center; gap: 1rem; }
 .try-timer__display {
     font-size: 2rem;
@@ -251,17 +251,17 @@
 /* ── How to use details block ── */
 .how-to-use {
     margin-bottom: 1.75rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--brand-wash);
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 0.9rem 1.1rem;
 }
 .how-to-use summary { cursor: pointer; font-weight: 600; color: var(--brand); }
-.how-to-use p { margin-top: 0.75rem; color: #334155; }
+.how-to-use p { margin-top: 0.75rem; color: var(--ink-soft); }
 
 /* ── Form field helpers ── */
 .form-group { margin-bottom: 1.25rem; }
-.field-help { font-size: 0.85rem; color: #64748b; margin: 0.2rem 0 0.4rem; }
+.field-help { font-size: 0.85rem; color: var(--ink-muted); margin: 0.2rem 0 0.4rem; }
 .field-error { color: #dc2626; font-size: 0.875rem; margin-top: 0.3rem; }
 
 /* ── Submit button modifier ── */
@@ -270,10 +270,10 @@
 /* ── Upsell footer ── */
 .try-upsell {
     margin-top: 2.5rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--brand-wash);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1.25rem 1.5rem;
 }
-.try-upsell p { margin: 0.3rem 0 0; font-size: 0.9rem; color: #475569; }
+.try-upsell p { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--ink-muted); }
 .try-upsell a { color: var(--brand); }

@@ -9,11 +9,11 @@
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
 }
 .idb-nav a {
     font-size: 0.875rem;
-    color: #64748b;
+    color: var(--ink-muted);
     text-decoration: none;
     font-weight: 500;
 }
@@ -30,8 +30,8 @@
 }
 .idb-stat {
     flex: 1 1 7rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--brand-wash);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.8rem 1.1rem;
     min-width: 6rem;
@@ -45,7 +45,7 @@
 }
 .idb-stat__label {
     font-size: 0.78rem;
-    color: #64748b;
+    color: var(--ink-muted);
     margin-top: 0.25rem;
     display: block;
 }
@@ -53,7 +53,7 @@
 /* ── Keyword search form ── */
 .idb-search-section {
     background: #fff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 1.1rem 1.25rem;
     margin-bottom: 1.75rem;
@@ -62,7 +62,7 @@
     display: block;
     font-size: 0.85rem;
     font-weight: 700;
-    color: #334155;
+    color: var(--ink-soft);
     margin-bottom: 0.6rem;
 }
 .idb-keyword-row {
@@ -75,11 +75,11 @@
 .idb-keyword-input {
     flex: 1 1 14rem;
     padding: 0.55rem 0.85rem;
-    border: 1.5px solid #cbd5e1;
+    border: 1.5px solid var(--border-strong);
     border-radius: 6px;
     font-size: 1rem;
     font-family: inherit;
-    color: #1e293b;
+    color: var(--ink);
     min-height: 2.75rem;
 }
 .idb-keyword-input:focus {
@@ -89,7 +89,7 @@
 }
 .idb-clear {
     font-size: 0.85rem;
-    color: #64748b;
+    color: var(--ink-muted);
     text-decoration: underline;
     white-space: nowrap;
 }
@@ -103,7 +103,7 @@
 }
 .idb-range-label-text {
     font-size: 0.78rem;
-    color: #64748b;
+    color: var(--ink-muted);
     margin-right: 0.3rem;
 }
 .idb-pill {
@@ -115,9 +115,9 @@
     font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
-    border: 1.5px solid #cbd5e1;
+    border: 1.5px solid var(--border-strong);
     background: #fff;
-    color: #475569;
+    color: var(--ink-muted);
     transition: background 0.1s, border-color 0.1s, color 0.1s;
     user-select: none;
     min-height: 1.9rem;
@@ -137,7 +137,7 @@
 .idb-chart-heading {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #334155;
+    color: var(--ink-soft);
     margin-bottom: 0.5rem;
     display: flex;
     align-items: baseline;
@@ -150,7 +150,7 @@
 }
 .idb-chart-heading__total {
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--ink-muted);
     font-weight: 400;
 }
 
@@ -158,7 +158,7 @@
     overflow-x: auto;
     overflow-y: visible;
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     background: #fafafa;
     padding: 1rem 0.75rem 0;
 }
@@ -167,7 +167,7 @@
     align-items: flex-end;
     gap: 3px;
     height: 180px;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid var(--border);
     min-width: max-content;
     padding-bottom: 0;
 }
@@ -195,7 +195,7 @@
     margin-bottom: 3px;
     line-height: 1;
 }
-.idb-count--zero { color: #cbd5e1; }
+.idb-count--zero { color: var(--border-strong); }
 .idb-bar {
     width: 62%;
     min-height: 2px;
@@ -204,7 +204,7 @@
     transition: height 0.25s ease;
 }
 .idb-bar--peak { background: #40B0A6; }
-.idb-period--zero .idb-bar { background: #e2e8f0; }
+.idb-period--zero .idb-bar { background: var(--border); }
 .idb-period__label {
     font-size: 0.6rem;
     color: #94a3b8;
@@ -221,10 +221,10 @@
 .idb-no-results {
     text-align: center;
     padding: 2rem 1rem;
-    color: #64748b;
+    color: var(--ink-muted);
     font-size: 0.9rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--brand-wash);
+    border: 1px solid var(--border);
     border-radius: 8px;
 }
 
@@ -232,7 +232,7 @@
 .idb-matches-heading {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #334155;
+    color: var(--ink-soft);
     margin: 1.5rem 0 0.6rem;
 }
 .idb-matches {
@@ -244,7 +244,7 @@
     gap: 0.5rem;
 }
 .idb-match {
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.75rem 1rem;
     background: #fff;
@@ -273,7 +273,7 @@
 .idb-match__title {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--ink);
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
@@ -292,7 +292,7 @@
 }
 .idb-match__snippet {
     font-size: 0.8rem;
-    color: #475569;
+    color: var(--ink-muted);
     margin-top: 0.3rem;
     line-height: 1.5;
     overflow: hidden;
@@ -308,7 +308,7 @@
 .idb-terms-heading {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #334155;
+    color: var(--ink-soft);
     margin-bottom: 0.3rem;
 }
 .idb-terms-hint {
@@ -322,7 +322,7 @@
     gap: 0.5rem 0.75rem;
     align-items: baseline;
     background: #fafafa;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 1.25rem 1.5rem;
 }

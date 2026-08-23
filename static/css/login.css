@@ -26,7 +26,7 @@ body {
     margin: 0 auto;
     width: 100%;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
 }
 .nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--brand); text-decoration: none; }
 .nav-spacer { flex: 1; }
@@ -44,29 +44,29 @@ body {
 .card {
     background: #fff;
     border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     padding: 2.5rem 2rem;
     width: 100%;
     max-width: 440px;
     box-shadow: 0 4px 24px rgba(176,16,80,0.08);
 }
 .card-logo { font-weight: 800; font-size: 1.3rem; color: var(--brand); margin-bottom: 0.5rem; }
-.card-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 0.3rem; }
-.card-sub { color: #64748b; font-size: 0.95rem; margin-bottom: 2rem; }
+.card-title { font-size: 1.5rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+.card-sub { color: var(--ink-muted); font-size: 0.95rem; margin-bottom: 2rem; }
 
 /* ── Form elements ── */
 .form-group { margin-bottom: 1.25rem; }
-label { display: block; font-weight: 600; margin-bottom: 0.35rem; font-size: 0.95rem; color: #1e293b; }
+label { display: block; font-weight: 600; margin-bottom: 0.35rem; font-size: 0.95rem; color: var(--ink); }
 input[type="email"],
 input[type="password"],
 input[type="text"] {
     width: 100%;
     padding: 0.6rem 0.85rem;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border-strong);
     border-radius: 6px;
     font-family: inherit;
     font-size: 1rem;
-    color: #1e293b;
+    color: var(--ink);
     background: #fff;
     transition: border-color 0.15s;
     box-sizing: border-box;
@@ -108,16 +108,16 @@ input:focus {
 .btn-primary:hover { background: var(--brand-dark); }
 
 /* ── Card footer link ── */
-.card-footer-link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #64748b; }
+.card-footer-link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--ink-muted); }
 .card-footer-link a { color: var(--brand); text-decoration: none; font-weight: 600; }
 .card-footer-link a:hover { text-decoration: underline; }
 
 /* ── Footer ── */
 .footer {
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border);
     padding: 1.25rem;
     text-align: center;
-    color: #64748b;
+    color: var(--ink-muted);
     font-size: 0.85rem;
 }
 

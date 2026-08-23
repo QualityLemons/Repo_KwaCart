@@ -17,10 +17,11 @@ nav {
     gap: 1rem;
     align-items: center;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
     margin-bottom: 1.5rem;
 }
 nav a { color: var(--brand); text-decoration: none; }
+nav a.nav-accent { color: var(--accent); font-weight: 600; }
 nav .spacer { flex: 1; }
 
 /* ── Flash messages ── */
@@ -41,7 +42,7 @@ nav .spacer { flex: 1; }
     border: 1px solid var(--brand);
     color: var(--brand);
     text-decoration: none;
-    background: #fff;
+    background: var(--surface-raised);
     cursor: pointer;
     font-family: inherit;
     font-size: 1rem;
@@ -58,9 +59,9 @@ nav .spacer { flex: 1; }
 }
 .tool-card {
     padding: 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 6px;
-    background: #f8fafc;
+    background: var(--brand-wash);
 }
 
 /* ── Screen-reader utility ── */
@@ -87,13 +88,13 @@ input[type="url"] {
     width: 100%;
     box-sizing: border-box;
     padding: 0.55rem 0.75rem;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border-strong);
     border-radius: 5px;
     font-family: inherit;
     font-size: 1rem;
     line-height: 1.5;
-    color: #1e293b;
-    background: #fff;
+    color: var(--ink);
+    background: var(--surface-raised);
     transition: border-color 0.15s;
 }
 textarea:focus,
@@ -105,7 +106,7 @@ input[type="search"]:focus,
 input[type="url"]:focus {
     outline: none;
     border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(93, 58, 155, 0.15);
+    box-shadow: 0 0 0 3px rgba(176, 16, 80, 0.15);
 }
 textarea { resize: vertical; }
 label {
@@ -113,7 +114,7 @@ label {
     font-weight: 600;
     margin-bottom: 0.3rem;
     font-size: 0.95rem;
-    color: #1e293b;
+    color: var(--ink);
 }
 
 /* ── Form validation feedback ── */
@@ -162,9 +163,9 @@ label {
 .page-footer {
     margin-top: 3rem;
     padding: 1.25rem 0;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border);
     text-align: center;
-    color: #64748b;
+    color: var(--ink-muted);
     font-size: 0.85rem;
 }
 

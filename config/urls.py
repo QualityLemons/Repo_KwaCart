@@ -44,9 +44,14 @@ def learn(request):
     return render(request, 'learn.html')
 
 
+def pricing(request):
+    return render(request, 'pricing.html')
+
+
 urlpatterns = [
     path('', home, name='home'),
     path('about/', about, name='about'),
+    path('pricing/', pricing, name='pricing'),
     path('accessibility/', accessibility, name='accessibility'),
     path('learn/', learn, name='learn'),
     path('case-studies/<slug:slug>/', case_study_detail, name='case_study_detail'),

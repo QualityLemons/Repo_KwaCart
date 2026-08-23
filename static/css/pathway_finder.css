@@ -23,28 +23,28 @@
     justify-content: center;
     font-size: 0.85rem;
     font-weight: 700;
-    background: #e5e7eb;
-    color: #6b7280;
+    background: var(--border);
+    color: var(--ink-muted);
     transition: background 0.2s, color 0.2s;
     flex-shrink: 0;
 }
 .pathway-step-dot.active {
-    background: #6d28d9;
+    background: var(--brand);
     color: #fff;
 }
 .pathway-step-dot.done {
-    background: #4f46e5;
+    background: var(--brand-mid);
     color: #fff;
 }
 .pathway-step-line {
     flex: 1;
     height: 3px;
-    background: #e5e7eb;
+    background: var(--border);
     max-width: 4rem;
     transition: background 0.2s;
 }
 .pathway-step-line.done {
-    background: #4f46e5;
+    background: var(--brand-mid);
 }
 
 /* ── Step panel ── */
@@ -58,12 +58,12 @@
 .pathway-question {
     font-size: 1.55rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--ink);
     margin-bottom: 0.5rem;
     line-height: 1.3;
 }
 .pathway-hint {
-    color: #6b7280;
+    color: var(--ink-muted);
     margin-bottom: 1.75rem;
     font-size: 0.95rem;
 }
@@ -77,23 +77,23 @@
 }
 .pathway-option {
     padding: 0.7rem 1.25rem;
-    border: 2px solid #d1d5db;
+    border: 2px solid var(--border-strong);
     border-radius: 0.6rem;
     background: #fff;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s, color 0.15s;
-    color: #374151;
+    color: var(--ink-soft);
     user-select: none;
 }
 .pathway-option:hover {
-    border-color: #6d28d9;
-    background: #f5f3ff;
+    border-color: var(--brand);
+    background: var(--brand-soft);
 }
 .pathway-option.selected {
-    border-color: #6d28d9;
-    background: #6d28d9;
+    border-color: var(--brand);
+    background: var(--brand);
     color: #fff;
 }
 
@@ -129,7 +129,7 @@
     box-shadow: 0 4px 14px rgba(0,0,0,0.18);
 }
 .goal-circle.selected {
-    border-color: #1f2937;
+    border-color: var(--ink);
     box-shadow: 0 0 0 4px rgba(31,41,57,0.25);
 }
 .goal-circle.selected::after {
@@ -171,11 +171,11 @@
     background: rgba(255,255,255,0.65);
 }
 .goal-audio-btn:focus-visible {
-    outline: 2px solid #1f2937;
+    outline: 2px solid var(--ink);
     outline-offset: 1px;
 }
 .goal-circle:focus-visible {
-    outline: 3px solid #1f2937;
+    outline: 3px solid var(--ink);
     outline-offset: 3px;
 }
 
@@ -200,19 +200,19 @@
     cursor: not-allowed;
 }
 .pathway-btn-primary {
-    background: #6d28d9;
+    background: var(--brand);
     color: #fff;
 }
 .pathway-btn-primary:hover:not(:disabled) {
-    background: #5b21b6;
+    background: var(--brand-dark);
 }
 .pathway-btn-secondary {
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: var(--brand-wash);
+    color: var(--ink-soft);
+    border: 1px solid var(--border-strong);
 }
 .pathway-btn-secondary:hover:not(:disabled) {
-    background: #e5e7eb;
+    background: var(--border);
 }
 
 /* ── Results ── */
@@ -223,11 +223,11 @@
 .pathway-results-header h2 {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--ink);
     margin-bottom: 0.4rem;
 }
 .pathway-results-header p {
-    color: #6b7280;
+    color: var(--ink-muted);
 }
 .pathway-result-cards {
     display: flex;
@@ -236,7 +236,7 @@
     margin-bottom: 2rem;
 }
 .pathway-result-card {
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
     border-radius: 0.75rem;
     padding: 1.1rem 1.4rem;
     display: flex;
@@ -248,7 +248,7 @@
 .pathway-result-rank {
     font-size: 1.4rem;
     font-weight: 900;
-    color: #6d28d9;
+    color: var(--brand);
     min-width: 2rem;
     text-align: center;
     padding-top: 0.1rem;
@@ -259,11 +259,11 @@
 .pathway-result-body h3 {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--ink);
     margin: 0 0 0.2rem;
 }
 .pathway-result-body p {
-    color: #6b7280;
+    color: var(--ink-muted);
     font-size: 0.9rem;
     margin: 0 0 0.6rem;
 }
@@ -281,45 +281,45 @@
     transition: opacity 0.15s;
 }
 .pathway-result-actions a:first-child {
-    background: #6d28d9;
+    background: var(--brand);
     color: #fff;
 }
 .pathway-result-actions a:first-child:hover {
-    background: #5b21b6;
+    background: var(--brand-dark);
 }
 .pathway-result-actions a:last-child {
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: var(--brand-wash);
+    color: var(--ink-soft);
+    border: 1px solid var(--border-strong);
 }
 .pathway-result-actions a:last-child:hover {
-    background: #e5e7eb;
+    background: var(--border);
 }
 .pathway-session-btn {
     padding: 0.35rem 0.9rem;
     border-radius: 0.4rem;
     font-size: 0.85rem;
     font-weight: 600;
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: var(--brand-wash);
+    color: var(--ink-soft);
+    border: 1px solid var(--border-strong);
     cursor: pointer;
     font-family: inherit;
     transition: background 0.15s;
 }
 .pathway-session-btn:hover {
-    background: #e5e7eb;
+    background: var(--border);
 }
 .pathway-no-results {
     text-align: center;
-    color: #6b7280;
+    color: var(--ink-muted);
     padding: 2rem;
 }
 
 /* ── Selection count badge ── */
 .pathway-selected-count {
     display: inline-block;
-    background: #6d28d9;
+    background: var(--brand);
     color: #fff;
     border-radius: 999px;
     padding: 0.15rem 0.6rem;
