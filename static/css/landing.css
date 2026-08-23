@@ -266,22 +266,15 @@ body {
     line-height: 1.6;
     margin: 0;
 }
-.use-case-card--linked { padding: 0; }
-.use-case-card-link {
-    display: block;
-    padding: 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    height: 100%;
-}
-.use-case-card-link:hover .use-case-card-cta { color: #5D3A9B; }
 .use-case-card-cta {
     display: inline-block;
     margin-top: 0.75rem;
     font-size: 0.82rem;
     font-weight: 700;
     color: #7c3aed;
+    text-decoration: none;
 }
+.use-case-card-cta:hover { color: #5D3A9B; }
 
 /* ── Case study cards (landing) ── */
 .case-study-grid {
