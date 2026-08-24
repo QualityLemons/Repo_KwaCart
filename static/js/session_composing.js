@@ -68,11 +68,11 @@
         clearInterval(_intervalId);
         _intervalId = null;
         btn.textContent = '\uD83D\uDDE3\uFE0F I\u2019m Composing';
-        btn.style.background = '#d97706';
+        btn.style.background = 'var(--highlight)';
         btn.setAttribute('aria-pressed', 'false');
         if (statusEl) {
             statusEl.textContent = 'Signal stopped.';
-            statusEl.style.color = '#64748b';
+            statusEl.style.color = 'var(--ink-muted)';
         }
     }
 

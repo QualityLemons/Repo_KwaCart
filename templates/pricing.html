@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — KwaCart</title>
+    <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=noblush">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+{% include "includes/public_nav.html" with nav_current="pricing" %}
+
+<main id="main-content">
+
+<section class="hero hero--compact">
+    <div class="hero-inner">
+        <h1>Simple <span>subscription</span> pricing</h1>
+        <p>
+            Start as an individual host. Move to Organisation only when a second person on your
+            team needs their own host login — guests always join free.
+        </p>
+    </div>
+</section>
+
+<section class="section" id="pricing">
+    <div class="pricing-grid">
+        <article class="pricing-card pricing-card--featured">
+            <p class="pricing-eyebrow">For individuals</p>
+            <h2 class="pricing-name">Individual</h2>
+            <p class="pricing-tagline">One host login — run live sessions with your groups.</p>
+            <p class="pricing-price">
+                <span class="pricing-amount">£12</span>
+                <span class="pricing-period">/ month</span>
+            </p>
+            <p class="pricing-alt">or <strong>£100 / year</strong> (save £44)</p>
+            <ul class="pricing-features">
+                <li>Full Liberating Structures toolkit</li>
+                <li>Live hosted sessions with QR / link join</li>
+                <li>Guest participants never need an account</li>
+                <li>Session archive with Markdown &amp; RTF export</li>
+                <li>Built-in AAC-friendly pacing support</li>
+            </ul>
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary btn-large pricing-cta">Start Individual</a>
+        </article>
+
+        <article class="pricing-card">
+            <p class="pricing-eyebrow">When you grow</p>
+            <h2 class="pricing-name">Organisation</h2>
+            <p class="pricing-tagline">For teams where more than one person needs to host.</p>
+            <p class="pricing-price">
+                <span class="pricing-amount">£36</span>
+                <span class="pricing-period">/ month</span>
+            </p>
+            <p class="pricing-alt">or <strong>£300 / year</strong> (save £132)</p>
+            <ul class="pricing-features">
+                <li>Everything in Individual</li>
+                <li>Additional host logins for your team</li>
+                <li>Shared organisational archive</li>
+                <li>Best when a second colleague needs to run sessions</li>
+                <li>Simple upgrade — no per-participant fees</li>
+            </ul>
+            <a href="{% url 'accounts:signup' %}?plan=organisation" class="btn btn-large pricing-cta">Start Organisation</a>
+            <p class="pricing-note">Choose this when a second person needs a host login.</p>
+        </article>
+    </div>
+
+    <p class="pricing-footnote">
+        Two tools remain free to try with no account — <a href="{% url 'home' %}#free-tools">Min Specs</a>
+        and <a href="{% url 'home' %}#free-tools">15% Solutions</a>.
+    </p>
+</section>
+
+<section class="cta-band">
+    <h2>Ready to host your next session?</h2>
+    <p>Register to get started — or try a free tool first.</p>
+    <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary-inv btn-large">Register now</a>
+        <a href="{% url 'home' %}#free-tools" class="btn btn-large">Try it free</a>
+    </div>
+</section>
+
+</main>
+
+<footer class="footer">
+    KwaCart &mdash; a Liberating Structures facilitation platform.
+    Built as part of a Level&nbsp;5 Diploma project.
+</footer>
+
+</body>
+</html>

@@ -5,20 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in — KwaCart</title>
+    <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<header>
-    <nav class="nav" aria-label="Main navigation">
-        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
-        <span class="nav-spacer"></span>
-        <a href="{% url 'about' %}">About</a>
-        <a href="{% url 'accessibility' %}">Accessibility</a>
-        <a href="{% url 'accounts:signup' %}">Register</a>
-    </nav>
-</header>
+{% include "includes/public_nav.html" with nav_current="login" %}
 
 <main id="main-content">
 <div class="page-wrap">

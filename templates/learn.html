@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn how to use KwaCart</title>
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=noblush">
     <style>
         /* ── Page-level layout ─────────────────────────────────── */
         .learn-hero {
-            background: linear-gradient(135deg, #3a1a6b 0%, #0d9488 100%);
+            background: linear-gradient(135deg, var(--brand-dark) 0%, var(--accent) 100%);
             color: #fff;
             padding: 4rem 1.5rem 3rem;
             text-align: center;
@@ -19,7 +20,7 @@
             font-weight: 800;
             margin: 0 0 0.75rem;
         }
-        .learn-hero h1 span { color: #E1BE6A; }
+        .learn-hero h1 span { color: var(--highlight); }
         .learn-hero p {
             font-size: 1.15rem;
             opacity: 0.9;
@@ -29,7 +30,7 @@
         }
         .learn-back {
             display: inline-block;
-            color: #E1BE6A;
+            color: var(--highlight);
             font-size: 0.9rem;
             text-decoration: none;
             margin-bottom: 1.25rem;
@@ -49,18 +50,18 @@
         .chapter-nav a {
             padding: 0.4rem 1rem;
             border-radius: 20px;
-            background: #f1f5f9;
-            color: #334155;
+            background: var(--brand-wash);
+            color: var(--ink-soft);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
             transition: background 0.15s, color 0.15s;
         }
         .chapter-nav a:hover {
-            background: #3a1a6b;
+            background: var(--brand-dark);
             color: #fff;
-            border-color: #3a1a6b;
+            border-color: var(--brand-dark);
         }
 
         /* ── Section wrapper ───────────────────────────────────── */
@@ -70,7 +71,7 @@
             padding: 3.5rem 1.5rem;
         }
         .learn-section + .learn-section {
-            border-top: 2px solid #f1f5f9;
+            border-top: 2px solid var(--brand-wash);
         }
 
         /* ── Chapter header ────────────────────────────────────── */
@@ -87,12 +88,12 @@
             border-radius: 20px;
             margin-bottom: 0.75rem;
         }
-        .chapter-label.purple  { background: #3a1a6b; }
-        .chapter-label.teal    { background: #0d9488; }
-        .chapter-label.amber   { background: #b45309; }
-        .chapter-label.blue    { background: #1d4ed8; }
+        .chapter-label.purple  { background: var(--brand-dark); }
+        .chapter-label.teal    { background: var(--accent); }
+        .chapter-label.amber   { background: var(--highlight-ink); }
+        .chapter-label.blue    { background: var(--accent); }
         .chapter-label.green   { background: #15803d; }
-        .chapter-label.rose    { background: #9d174d; }
+        .chapter-label.rose    { background: var(--brand); }
 
         .chapter-icon {
             font-size: 2.5rem;
@@ -102,12 +103,12 @@
         .chapter-title {
             font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 800;
-            color: #1e1b4b;
+            color: var(--ink);
             margin: 0 0 0.6rem;
         }
         .chapter-intro {
             font-size: 1.05rem;
-            color: #475569;
+            color: var(--ink-muted);
             line-height: 1.7;
             max-width: 640px;
             margin: 0 0 2rem;
@@ -125,8 +126,8 @@
             display: flex;
             gap: 1rem;
             align-items: flex-start;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: var(--brand-wash);
+            border: 1px solid var(--border);
             border-radius: 0.75rem;
             padding: 1rem 1.25rem;
         }
@@ -142,23 +143,23 @@
             font-size: 1rem;
             color: #fff;
         }
-        .step-num.purple  { background: #3a1a6b; }
-        .step-num.teal    { background: #0d9488; }
-        .step-num.amber   { background: #b45309; }
-        .step-num.blue    { background: #1d4ed8; }
+        .step-num.purple  { background: var(--brand-dark); }
+        .step-num.teal    { background: var(--accent); }
+        .step-num.amber   { background: var(--highlight-ink); }
+        .step-num.blue    { background: var(--accent); }
         .step-num.green   { background: #15803d; }
-        .step-num.rose    { background: #9d174d; }
+        .step-num.rose    { background: var(--brand); }
 
         .step-body strong {
             display: block;
             font-size: 1rem;
-            color: #1e293b;
+            color: var(--ink);
             margin-bottom: 0.2rem;
         }
         .step-body p {
             margin: 0;
             font-size: 0.9rem;
-            color: #64748b;
+            color: var(--ink-muted);
             line-height: 1.55;
         }
 
@@ -171,12 +172,12 @@
             gap: 0.9rem;
             align-items: flex-start;
         }
-        .callout.purple { background: #f5f3ff; border-left: 4px solid #3a1a6b; }
-        .callout.teal   { background: #f0fdfa; border-left: 4px solid #0d9488; }
-        .callout.amber  { background: #fffbeb; border-left: 4px solid #b45309; }
-        .callout.blue   { background: #eff6ff; border-left: 4px solid #1d4ed8; }
+        .callout.purple { background: var(--brand-soft); border-left: 4px solid var(--brand-dark); }
+        .callout.teal   { background: #f0fdfa; border-left: 4px solid var(--accent); }
+        .callout.amber  { background: #fffbeb; border-left: 4px solid var(--highlight-ink); }
+        .callout.blue   { background: #eff6ff; border-left: 4px solid var(--accent); }
         .callout.green  { background: #f0fdf4; border-left: 4px solid #15803d; }
-        .callout.rose   { background: #fff1f2; border-left: 4px solid #9d174d; }
+        .callout.rose   { background: var(--brand-soft); border-left: 4px solid var(--brand); }
 
         /* ── AAC equipment table ───────────────────────────────── */
         .equip-table {
@@ -188,39 +189,39 @@
         .equip-table th {
             text-align: left;
             padding: 0.5rem 0.75rem;
-            background: #fff1f2;
-            color: #9d174d;
+            background: var(--brand-soft);
+            color: var(--brand);
             font-weight: 700;
-            border-bottom: 2px solid #fecdd3;
+            border-bottom: 2px solid var(--border);
         }
         .equip-table td {
             padding: 0.55rem 0.75rem;
-            color: #475569;
-            border-bottom: 1px solid #f1f5f9;
+            color: var(--ink-muted);
+            border-bottom: 1px solid var(--brand-wash);
             vertical-align: top;
             line-height: 1.45;
         }
         .equip-table tr:last-child td { border-bottom: none; }
-        .equip-table td:first-child { font-weight: 600; color: #1e293b; white-space: nowrap; }
+        .equip-table td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
         @media (max-width: 580px) {
             .equip-table, .equip-table thead, .equip-table tbody,
             .equip-table th, .equip-table td, .equip-table tr { display: block; }
             .equip-table thead { display: none; }
             .equip-table td { padding: 0.35rem 0; border-bottom: none; }
-            .equip-table td:first-child { color: #9d174d; margin-top: 0.75rem; }
-            .equip-table tr { border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem; }
+            .equip-table td:first-child { color: var(--brand); margin-top: 0.75rem; }
+            .equip-table tr { border-bottom: 1px solid var(--brand-wash); padding-bottom: 0.5rem; }
         }
         .callout-icon { font-size: 1.5rem; flex-shrink: 0; }
         .callout-text strong {
             display: block;
             font-size: 0.95rem;
-            color: #1e293b;
+            color: var(--ink);
             margin-bottom: 0.25rem;
         }
         .callout-text p {
             margin: 0;
             font-size: 0.875rem;
-            color: #475569;
+            color: var(--ink-muted);
             line-height: 1.55;
         }
 
@@ -233,7 +234,7 @@
         }
         .mini-card {
             background: #fff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
             border-radius: 0.75rem;
             padding: 1.1rem 1.2rem;
         }
@@ -241,12 +242,12 @@
         .mini-card h4 {
             margin: 0 0 0.35rem;
             font-size: 0.95rem;
-            color: #1e293b;
+            color: var(--ink);
         }
         .mini-card p {
             margin: 0;
             font-size: 0.85rem;
-            color: #64748b;
+            color: var(--ink-muted);
             line-height: 1.5;
         }
 
@@ -259,8 +260,8 @@
         }
         @media (max-width: 520px) { .download-pair { grid-template-columns: 1fr; } }
         .dl-card {
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: var(--brand-wash);
+            border: 2px solid var(--border);
             border-radius: 0.75rem;
             padding: 1.1rem 1.25rem;
             text-align: center;
@@ -270,14 +271,14 @@
             font-size: 1.6rem;
             font-weight: 900;
             font-family: ui-monospace, monospace;
-            color: #3a1a6b;
+            color: var(--brand-dark);
             background: #ede9fe;
             padding: 0.2rem 0.6rem;
             border-radius: 0.4rem;
             margin-bottom: 0.5rem;
         }
-        .dl-card h4 { margin: 0 0 0.3rem; font-size: 0.95rem; color: #1e293b; }
-        .dl-card p { margin: 0; font-size: 0.8rem; color: #64748b; line-height: 1.5; }
+        .dl-card h4 { margin: 0 0 0.3rem; font-size: 0.95rem; color: var(--ink); }
+        .dl-card p { margin: 0; font-size: 0.8rem; color: var(--ink-muted); line-height: 1.5; }
 
         /* ── "What to do next" use list ───────────────────────── */
         .use-list {
@@ -290,17 +291,17 @@
             gap: 0.85rem;
             align-items: flex-start;
             background: #fff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
             border-radius: 0.75rem;
             padding: 1rem 1.2rem;
         }
         .use-row-icon { font-size: 1.6rem; flex-shrink: 0; }
-        .use-row h4 { margin: 0 0 0.2rem; font-size: 0.95rem; color: #1e293b; }
-        .use-row p { margin: 0; font-size: 0.85rem; color: #64748b; line-height: 1.5; }
+        .use-row h4 { margin: 0 0 0.2rem; font-size: 0.95rem; color: var(--ink); }
+        .use-row p { margin: 0; font-size: 0.85rem; color: var(--ink-muted); line-height: 1.5; }
 
         /* ── CTA at bottom ─────────────────────────────────────── */
         .learn-cta {
-            background: linear-gradient(135deg, #3a1a6b 0%, #0d9488 100%);
+            background: linear-gradient(135deg, var(--brand-dark) 0%, var(--accent) 100%);
             padding: 3.5rem 1.5rem;
             text-align: center;
             color: #fff;
@@ -310,7 +311,7 @@
         .learn-cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
         .btn-inv {
             background: #fff;
-            color: #3a1a6b;
+            color: var(--brand-dark);
             padding: 0.7rem 1.5rem;
             border-radius: 0.5rem;
             font-weight: 700;
@@ -339,27 +340,7 @@
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<header>
-    <nav class="nav" aria-label="Main navigation">
-        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
-        <span class="nav-spacer"></span>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'tools:catalog' %}">All Tools</a>
-            <a href="{% url 'archive:knowledge_bank' %}">Knowledge Bank</a>
-            <a href="{% url 'accounts:logout' %}"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-            <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">
-                {% csrf_token %}
-            </form>
-        {% else %}
-            <a href="{% url 'about' %}">About</a>
-            <a href="{% url 'learn' %}" style="font-weight:600;">How to use</a>
-            <a href="{% url 'accounts:login' %}">Log in</a>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary"
-               style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
-        {% endif %}
-    </nav>
-</header>
+{% include "includes/public_nav.html" with nav_current="learn" %}
 
 <main id="main-content">
 
@@ -380,7 +361,7 @@
     <a href="#solo">3 · Work Solo</a>
     <a href="#facilitate">4 · Facilitate a Group</a>
     <a href="#aac">5 · AAC Features</a>
-    <a href="#knowledge-bank">6 · Knowledge Bank</a>
+    <a href="#knowledge-bank">6 · Sessions &amp; archive</a>
 </nav>
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -458,7 +439,7 @@
     <span class="chapter-icon">🗺️</span>
     <h2 class="chapter-title">Blaze your own trail — find your pathway</h2>
     <p class="chapter-intro">
-        KwaCart has 23 Liberating Structures tools. Not sure where to start?
+        KwaCart has 25 Liberating Structures tools. Not sure where to start?
         The <strong>Pathway Finder</strong> asks you three quick questions and
         matches you to the right tools for your situation — your time, your group,
         and your goals.
@@ -507,7 +488,7 @@
         <div class="callout-text">
             <strong>Why use the Pathway Finder?</strong>
             <p>
-                It takes the guesswork out of choosing. Rather than reading through all 23 tools,
+                It takes the guesswork out of choosing. Rather than reading through all 25 tools,
                 you answer three questions and get a personalised shortlist.
                 It is especially helpful if you are new to Liberating Structures or
                 if you are preparing a session at short notice.
@@ -558,14 +539,14 @@
             <span class="step-num amber" aria-hidden="true">4</span>
             <div class="step-body">
                 <strong>Submit your work</strong>
-                <p>When you are finished, click "Submit". KwaCart generates a formatted summary of your responses and saves it to your Knowledge Bank.</p>
+                <p>When you are finished, click "Submit". KwaCart generates a formatted summary of your responses and saves it to your Sessions &amp; archive.</p>
             </div>
         </li>
         <li class="step-item">
             <span class="step-num amber" aria-hidden="true">5</span>
             <div class="step-body">
                 <strong>Download or continue later</strong>
-                <p>Your submission appears in your Knowledge Bank. You can download it as a Markdown or RTF file at any time.</p>
+                <p>Your submission appears in your Sessions &amp; archive. You can download it as a Markdown or RTF file at any time.</p>
             </div>
         </li>
     </ol>
@@ -608,7 +589,7 @@
         <div class="mini-card">
             <div class="mini-card-icon">🗂️</div>
             <h4>Build an archive</h4>
-            <p>Each solo submission is saved automatically. Over time your Knowledge Bank becomes a record of your thinking and growth.</p>
+            <p>Each solo submission is saved automatically. Over time your Sessions &amp; archive becomes a record of your thinking and growth.</p>
         </div>
     </div>
 
@@ -621,7 +602,7 @@
                 with any AAC software that produces keyboard output — including Grid&nbsp;3,
                 Snap Core First, Proloquo2Go, and Clicker&nbsp;8.
                 There is no time pressure in solo mode, so you can compose at whatever pace suits you.
-                See <a href="#aac" style="color:#9d174d;">Chapter&nbsp;5</a> for the full guide to AAC features.
+                See <a href="#aac" style="color:var(--brand);">Chapter&nbsp;5</a> for the full guide to AAC features.
             </p>
         </div>
     </div>
@@ -703,12 +684,12 @@
                 for participants who use AAC devices or need extra time to compose their responses.
                 A <strong>Verbal Breakout</strong> signal lets you tell the room to move to spoken
                 discussion while AAC users continue typing digitally.
-                See <a href="#aac" style="color:#1d4ed8;">Chapter&nbsp;5</a> for a full guide to all AAC features available during live sessions.
+                See <a href="#aac" style="color:var(--accent);">Chapter&nbsp;5</a> for a full guide to all AAC features available during live sessions.
             </p>
         </div>
     </div>
 
-    <h3 style="margin-top:2rem; margin-bottom:0.75rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.75rem; font-size:1.1rem; color:var(--ink);">
         Session tools available to hosts
     </h3>
     <div class="mini-grid">
@@ -740,7 +721,7 @@
         <div class="mini-card">
             <div class="mini-card-icon">🗄️</div>
             <h4>Session archive</h4>
-            <p>Every closed session is saved to your Knowledge Bank. You can reopen and download at any time.</p>
+            <p>Every closed session is saved to your Sessions &amp; archive. You can reopen and download at any time.</p>
         </div>
     </div>
 
@@ -750,7 +731,7 @@
             <strong>Ending vs deleting a session</strong>
             <p>
                 <strong>Closing</strong> a session locks contributions and generates the summary — participants cannot change their responses after this.
-                The session stays in your Knowledge Bank permanently unless you choose to delete it.
+                The session stays in your Sessions &amp; archive permanently unless you choose to delete it.
                 <strong>Deleting</strong> a session removes it and all its data permanently. This cannot be undone.
                 Only the host can close or delete a session.
             </p>
@@ -775,7 +756,7 @@
     </p>
 
     {# ── Input methods ── #}
-    <h3 style="margin-top:0; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:0; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Ways to add your response
     </h3>
     <div class="use-list">
@@ -836,12 +817,12 @@
     </div>
 
     {# ── Timer features ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Timer features designed for AAC users
     </h3>
     <div class="mini-grid">
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🟢</div>
             <h4>Calm Timer</h4>
             <p>
@@ -854,7 +835,7 @@
             </p>
         </div>
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">✏️</div>
             <h4>Composition Presence Flag</h4>
             <p>
@@ -867,7 +848,7 @@
             </p>
         </div>
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">⏳</div>
             <h4>Inclusive Pacing</h4>
             <p>
@@ -879,7 +860,7 @@
             </p>
         </div>
 
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🗣️</div>
             <h4>Verbal Breakout</h4>
             <p>
@@ -895,7 +876,7 @@
     </div>
 
     {# ── Accessibility Mode ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Accessibility Mode
     </h3>
     <div class="callout rose">
@@ -911,22 +892,22 @@
         </div>
     </div>
     <div class="mini-grid" style="margin-top:1rem;">
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🎯</div>
             <h4>Large targets</h4>
             <p>All buttons and interactive elements become larger and further apart — easier to select with eye gaze, a head pointer, or a switch.</p>
         </div>
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">🧊</div>
             <h4>Frozen layout</h4>
             <p>Nothing moves or shifts unexpectedly. The page layout is locked so that scanning grids stay in the positions your device expects.</p>
         </div>
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">⏸️</div>
             <h4>No animations</h4>
             <p>All transitions, fades, and motion effects are disabled. The interface is completely still — better for people who find motion distracting or distressing.</p>
         </div>
-        <div class="mini-card" style="border-color:#fecdd3;">
+        <div class="mini-card" style="border-color:var(--border);">
             <div class="mini-card-icon">💾</div>
             <h4>Remembered between visits</h4>
             <p>Your preference is saved in your browser. Accessibility Mode stays on until you turn it off — you do not have to set it again each visit.</p>
@@ -934,10 +915,10 @@
     </div>
 
     {# ── Connecting AAC equipment ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Connecting your AAC equipment
     </h3>
-    <p style="color:#475569; font-size:0.95rem; line-height:1.7; margin:0 0 1rem;">
+    <p style="color:var(--ink-muted); font-size:0.95rem; line-height:1.7; margin:0 0 1rem;">
         KwaCart runs entirely in a web browser, so it works with any AAC hardware or software
         that can control a browser on a computer, tablet, or phone.
         You do not need to install a special app or configure KwaCart — just set up your
@@ -982,10 +963,10 @@
     </ol>
 
     {# ── Compatible AAC equipment list ── #}
-    <h3 style="margin-top:2rem; margin-bottom:0.5rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.5rem; font-size:1.1rem; color:var(--ink);">
         Potentially compatible AAC equipment and software
     </h3>
-    <p style="color:#64748b; font-size:0.85rem; line-height:1.6; margin:0 0 0.25rem;">
+    <p style="color:var(--ink-muted); font-size:0.85rem; line-height:1.6; margin:0 0 0.25rem;">
         This is a reference list, not a guarantee of compatibility.
         KwaCart has been designed to follow web accessibility standards so that it works
         with any device that can control a browser. If you encounter a problem with a specific
@@ -1001,7 +982,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>AAC software<br><span style="font-weight:400; color:#94a3b8; font-size:0.8rem;">(text output apps)</span></td>
+                <td>AAC software<br><span style="font-weight:400; color:var(--ink-muted); font-size:0.8rem;">(text output apps)</span></td>
                 <td>
                     Grid&nbsp;3 (Smartbox) &nbsp;·&nbsp;
                     Snap Core First (Tobii Dynavox) &nbsp;·&nbsp;
@@ -1081,9 +1062,7 @@
                 especially if it can control a web browser.
                 The best way to check is to open KwaCart on a free try-it tool (no account needed)
                 and test your equipment there. No data will be saved and there is no time pressure.
-                If something does not work, please use the
-                <a href="{% url 'feature_request' %}" style="color:#9d174d;">feature request page</a>
-                to tell us what you were trying to do and what happened.
+                If something does not work, please email us with what you were trying to do and what happened.
             </p>
         </div>
     </div>
@@ -1097,19 +1076,19 @@
 
     <span class="chapter-label green">Chapter 6</span>
     <span class="chapter-icon">🏦</span>
-    <h2 class="chapter-title">The Knowledge Bank — your archive of everything</h2>
+    <h2 class="chapter-title">Sessions &amp; archive — everything you&rsquo;ve run</h2>
     <p class="chapter-intro">
         Every solo submission and every closed group session is saved automatically
-        to your <strong>Knowledge Bank</strong>.
+        to your <strong>Sessions &amp; archive</strong>.
         Think of it as your personal library of structured thinking — organised by tool,
         searchable, and always available to download.
     </p>
 
-    <ol class="steps-list" aria-label="Knowledge Bank steps">
+    <ol class="steps-list" aria-label="Sessions &amp; archive steps">
         <li class="step-item">
             <span class="step-num green" aria-hidden="true">1</span>
             <div class="step-body">
-                <strong>Click "Knowledge Bank" in the top navigation</strong>
+                <strong>Click "Sessions &amp; archive" in the top navigation</strong>
                 <p>This takes you to your personal archive. You will see a list of all the tools you have used, with a count of how many submissions or sessions you have saved for each one.</p>
             </div>
         </li>
@@ -1136,7 +1115,7 @@
         </li>
     </ol>
 
-    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         Two download formats — what is the difference?
     </h3>
     <div class="download-pair">
@@ -1160,7 +1139,7 @@
         </div>
     </div>
 
-    <h3 style="margin-top:2.25rem; margin-bottom:0.85rem; font-size:1.1rem; color:#1e293b;">
+    <h3 style="margin-top:2.25rem; margin-bottom:0.85rem; font-size:1.1rem; color:var(--ink);">
         What can you do with your files once you have downloaded them?
     </h3>
     <div class="use-list">
@@ -1218,7 +1197,7 @@
             <div>
                 <h4>Build a learning or development portfolio</h4>
                 <p>
-                    Save and organise your Knowledge Bank downloads in a folder on your device.
+                    Save and organise your Sessions &amp; archive downloads in a folder on your device.
                     Over time they become a portfolio of evidence — showing how your thinking,
                     your team's practice, or your organisation's knowledge has grown.
                     Useful for CPD records, supervision reports, grant applications,
@@ -1249,7 +1228,7 @@
             <strong>Your data is private to you</strong>
             <p>
                 Only you can see your solo submissions and the sessions you hosted.
-                Nobody else's data appears in your Knowledge Bank.
+                Nobody else's data appears in your Sessions &amp; archive.
                 Staff members can see account-level information for support purposes,
                 but your session content is visible only to the people in your session.
             </p>

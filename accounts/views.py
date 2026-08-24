@@ -16,6 +16,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic.edit import CreateView
 
 from .forms import CustomUserCreationForm, ProfileEmailForm
+from .plans import resolve_plan
 
 
 class SignUpView(CreateView):
@@ -23,11 +24,34 @@ class SignUpView(CreateView):
 
     On successful submission Django creates the user and redirects to the
     login page so the new user can immediately sign in.
+
+    Optional ``?plan=individual|organisation`` (also accepted as a POST field)
+    shows the chosen plan on the form. Billing is not collected yet; intent is
+    stored in the session for a later checkout step.
     """
 
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('accounts:login')
     template_name = 'registration/signup.html'
+
+    def _plan_from_request(self):
+        return resolve_plan(
+            self.request.POST.get('plan') or self.request.GET.get('plan')
+        )
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        plan = self._plan_from_request()
+        ctx['selected_plan'] = plan
+        ctx['plan_key'] = plan['key'] if plan else ''
+        return ctx
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        plan = self._plan_from_request()
+        if plan:
+            self.request.session['intended_plan'] = plan['key']
+        return response
 
 
 class UserLoginView(LoginView):

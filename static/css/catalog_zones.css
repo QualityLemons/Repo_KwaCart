@@ -1,13 +1,55 @@
 /* ── Catalog Zones ── */
 /* Visual identity for the two distinct product modes:
    Solo  — teal, contemplative, individual
-   Live  — purple (brand), energetic, group                          */
+   Live  — berry brand, energetic, group                          */
 
-/* ── Mode picker (default / no mode selected) ── */
+/* ── Browse-first filter chips ── */
+.cz-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0 0 1.25rem;
+}
+.cz-filter {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--surface-raised);
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+.cz-filter:hover { border-color: var(--border-strong); color: var(--ink); }
+.cz-filter--active {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+.cz-filter--solo.cz-filter--active {
+    border-color: var(--accent);
+    background: #f0fdfa;
+    color: var(--accent);
+}
+.cz-filter--live.cz-filter--active {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+.cz-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ── Mode picker (legacy — unused after browse-first) ── */
 .cz-intro {
     margin: 0 0 0.25rem;
     font-size: 0.9rem;
-    color: #64748b;
+    color: var(--ink-muted);
 }
 
 .cz-picker {
@@ -44,8 +86,8 @@
     background: #f0fdfa;
 }
 .cz-pick-card--live {
-    border-color: #c4b5fd;
-    background: #faf5ff;
+    border-color: var(--border-strong);
+    background: var(--brand-wash);
 }
 
 .cz-pick-icon {
@@ -61,13 +103,13 @@
     margin-bottom: 0.4rem;
     line-height: 1.2;
 }
-.cz-pick-card--solo .cz-pick-title  { color: #0d9488; }
-.cz-pick-card--live .cz-pick-title  { color: #5D3A9B; }
+.cz-pick-card--solo .cz-pick-title  { color: var(--accent); }
+.cz-pick-card--live .cz-pick-title  { color: var(--brand); }
 
 .cz-pick-body {
     font-size: 0.875rem;
     line-height: 1.55;
-    color: #475569;
+    color: var(--ink-muted);
     margin: 0 0 1.1rem;
     flex: 1;
 }
@@ -79,13 +121,13 @@
     align-items: center;
     gap: 0.25rem;
 }
-.cz-pick-card--solo .cz-pick-cta { color: #0d9488; }
-.cz-pick-card--live .cz-pick-cta { color: #5D3A9B; }
+.cz-pick-card--solo .cz-pick-cta { color: var(--accent); }
+.cz-pick-card--live .cz-pick-cta { color: var(--brand); }
 
 /* ── "Browse all" toggle ── */
 .cz-browse-toggle {
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: var(--ink-muted);
     cursor: pointer;
     user-select: none;
     list-style: none;
@@ -107,16 +149,16 @@
     flex-wrap: wrap;
 }
 .cz-banner--solo { background: #f0fdfa; border-color: #5eead4; }
-.cz-banner--live { background: #faf5ff; border-color: #c4b5fd; }
+.cz-banner--live { background: var(--brand-wash); border-color: var(--border-strong); }
 .cz-banner__icon { font-size: 1.1rem; }
 .cz-banner__title { font-weight: 700; }
-.cz-banner--solo .cz-banner__title { color: #0d9488; }
-.cz-banner--live .cz-banner__title { color: #5D3A9B; }
-.cz-banner__sep  { color: #cbd5e1; }
-.cz-banner__sub  { color: #64748b; }
+.cz-banner--solo .cz-banner__title { color: var(--accent); }
+.cz-banner--live .cz-banner__title { color: var(--brand); }
+.cz-banner__sep  { color: var(--border-strong); }
+.cz-banner__sub  { color: var(--ink-muted); }
 .cz-banner__links { margin-left: auto; display: flex; gap: 0.75rem; }
-.cz-banner__links a { font-size: 0.8rem; color: #64748b; white-space: nowrap; }
-.cz-banner__links a:hover { color: #1e293b; }
+.cz-banner__links a { font-size: 0.8rem; color: var(--ink-muted); white-space: nowrap; }
+.cz-banner__links a:hover { color: var(--ink); }
 
 /* ── Recent activity chips ── */
 .cz-activity {
@@ -127,13 +169,13 @@
     margin-bottom: 1.25rem;
     padding: 0.6rem 0.85rem;
     background: #fff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 8px;
 }
 .cz-activity__label {
     font-size: 0.75rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: var(--ink-muted);
     text-transform: uppercase;
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -141,41 +183,41 @@
 }
 .cz-chip {
     font-size: 0.78rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 20px;
     padding: 0.2rem 0.65rem;
     text-decoration: none;
     white-space: nowrap;
-    background: #f8fafc;
-    color: #475569;
+    background: var(--brand-wash);
+    color: var(--ink-muted);
     transition: background 0.1s;
 }
-.cz-chip:hover { background: #f1f5f9; text-decoration: none; }
+.cz-chip:hover { background: var(--brand-wash); text-decoration: none; }
 .cz-chip--live {
-    border-color: #ddd6fe;
-    background: #faf5ff;
-    color: #5D3A9B;
+    border-color: var(--border);
+    background: var(--brand-wash);
+    color: var(--brand);
 }
-.cz-chip--live:hover { background: #ede9fe; }
+.cz-chip--live:hover { background: var(--brand-soft); }
 
 /* ── Tool card mode variants ── */
 .tool-card--solo  { border-left: 4px solid #5eead4; }
-.tool-card--live  { border-left: 4px solid #a78bfa; }
+.tool-card--live  { border-left: 4px solid var(--band-muted); }
 
 .cz-btn-solo {
-    background: #0d9488;
-    border-color: #0d9488;
+    background: var(--accent);
+    border-color: var(--accent);
     color: #fff !important;
     text-decoration: none;
 }
-.cz-btn-solo:hover { background: #0f766e; border-color: #0f766e; color: #fff !important; }
+.cz-btn-solo:hover { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff !important; }
 
 /* ── Pathway promo banner ── */
 .cz-pathway-promo {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%);
+    background: linear-gradient(135deg, var(--ink-soft) 0%, var(--brand) 100%);
     color: #fff;
     border-radius: 0.75rem;
     padding: 1rem 1.25rem;
@@ -195,7 +237,7 @@
     flex: 1;
     font-size: 0.9rem;
     line-height: 1.4;
-    color: #ede9fe;
+    color: var(--brand-soft);
 }
 .cz-pathway-promo__text strong {
     display: block;
@@ -207,7 +249,7 @@
     font-size: 0.85rem;
     font-weight: 700;
     white-space: nowrap;
-    color: #e9d5ff;
+    color: var(--band-muted);
     flex-shrink: 0;
 }
 @media (max-width: 480px) {
@@ -220,8 +262,8 @@
     display: inline-block;
     font-size: 0.7rem;
     font-weight: 700;
-    background: #ede9fe;
-    color: #5D3A9B;
+    background: var(--brand-soft);
+    color: var(--brand);
     border-radius: 4px;
     padding: 0.1rem 0.4rem;
     margin-bottom: 0.4rem;

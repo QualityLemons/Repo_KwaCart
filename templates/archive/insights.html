@@ -9,13 +9,13 @@
 
 {% block content %}
 <h1 style="margin-bottom:0.25rem;">Insights Dashboard</h1>
-<p style="margin:0 0 1.25rem; color:#64748b; font-size:0.9rem;">
+<p style="margin:0 0 1.25rem; color:var(--ink-muted); font-size:0.9rem;">
     Trends and themes across workshops you&rsquo;ve facilitated.
 </p>
 
 <!-- ── Sub-navigation ── -->
 <nav class="idb-nav" aria-label="Archive navigation">
-    <a href="{% url 'archive:dashboard' %}">My Archive</a>
+    <a href="{% url 'archive:dashboard' %}">Sessions &amp; archive</a>
     <a href="{% url 'archive:insights' %}" class="active">Insights</a>
 </nav>
 
@@ -107,7 +107,7 @@
             {% endfor %}
         </div>
     </div>
-    <p style="margin:0.4rem 0 0; font-size:0.72rem; color:#94a3b8; text-align:right;">
+    <p style="margin:0.4rem 0 0; font-size:0.72rem; color:var(--ink-muted); text-align:right;">
         Peak bar highlighted in teal. Scroll chart right if periods extend beyond view.
     </p>
 </section>
@@ -149,7 +149,7 @@
     {% endfor %}
 </ul>
 {% elif chart_data %}
-<p style="font-size:0.85rem; color:#94a3b8; margin-top:1rem;">
+<p style="font-size:0.85rem; color:var(--ink-muted); margin-top:1rem;">
     No individual records found (keyword may appear only in combined session exports).
 </p>
 {% endif %}
@@ -178,7 +178,7 @@
         </button>
         {% endfor %}
     </div>
-    <p style="font-size:0.75rem; color:#94a3b8; margin:0.5rem 0 0; text-align:right;">
+    <p style="font-size:0.75rem; color:var(--ink-muted); margin:0.5rem 0 0; text-align:right;">
         {{ top_terms|length }} terms &mdash; size reflects relative frequency
     </p>
     {% else %}

@@ -1,0 +1,34 @@
+{# Shared public / marketing shell navigation.
+   Optional: nav_current — 'about' | 'pricing' | 'accessibility' | 'learn' | 'use_cases' | 'login' | 'signup'
+#}
+<header>
+    <nav class="nav" aria-label="Main navigation">
+        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
+        <span class="nav-spacer"></span>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'tools:catalog' %}">All Tools</a>
+            <a href="{% url 'archive:knowledge_bank' %}">Sessions &amp; archive</a>
+            <a href="{% url 'accounts:logout' %}"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">
+                {% csrf_token %}
+            </form>
+        {% else %}
+            <a href="{% url 'case_study_index' %}"{% if nav_current == 'use_cases' %} aria-current="page" style="font-weight:600;"{% endif %}>Use cases</a>
+            <a href="{% url 'about' %}"{% if nav_current == 'about' %} aria-current="page" style="font-weight:600;"{% endif %}>About</a>
+            <a href="{% url 'pricing' %}"{% if nav_current == 'pricing' %} aria-current="page" style="font-weight:600;"{% endif %}>Pricing</a>
+            <a href="{% url 'accessibility' %}"{% if nav_current == 'accessibility' %} aria-current="page" style="font-weight:600;"{% endif %}>Accessibility</a>
+            {% if nav_current == 'learn' %}
+            <a href="{% url 'learn' %}" aria-current="page" style="font-weight:600;">How to use</a>
+            {% endif %}
+            {% if nav_current == 'login' %}
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
+            {% elif nav_current == 'signup' %}
+            <a href="{% url 'accounts:login' %}">Log in</a>
+            {% else %}
+            <a href="{% url 'accounts:login' %}">Log in</a>
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
+            {% endif %}
+        {% endif %}
+    </nav>
+</header>

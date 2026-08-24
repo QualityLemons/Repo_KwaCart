@@ -1,33 +1,37 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Code not found &mdash; KwaCart{% endblock %}
 
+{% block body_class %}guest-shell{% endblock %}
+
+{% block site_header %}
+{% include "includes/guest_chrome.html" %}
+{% endblock %}
+
+{% block site_footer %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/guest_shell.css' %}?v=1">
+{% endblock %}
+
 {% block content %}
-<div style="max-width:420px; margin:4rem auto; text-align:center; padding:0 1rem;">
+<div class="guest-not-found">
 
-    <p style="font-size:3rem; margin:0 0 0.5rem;">&#128683;</p>
+    <h1>Session not found</h1>
 
-    <h1 style="font-size:1.4rem; color:#1e293b; margin:0 0 0.75rem;">
-        Session not found
-    </h1>
-
-    <p style="color:#475569; line-height:1.6; margin:0 0 1.5rem;">
-        The code <strong style="font-family:ui-monospace,monospace; color:#1e293b;
-        font-size:1.1rem; letter-spacing:0.15em;">{{ code }}</strong>
+    <p>
+        The code <strong style="font-family:ui-monospace,monospace; font-size:1.1rem; letter-spacing:0.15em;">{{ code }}</strong>
         didn&rsquo;t match any open session.
         It may have already closed, or the code might be slightly wrong.
     </p>
 
-    <a href="{% url 'pairing_entry' %}"
-       style="display:inline-block; padding:0.75rem 1.75rem;
-              background:#f59e0b; color:#1c1917; font-weight:700;
-              border-radius:8px; text-decoration:none; font-size:1rem;">
+    <a href="{% url 'pairing_entry' %}" class="guest-entry-btn" style="max-width:280px; margin:0 auto;">
         Try again
     </a>
 
-    <p style="margin-top:1.5rem; font-size:0.82rem; color:#94a3b8;">
-        Ask your host or support worker for the 3-digit code
-        shown next to the QR code on their screen.
+    <p class="guest-entry-hint" style="margin-top:1.5rem;">
+        Ask your host for the 3-digit code shown next to the QR code on their screen.
     </p>
 
 </div>

@@ -1,32 +1,48 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Combined results &mdash; {{ tool_meta.title }}{% endblock %}
 
-{% block content %}
-<h1>{{ tool_meta.title }} <small style="color:#64748b;">— combined results</small></h1>
-<p>Session closed at {{ session.closed_at|date:"Y-m-d H:i" }}
-    &middot; hosted by {{ session.host.email }}
-    &middot; {{ instances|length }} participant{{ instances|length|pluralize }}.</p>
+{% block body_class %}guest-shell{% endblock %}
 
-<p style="padding:0.8rem 1rem; background:#eef6ff; border:1px solid #cfe2ff;
-          border-radius:6px; color:#1e40af;">
+{% block site_header %}
+{% include "includes/guest_chrome.html" %}
+{% endblock %}
+
+{% block site_footer %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/guest_shell.css' %}?v=1">
+{% endblock %}
+
+{% block content %}
+<header class="guest-respond-header">
+    <h1>{{ tool_meta.title }} <small>Combined results</small></h1>
+    <p class="guest-respond-meta">
+        Closed {{ session.closed_at|date:"Y-m-d H:i" }}
+        &middot; hosted by {{ session.host.email }}
+        &middot; {{ instances|length }} participant{{ instances|length|pluralize }}
+    </p>
+</header>
+
+<p class="guest-results-intro">
     You joined as <strong>{{ guest_instance.guest_name }}</strong>.
-    To keep a personal archive of your responses, <a href="{% url 'accounts:signup' %}">create a free account</a>.
+    To keep a personal archive of your responses,
+    <a href="{% url 'accounts:signup' %}?plan=individual">create an account</a>.
 </p>
 
 {% for inst in instances %}
-<section style="margin-top:1.5rem; padding:1rem 1.25rem;
-                border:1px solid #e2e8f0; border-radius:6px; background:#f8fafc;">
-    <h2 style="margin-top:0; font-size:1.1rem;">
+<section class="guest-result-card">
+    <h2>
         {% if inst.user_id %}
             {{ inst.user.email }}
-            {% if inst.user_id == session.host_id %}<span style="color:#64748b; font-weight:normal;">(host)</span>{% endif %}
+            {% if inst.user_id == session.host_id %}<span style="color:var(--ink-muted); font-weight:normal;">(host)</span>{% endif %}
         {% else %}
             {{ inst.guest_name|default:"Guest" }}
-            <span style="color:#64748b; font-weight:normal;">(guest)</span>
+            <span style="color:var(--ink-muted); font-weight:normal;">(guest)</span>
         {% endif %}
         {% if inst.id == guest_instance.id %}
-            <span style="color:#5D3A9B; font-weight:normal;">&larr; you</span>
+            <span style="color:var(--brand); font-weight:normal;">&larr; you</span>
         {% endif %}
     </h2>
     {% if inst.payload_output %}

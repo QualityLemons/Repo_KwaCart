@@ -1,26 +1,27 @@
 version: '3.8'
 
-services:
-  db:
-    image: postgres:15
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=toolbank
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+# Cheap default: SQLite + local media on a single container.
+# Set DATABASE_URL (and install requirements-postgres.txt) only if you need Postgres.
+# Set CLOUDINARY_URL (and install requirements-cloudinary.txt) only if you need cloud media.
 
+services:
   web:
     build: .
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2"
     volumes:
-      - .:/app
+      - app_data:/app/data
+      - app_media:/app/media
     ports:
       - "8000:8000"
-    env_file:
-      - .env
-    depends_on:
-      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - SECRET_KEY=change-me-in-production
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - DATABASE_URL=sqlite:////app/data/db.sqlite3
 
 volumes:
-  postgres_data:
+  app_data:
+  app_media:

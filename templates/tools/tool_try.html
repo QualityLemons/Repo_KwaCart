@@ -51,15 +51,12 @@
         <strong>That file is yours to keep.</strong>
         <p>
             Want a permanent, searchable archive for every session you run?
-            A free account also unlocks all&nbsp;23 tools and live group sessions.
+            A free account also unlocks all&nbsp;25 tools and live group sessions.
         </p>
     </div>
     <div class="sandbox-cta__actions">
         <a href="{% url 'accounts:signup' %}" class="sandbox-cta__signup">
             Create a free account &rarr;
-        </a>
-        <a href="{% url 'waiting_list_signup' %}" class="sandbox-cta__waitlist">
-            Or join the waiting list
         </a>
     </div>
 </div>
@@ -69,12 +66,12 @@
     <div class="try-nudge__text">
         <strong>Want to save this and run live group sessions?</strong>
         <p>
-            A free account gives you all 23 Liberating Structures tools, a personal archive,
+            A free account gives you all 25 Liberating Structures tools, a personal archive,
             and the ability to share a session link (or QR code) with a whole room.
         </p>
     </div>
-    <a href="{% url 'waiting_list_signup' %}" class="try-nudge__link">
-        Join the waiting list &rarr;
+    <a href="{% url 'accounts:signup' %}" class="try-nudge__link">
+        Register free for live sessions &rarr;
     </a>
 </div>
 
@@ -166,8 +163,8 @@
 <div class="try-upsell">
     <strong>Going further?</strong>
     <p>
-        <a href="{% url 'waiting_list_signup' %}">Join the waiting list</a>
-        to unlock all 23 Liberating Structures tools, run live group sessions, and keep a
+        <a href="{% url 'accounts:signup' %}">Create a free account</a>
+        to unlock all 25 Liberating Structures tools, run live group sessions, and keep a
         searchable archive of every session you host.
     </p>
 </div>

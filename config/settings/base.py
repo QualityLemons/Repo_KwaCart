@@ -42,12 +42,13 @@ INSTALLED_APPS = [
     'accounts',
     'archive',
     'tools',
-
-    # Cloudinary media storage — must come after project apps so that
-    # the custom storage backend can override DEFAULT_FILE_STORAGE.
-    'cloudinary',
-    'cloudinary_storage',
 ]
+
+if os.environ.get('CLOUDINARY_URL'):
+    INSTALLED_APPS += [
+        'cloudinary',
+        'cloudinary_storage',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

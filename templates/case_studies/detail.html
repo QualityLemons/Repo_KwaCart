@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ study.title }} — Case study — KwaCart</title>
+    <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/case_study.css' %}">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+{% include "includes/public_nav.html" with nav_current="use_cases" %}
+
+<main id="main-content" class="cs-page">
+    <nav class="cs-breadcrumb" aria-label="Breadcrumb">
+        <a href="{% url 'home' %}">Home</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <a href="{% url 'case_study_index' %}">Use cases</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span>{{ study.title }}</span>
+    </nav>
+
+    <header class="cs-header">
+        <span class="cs-badge">Case study</span>
+        <span class="cs-tool-badge">{{ study.use_case_icon }} {{ study.tool_title }}</span>
+        <h1>{{ study.title }}</h1>
+        <p class="cs-subtitle">{{ study.subtitle }}</p>
+        <p class="cs-context">{{ study.context }}</p>
+    </header>
+
+    {% if study.tool_explainer %}
+    <aside class="cs-tool-explainer" aria-labelledby="cs-tool-explainer-heading">
+        <h2 id="cs-tool-explainer-heading">{{ study.tool_explainer.heading }}</h2>
+        <p class="cs-tool-explainer-summary">{{ study.tool_explainer.summary }}</p>
+        <ol class="cs-tool-explainer-steps">
+            {% for item in study.tool_explainer.steps %}
+            <li>
+                <strong>{{ item.label }}</strong>
+                <span>{{ item.text }}</span>
+            </li>
+            {% endfor %}
+        </ol>
+    </aside>
+    {% endif %}
+
+    <div class="cs-progress" role="list" aria-label="Case study steps">
+        {% for step in study.steps %}
+        <button type="button"
+                class="cs-progress-dot{% if forloop.first %} active{% endif %}"
+                role="listitem"
+                data-step="{{ forloop.counter0 }}"
+                aria-label="Step {{ forloop.counter }}: {{ step.title }}"
+                aria-current="{% if forloop.first %}step{% else %}false{% endif %}">
+            <span class="cs-progress-num">{{ forloop.counter }}</span>
+            <span class="cs-progress-label">{{ step.title }}</span>
+        </button>
+        {% endfor %}
+    </div>
+
+    <div class="cs-stage" aria-live="polite">
+        {% for step in study.steps %}
+        <article class="cs-step{% if forloop.first %} active{% endif %}"
+                 id="cs-step-{{ forloop.counter0 }}"
+                 data-step="{{ forloop.counter0 }}"
+                 {% if not forloop.first %}hidden{% endif %}>
+            <p class="cs-step-phase">{{ step.phase }}</p>
+            <h2 class="cs-step-title">{{ step.title }}</h2>
+            <div class="cs-step-body">
+                <p>{{ step.content }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    <div class="cs-nav">
+        <button type="button" class="btn cs-btn-back" id="cs-back" disabled>&larr; Back</button>
+        <span class="cs-nav-count" id="cs-count">1 of {{ study.steps|length }}</span>
+        <button type="button" class="btn btn-primary cs-btn-next" id="cs-next">Next &rarr;</button>
+    </div>
+
+    <section class="cs-cta" id="cs-cta" hidden>
+        <h2>See how it could work for your group</h2>
+        <p>
+            This walkthrough used <strong>{{ study.tool_title }}</strong> — one of 25 Liberating
+            Structures tools in KwaCart. Run it solo, with a live group, or export the results.
+        </p>
+        <div class="cs-cta-actions">
+            <a href="{% url 'tools:tool_try' study.tool_slug %}" class="btn btn-primary btn-large">
+                Try {{ study.tool_title }} free
+            </a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'tools:catalog' %}" class="btn btn-large">
+                Start from the tool catalog
+            </a>
+            {% else %}
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-large">
+                Register for live sessions
+            </a>
+            {% endif %}
+            <a href="{% url 'tools:catalog' %}" class="btn btn-large">Browse all tools</a>
+        </div>
+    </section>
+</main>
+
+<script src="{% static 'js/case_study.js' %}"></script>
+</body>
+</html>

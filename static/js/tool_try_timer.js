@@ -67,7 +67,7 @@
         btn.textContent   = 'Start';
         btn.disabled      = true;
         btn.style.opacity = '0.4';
-        bar.style.background     = '#40B0A6';
+        bar.style.background     = 'var(--accent)';
         complete.style.display   = 'block';
         announce("Time is up. Complete your answer and submit whenever you're ready.");
     }
@@ -87,12 +87,12 @@
             running = false;
             clearInterval(intervalId);
             btn.textContent      = 'Resume';
-            btn.style.background = '#40B0A6';
+            btn.style.background = 'var(--accent)';
             announce('Timer paused \u2014 ' + fmt(remaining) + ' remaining');
         } else {
             running = true;
             btn.textContent      = 'Pause';
-            btn.style.background = '#E66100';
+            btn.style.background = 'var(--accent)';
             announce('Timer started \u2014 ' + fmt(remaining) + ' remaining');
             intervalId = setInterval(tick, 1000);
         }
@@ -107,8 +107,8 @@
         btn.textContent      = 'Start';
         btn.disabled         = false;
         btn.style.opacity    = '1';
-        btn.style.background = '#5D3A9B';
-        bar.style.background = '#5D3A9B';
+        btn.style.background = 'var(--brand)';
+        bar.style.background = 'var(--brand)';
         complete.style.display = 'none';
         render();
         announce('Timer reset to ' + fmt(TOTAL));

@@ -1,0 +1,230 @@
+/* Host session panels — Invite / Run / Settings */
+
+.sh-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.75rem 0 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.sh-tab {
+    appearance: none;
+    border: 1.5px solid var(--border);
+    background: var(--surface-raised);
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.sh-tab:hover { color: var(--ink); border-color: var(--border-strong); }
+
+.sh-tab[aria-selected="true"] {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+}
+
+.sh-panel { display: none; }
+.sh-panel--active { display: block; }
+
+.sh-panel-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    color: var(--ink);
+}
+
+.sh-panel-lead {
+    margin: 0 0 1.15rem;
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+}
+
+.sh-subheading {
+    font-size: 1.05rem;
+    font-weight: 650;
+    margin: 0 0 0.65rem;
+    color: var(--ink);
+}
+
+.sh-invite-card {
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    margin: 0 0 1rem;
+}
+
+.sh-invite-card--guest {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+}
+
+.sh-invite-card--signed {
+    background: var(--brand-wash);
+    border: 1px solid var(--border-strong);
+    margin-top: 0.75rem;
+}
+
+.sh-invite-card strong {
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.sh-invite-input {
+    width: 100%;
+    padding: 0.45rem 0.55rem;
+    margin-top: 0.25rem;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    border: 1px solid var(--border-strong);
+    border-radius: 5px;
+    background: #fff;
+}
+
+.sh-invite-hint {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    line-height: 1.45;
+}
+
+.sh-qr-details {
+    margin-top: 0.65rem;
+}
+
+.sh-qr-details summary {
+    cursor: pointer;
+    color: #15803d;
+    font-size: 0.875rem;
+    font-weight: 600;
+    list-style: none;
+}
+
+.sh-qr-details summary::-webkit-details-marker { display: none; }
+
+#guest-qrcode {
+    margin-top: 0.5rem;
+    line-height: 0;
+}
+
+.sh-pairing {
+    margin-top: 0.9rem;
+    padding: 0.75rem 1rem;
+    background: #052e16;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.sh-pairing-label {
+    margin: 0 0 0.2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #86efac;
+    font-weight: 600;
+}
+
+.sh-pairing-code {
+    margin: 0;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.45em;
+    color: #4ade80;
+    font-family: ui-monospace, Menlo, monospace;
+    line-height: 1;
+}
+
+.sh-pairing-help {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #86efac;
+    line-height: 1.55;
+    flex: 1;
+    min-width: 160px;
+}
+
+.sh-pairing-help strong {
+    display: inline;
+    font-family: ui-monospace, Menlo, monospace;
+    color: #bbf7d0;
+}
+
+.sh-advanced {
+    margin: 0.25rem 0 0.5rem;
+}
+
+.sh-advanced > summary {
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    font-weight: 600;
+}
+
+.sh-untimed {
+    background: var(--brand-wash);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    margin: 0.5rem 0 1rem;
+    color: var(--ink-muted);
+}
+
+.sh-untimed strong { color: var(--ink-soft); }
+
+.sh-settings-block {
+    margin: 0 0 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.sh-settings-block--danger {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.sh-settings-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.sh-check-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.sh-check-label input {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.sh-select {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: #fff;
+}
+
+.sh-save-status {
+    font-size: 0.85rem;
+    color: #15803d;
+    display: none;
+}

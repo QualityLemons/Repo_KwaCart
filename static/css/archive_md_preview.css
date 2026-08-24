@@ -36,8 +36,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.85rem 1.25rem 0.85rem 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
-    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+    background: var(--brand-wash);
     border-radius: 10px 10px 0 0;
     gap: 0.75rem;
     flex-shrink: 0;
@@ -46,7 +46,7 @@
 .mdv-title {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--ink);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -57,19 +57,19 @@
     flex-shrink: 0;
     width: 2.25rem;
     height: 2.25rem;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border-strong);
     border-radius: 6px;
     background: #fff;
     font-size: 1.1rem;
     line-height: 1;
     cursor: pointer;
-    color: #475569;
+    color: var(--ink-muted);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.1s, color 0.1s;
 }
-.mdv-close:hover { background: #f1f5f9; color: #0f172a; }
+.mdv-close:hover { background: var(--brand-wash); color: var(--ink); }
 .mdv-close:focus-visible {
     outline: 3px solid #2563eb;
     outline-offset: 2px;
@@ -78,7 +78,7 @@
 /* ── Toolbar (Download link) ── */
 .mdv-toolbar {
     padding: 0.5rem 1.5rem;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--brand-wash);
     background: #fafafa;
     font-size: 0.8rem;
     display: flex;
@@ -104,42 +104,42 @@
 .mdv-error {
     padding: 2.5rem 1.5rem;
     text-align: center;
-    color: #64748b;
+    color: var(--ink-muted);
     font-size: 0.9rem;
 }
 .mdv-error { color: #b91c1c; }
 
 /* ── Rendered Markdown typography ── */
-.mdv-content { line-height: 1.7; color: #1e293b; }
-.mdv-content h1 { font-size: 1.5rem; margin: 0 0 0.5rem; color: #0f172a; }
-.mdv-content h2 { font-size: 1.2rem; margin: 1.6rem 0 0.4rem; color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem; }
-.mdv-content h3 { font-size: 1rem; margin: 1.2rem 0 0.3rem; color: #334155; }
+.mdv-content { line-height: 1.7; color: var(--ink); }
+.mdv-content h1 { font-size: 1.5rem; margin: 0 0 0.5rem; color: var(--ink); }
+.mdv-content h2 { font-size: 1.2rem; margin: 1.6rem 0 0.4rem; color: var(--ink); border-bottom: 1px solid var(--border); padding-bottom: 0.25rem; }
+.mdv-content h3 { font-size: 1rem; margin: 1.2rem 0 0.3rem; color: var(--ink-soft); }
 .mdv-content p  { margin: 0.6rem 0; }
 .mdv-content blockquote {
-    border-left: 3px solid #7c3aed;
+    border-left: 3px solid var(--brand-mid);
     margin: 0.75rem 0;
     padding: 0.4rem 0.9rem;
-    background: #faf5ff;
+    background: var(--brand-wash);
     color: #3b0764;
     border-radius: 0 4px 4px 0;
 }
 .mdv-content hr {
     border: none;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border);
     margin: 1.25rem 0;
 }
-.mdv-content strong { color: #0f172a; }
+.mdv-content strong { color: var(--ink); }
 .mdv-content a { color: #2563eb; }
 .mdv-content pre {
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
+    background: var(--brand-wash);
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 0.75rem 1rem;
     overflow-x: auto;
     font-size: 0.875rem;
 }
 .mdv-content code {
-    background: #f1f5f9;
+    background: var(--brand-wash);
     padding: 0.15em 0.35em;
     border-radius: 3px;
     font-size: 0.875em;

@@ -1,5 +1,5 @@
 {% if tool_meta.what or tool_meta.how or tool_meta.how_to or tool_meta.why %}
-<div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px;
+<div style="background:var(--brand-wash); border:1px solid var(--border); border-radius:6px;
             padding:0.85rem 1rem; margin:0.75rem 0 1.25rem; line-height:1.6;">
 
     {% if tool_meta.what %}
@@ -12,7 +12,7 @@
 
     {% if tool_meta.agreements %}
     <div style="margin:0.5rem 0;">
-        <strong>Agreements</strong> <span style="font-size:0.85em; color:#64748b;">(read aloud before Round 1)</span>
+        <strong>Agreements</strong> <span style="font-size:0.85em; color:var(--ink-muted);">(read aloud before Round 1)</span>
         <ol style="margin:0.35rem 0 0 1.25rem; padding:0; line-height:1.7;">
             {% for agreement in tool_meta.agreements %}
             <li>{{ agreement }}</li>

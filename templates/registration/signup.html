@@ -5,27 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register — KwaCart</title>
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}?v=plan">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<header>
-    <nav class="nav" aria-label="Main navigation">
-        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
-        <span class="nav-spacer"></span>
-        <a href="{% url 'about' %}">About</a>
-        <a href="{% url 'accessibility' %}">Accessibility</a>
-        <a href="{% url 'accounts:login' %}">Log in</a>
-    </nav>
-</header>
+{% include "includes/public_nav.html" with nav_current="signup" %}
 
 <main id="main-content">
 <div class="page-wrap">
     <div class="card">
         <div class="card-logo">KwaCart</div>
         <h1 class="card-title">Create your account</h1>
-        <p class="card-sub">Get access to all 23 Liberating Structures tools.</p>
+        {% if selected_plan %}
+        <div class="plan-summary" role="status">
+            <p class="plan-summary-eyebrow">You chose</p>
+            <p class="plan-summary-name">{{ selected_plan.name }}</p>
+            <p class="plan-summary-price">
+                {{ selected_plan.price_month }}/month
+                <span class="plan-summary-alt">or {{ selected_plan.price_year }}/year</span>
+            </p>
+            <p class="plan-summary-text">{{ selected_plan.summary }}</p>
+            <p class="plan-summary-note">
+                Payment comes next — create your account to continue.
+                <a href="{% url 'pricing' %}">Change plan</a>
+            </p>
+        </div>
+        {% else %}
+        <p class="card-sub">
+            Get access to all 25 Liberating Structures tools.
+            <a href="{% url 'pricing' %}">See pricing</a>
+        </p>
+        {% endif %}
 
         {% if form.non_field_errors %}
         <ul class="non-field-errors" role="alert" aria-live="assertive">
@@ -35,6 +47,9 @@
 
         <form method="post" novalidate aria-label="Create a KwaCart account">
             {% csrf_token %}
+            {% if plan_key %}
+            <input type="hidden" name="plan" value="{{ plan_key }}">
+            {% endif %}
 
             <div class="form-group">
                 <label for="{{ form.email.id_for_label }}">Email address</label>
@@ -78,7 +93,7 @@
     </div>
 </div>
 
-</div></main>
+</main>
 
 <footer class="footer">
     KwaCart &mdash; a Liberating Structures facilitation platform.

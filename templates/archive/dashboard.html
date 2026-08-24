@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}My Archive{% endblock %}
+{% block title %}Sessions &amp; archive{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/archive_md_preview.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>My Archive</h1>
+<h1>Sessions &amp; archive</h1>
 
 <h2 style="margin-top:1.5rem;">Solo submissions</h2>
 {% if records %}
@@ -18,13 +18,13 @@
             <col style="width:42%"><col style="width:23%"><col style="width:13%"><col style="width:22%">
         </colgroup>
         <thead>
-            <tr style="text-align:left; border-bottom:1px solid #e2e8f0;">
+            <tr style="text-align:left; border-bottom:1px solid var(--border);">
                 <th scope="col">Tool</th><th scope="col">Submitted</th><th scope="col">Version</th><th scope="col"><span class="sr-only">Actions</span></th>
             </tr>
         </thead>
         <tbody>
             {% for r in records %}
-            <tr style="border-bottom:1px solid #f1f5f9;">
+            <tr style="border-bottom:1px solid var(--brand-wash);">
                 <td style="word-break:break-word; overflow-wrap:anywhere; padding:0.4rem 0.25rem 0.4rem 0;">{{ r.tool_slug }}</td>
                 <td style="padding:0.4rem 0.25rem;">{{ r.submitted_at|date:"Y-m-d H:i" }}</td>
                 <td style="padding:0.4rem 0.25rem;">{{ r.tool_version }}</td>
@@ -69,20 +69,20 @@
             <col style="width:20%"><col style="width:20%"><col style="width:15%">
         </colgroup>
         <thead>
-            <tr style="text-align:left; border-bottom:1px solid #e2e8f0;">
+            <tr style="text-align:left; border-bottom:1px solid var(--border);">
                 <th scope="col">Tool</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Started</th><th scope="col">Closed</th><th scope="col"><span class="sr-only">Actions</span></th>
             </tr>
         </thead>
         <tbody>
             {% for s in sessions %}
-            <tr style="border-bottom:1px solid #f1f5f9;">
+            <tr style="border-bottom:1px solid var(--brand-wash);">
                 <td style="word-break:break-word; overflow-wrap:anywhere; padding:0.4rem 0.25rem 0.4rem 0;">{{ s.tool_slug }}</td>
                 <td style="padding:0.4rem 0.25rem;">{% if s.host_id == user.id %}Host{% else %}Participant{% endif %}</td>
                 <td style="padding:0.4rem 0.25rem;">
                     {% if s.status == 'open' %}
-                        <span style="color:#40B0A6;">Open</span>
+                        <span style="color:var(--accent);">Open</span>
                     {% else %}
-                        <span style="color:#64748b;">Closed</span>
+                        <span style="color:var(--ink-muted);">Closed</span>
                     {% endif %}
                 </td>
                 <td style="padding:0.4rem 0.25rem;">{{ s.created_at|date:"Y-m-d H:i" }}</td>
@@ -106,43 +106,6 @@
     </table>
 {% else %}
     <p>You aren't part of any sessions yet. Start one from the <a href="{% url 'tools:catalog' %}">tool catalog</a>.</p>
-{% endif %}
-
-{% if request.user.is_staff %}
-<section aria-labelledby="waiting-list-heading"
-         style="margin-top:2.5rem; border:2px solid #40B0A6; border-radius:8px;
-                padding:1.25rem 1.5rem; background:#f0fdfa;">
-    <h2 id="waiting-list-heading" style="margin-bottom:0.75rem; color:#0d6b66;">
-        Waiting List
-        {% if waiting_list_count %}
-            <span style="font-size:0.9rem; font-weight:normal; color:#3a1a6b;
-                         background:#E1BE6A; padding:0.15rem 0.5rem; border-radius:20px;
-                         margin-left:0.5rem;">{{ waiting_list_count }}</span>
-        {% endif %}
-    </h2>
-    {% if waiting_list %}
-    <table style="width:100%; border-collapse:collapse;">
-        <thead>
-            <tr style="text-align:left; border-bottom:1px solid #40B0A6;">
-                <th style="padding:0.4rem 0.5rem 0.4rem 0; font-size:0.85rem; color:#64748b;">Email</th>
-                <th style="padding:0.4rem 0.5rem; font-size:0.85rem; color:#64748b;">Name</th>
-                <th style="padding:0.4rem 0; font-size:0.85rem; color:#64748b;">Signed up</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in waiting_list %}
-            <tr style="border-bottom:1px solid #b2ede9;">
-                <td style="padding:0.4rem 0.5rem 0.4rem 0; font-family:ui-monospace,monospace; font-size:0.9rem;">{{ entry.email }}</td>
-                <td style="padding:0.4rem 0.5rem; font-size:0.9rem; color:#475569;">{{ entry.name|default:"—" }}</td>
-                <td style="padding:0.4rem 0; font-size:0.85rem; color:#64748b;">{{ entry.signed_up_at|date:"Y-m-d H:i" }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p style="color:#64748b; margin:0;">No sign-ups yet.</p>
-    {% endif %}
-</section>
 {% endif %}
 
 {% endblock %}

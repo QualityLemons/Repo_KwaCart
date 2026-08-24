@@ -1,0 +1,29 @@
+/* KwaCart brand — feminist, professional, vivid (no orange, no purple, no pink blush) */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap');
+
+:root {
+    --brand: #B01050;
+    --brand-dark: #8A0C3E;
+    --brand-mid: #C43A6E;
+    /* Soft surfaces: cool neutral / teal — never pink blush */
+    --brand-soft: #E6F2F2;
+    --brand-wash: #F4F7F7;
+    --accent: #0E7C7B;
+    --accent-dark: #0A5C5B;
+    --accent-soft: #D8F3F2;
+    --highlight: #F0C419;
+    --highlight-ink: #3D2E00;
+    --ink: #1C1228;
+    --ink-soft: #3D3450;
+    --ink-muted: #5C5470;
+    --surface: #F7F9F9;
+    --surface-raised: #FFFFFF;
+    --border: #D0DADB;
+    --border-strong: #A8B8B9;
+    --band-dark: #1A2A2A;
+    --band-muted: #9BC5C4;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Figtree", "Segoe UI", sans-serif;
+    --radius: 8px;
+    --radius-sm: 5px;
+}

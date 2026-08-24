@@ -116,17 +116,15 @@ def tool_try(request, tool_slug):
 
 @login_required
 def tool_catalog(request):
-    """Lists all available tools, split into Solo and Live Session zones.
+    """Browse-first tool catalogue with optional Solo / Facilitate filters.
 
     Accepts an optional ``mode`` GET parameter (``solo`` | ``live``) that
-    renders the page in a single-zone view with the appropriate action.
-    Without a mode the page shows a prominent two-zone picker so hosts
-    arriving to run a workshop are never presented with the solo catalog
-    first.
+    highlights a focus banner and reorders card actions. Without a mode,
+    every tool is listed with both **Start solo** and **Facilitate**.
 
-    Extra context injected for authenticated users:
-      recent_drafts   — last 3 solo archived submissions (solo zone)
-      active_sessions — currently open sessions they host (live zone)
+    Extra context for authenticated users:
+      recent_drafts   — last 3 solo archived submissions
+      active_sessions — currently open sessions they host
     """
     mode = request.GET.get('mode', '')
     if mode not in ('solo', 'live'):
@@ -146,18 +144,16 @@ def tool_catalog(request):
     ctx = {'categories': categories, 'mode': mode}
 
     if request.user.is_authenticated:
-        if mode in ('solo', ''):
-            ctx['recent_drafts'] = list(
-                ToolInstance.objects
-                .filter(user=request.user, status='archived', session__isnull=True)
-                .order_by('-submitted_at')[:3]
-            )
-        if mode in ('live', ''):
-            ctx['active_sessions'] = list(
-                ToolSession.objects
-                .filter(host=request.user, status='open')
-                .order_by('-created_at')[:3]
-            )
+        ctx['recent_drafts'] = list(
+            ToolInstance.objects
+            .filter(user=request.user, status='archived', session__isnull=True)
+            .order_by('-submitted_at')[:3]
+        )
+        ctx['active_sessions'] = list(
+            ToolSession.objects
+            .filter(host=request.user, status='open')
+            .order_by('-created_at')[:3]
+        )
 
     return render(request, 'tools/catalog.html', ctx)
 
@@ -448,22 +444,15 @@ def session_detail(request, session_id):
         'timer_paused_at': timer_paused_at,
         'pause_reminder_threshold_sec': threshold,
         'pause_reminder_threshold_js': pause_reminder_threshold_js,
+        'timer_enabled': session.timer_enabled,
         'initial_responder_names': initial_responder_names,
-        'inclusive_pacing': session.inclusive_pacing,
-        'inclusive_pacing_multiplier': session.inclusive_pacing_multiplier,
     })
 
 
 @login_required
 @require_POST
 def session_close(request, session_id):
-    """Host closes the session: lock everyone's contribution and run the tool.
-
-    If any participant submitted a multimedia attachment the facilitator is
-    routed to the Synthesis Workspace (``synthesis_review``) so inline
-    transcriptions can be added before the export is generated.  Sessions
-    with no attachments go directly to the combined results page as before.
-    """
+    """Host closes the session: lock everyone's contribution and run the tool."""
     session = get_object_or_404(ToolSession, id=session_id, host=request.user)
     if session.status == 'closed':
         return redirect('tools:session_detail', session_id=session.id)
@@ -475,9 +464,6 @@ def session_close(request, session_id):
         session.save()
 
         for instance in ToolInstance.objects.filter(session=session, status='draft'):
-            # Errors are captured per-instance so that a broken tool definition
-            # for one participant does not abort the close and leave all other
-            # contributions un-archived.
             try:
                 tool = get_tool_instance(session.tool_slug, instance.payload_input)
                 instance.payload_output = tool.execute() if tool else {}
@@ -490,21 +476,6 @@ def session_close(request, session_id):
             instance.status = 'archived'
             instance.submitted_at = timezone.now()
             instance.save()
-
-    # After all instances are committed: check whether any participant uploaded
-    # a multimedia attachment.  If so, route to the Synthesis Workspace for
-    # transcription before the Markdown export is generated.
-    any_attachments = ToolInstance.objects.filter(
-        session=session,
-    ).exclude(attachments=[]).exists()
-
-    if any_attachments:
-        messages.info(
-            request,
-            'Session closed. Add transcriptions for any multimedia contributions '
-            'below, then generate the combined export.',
-        )
-        return redirect('tools:synthesis_review', session_id=session.id)
 
     try:
         run_session_export_pipeline(session)
@@ -533,102 +504,6 @@ def session_delete(request, session_id):
     session.delete()
     messages.success(request, 'Session deleted.')
     return redirect('archive:knowledge_bank_tool', tool_slug=tool_slug)
-
-
-@login_required
-def synthesis_review(request, session_id):
-    """Facilitator Synthesis Workspace.
-
-    Shown after ``session_close`` when at least one participant submitted a
-    multimedia attachment (audio clip or symbol-board image).  The facilitator
-    — or a support worker sitting alongside a non-verbal participant — can type
-    an inline text transcription for each attachment before the combined
-    Markdown export is generated.  Transcriptions are stored directly in the
-    ``attachments`` JSON array on each ``ToolInstance`` so they are woven into
-    the export as first-class data.
-
-    GET  — render the staging review form.
-    POST — save transcriptions into each ``attachments[n]['transcription']``,
-           trigger ``run_session_export_pipeline``, then redirect to the
-           combined results page.
-    """
-    session = get_object_or_404(ToolSession, id=session_id, host=request.user, status='closed')
-
-    instances = (
-        ToolInstance.objects
-        .filter(session=session)
-        .select_related('user')
-        .order_by('submitted_at', 'created_at')
-    )
-
-    if request.method == 'POST':
-        for instance in instances:
-            if not instance.attachments:
-                continue
-            changed = False
-            for idx, att in enumerate(instance.attachments):
-                key = f'transcript_{instance.id}_{idx}'
-                new_val = request.POST.get(key, '').strip()
-                if att.get('transcription', '') != new_val:
-                    att['transcription'] = new_val
-                    changed = True
-            if changed:
-                instance.save(update_fields=['attachments', 'updated_at'])
-
-        try:
-            run_session_export_pipeline(session)
-            messages.success(request, 'Export generated successfully.')
-        except Exception:
-            messages.warning(
-                request,
-                'Transcriptions saved, but the export could not be generated.',
-            )
-
-        return redirect('tools:session_detail', session_id=session.id)
-
-    review_instances = []
-    for inst in instances:
-        display = inst.user.email if inst.user_id else (inst.guest_name or 'Guest')
-        review_instances.append({
-            'instance': inst,
-            'display': display,
-            'is_host': inst.user_id == session.host_id,
-        })
-
-    return render(request, 'tools/synthesis_review.html', {
-        'session': session,
-        'tool_meta': get_tool_metadata(session.tool_slug),
-        'review_instances': review_instances,
-    })
-
-
-@require_POST
-def session_mark_composing(request, session_id):
-    """AAC composition heartbeat endpoint.
-
-    Called every ~8 seconds by session_composing.js when a participant has
-    activated the "I'm Composing" flag.  Stamps ``composing_heartbeat_at``
-    with the current time; session_status treats the flag as active while
-    the timestamp is within the last 15 seconds.
-
-    Accessible to authenticated participants and guests, matching the access
-    pattern of session_buffer_save.
-    """
-    session = get_object_or_404(ToolSession, id=session_id)
-
-    if request.user.is_authenticated:
-        instance = get_object_or_404(ToolInstance, session=session, user=request.user)
-    else:
-        guest_instance_id = request.session.get(f'guest_instance_{session_id}')
-        if not guest_instance_id:
-            return JsonResponse({'error': 'forbidden'}, status=403)
-        instance = get_object_or_404(ToolInstance, id=guest_instance_id, session=session)
-
-    # Use QuerySet.update() to avoid triggering auto_now on updated_at.
-    ToolInstance.objects.filter(pk=instance.pk).update(
-        composing_heartbeat_at=timezone.now()
-    )
-    return JsonResponse({'status': 'ok'})
 
 
 @require_POST
@@ -717,24 +592,12 @@ def session_status(request, session_id):
         # timer widget without needing a full page reload.
         'timer_phases': tool_meta.get('phases') or None,
         'timer_seconds': tool_meta.get('timer_seconds') or 0,
-        # Inclusive Pacing — broadcast to all participants on every poll so
-        # they react immediately when the host enables or adjusts it.
-        'inclusive_pacing': session.inclusive_pacing,
-        'inclusive_pacing_multiplier': session.inclusive_pacing_multiplier,
-        # Verbal Breakout — host has moved the group to verbal discussion;
-        # AAC-composing participants are reassured their window is still open.
-        'verbal_breakout': session.verbal_breakout_active,
+        'timer_enabled': session.timer_enabled,
         'participants': [
             {
                 'display_name': p.user.email if p.user_id else (p.guest_name or 'Guest'),
                 'is_host': p.user_id is not None and p.user_id == session.host_id,
                 'has_response': bool(p.payload_input),
-                # True while the participant's AAC composing heartbeat is fresh
-                # (within the last 15 seconds).
-                'is_composing': bool(
-                    p.composing_heartbeat_at and
-                    (timezone.now() - p.composing_heartbeat_at).total_seconds() < 15
-                ),
             }
             for p in participants
         ],
@@ -752,6 +615,8 @@ def timer_start(request, session_id):
     session = get_object_or_404(ToolSession, id=session_id, host=request.user)
     if session.status != 'open':
         return JsonResponse({'error': 'session not open'}, status=400)
+    if not session.timer_enabled:
+        return JsonResponse({'error': 'timer disabled for this session'}, status=400)
     session.timer_started_at = timezone.now()
     session.save(update_fields=['timer_started_at'])
     return JsonResponse({'timer_started_at': session.timer_started_at.isoformat()})
@@ -801,57 +666,33 @@ def session_set_pause_reminder(request, session_id):
 
 @login_required
 @require_POST
-def session_set_inclusive_pacing(request, session_id):
-    """Host enables or adjusts the Inclusive Pacing multiplier for this session.
+def session_set_timer_enabled(request, session_id):
+    """Host turns the session timer on or off for everyone in the room.
 
-    When inclusive_pacing is true, each non-host participant's status-poll
-    response includes the flag and multiplier so their timer.js can show the
-    extended personal countdown panel without requiring a page reload.
+    Disabling clears any in-progress countdown so participants are not left
+    looking at a stale timer. The flag is broadcast on the next status poll.
     """
     session = get_object_or_404(ToolSession, id=session_id, host=request.user)
     if session.status != 'open':
         return JsonResponse({'error': 'session not open'}, status=400)
-    enabled = request.POST.get('inclusive_pacing', 'false') == 'true'
-    try:
-        multiplier = int(request.POST.get('inclusive_pacing_multiplier', 3))
-    except (TypeError, ValueError):
-        return JsonResponse({'error': 'invalid multiplier'}, status=400)
-    if multiplier not in (3, 5):
-        return JsonResponse({'error': 'multiplier must be 3 or 5'}, status=400)
-    session.inclusive_pacing = enabled
-    session.inclusive_pacing_multiplier = multiplier
-    session.save(update_fields=['inclusive_pacing', 'inclusive_pacing_multiplier'])
-    return JsonResponse({
-        'inclusive_pacing': session.inclusive_pacing,
-        'inclusive_pacing_multiplier': session.inclusive_pacing_multiplier,
-    })
 
-
-@login_required
-@require_POST
-def session_set_verbal_breakout(request, session_id):
-    """Host toggles verbal-breakout mode for an open session.
-
-    When active, participants who have not flagged themselves as AAC-composing
-    see a banner prompting them to join a verbal discussion; those who did flag
-    themselves are reassured their digital submission window is still open.
-
-    The state is broadcast on every session_status poll so all participants
-    react within ≤ 4 seconds without requiring a page reload.
-    """
-    session = get_object_or_404(ToolSession, id=session_id, host=request.user)
-    if session.status != 'open':
-        return JsonResponse({'error': 'session not open'}, status=400)
-    active = request.POST.get('active') == 'true'
-    session.verbal_breakout_active = active
-    session.save(update_fields=['verbal_breakout_active'])
-    return JsonResponse({'verbal_breakout_active': session.verbal_breakout_active})
+    enabled = request.POST.get('timer_enabled', 'true') == 'true'
+    session.timer_enabled = enabled
+    update_fields = ['timer_enabled']
+    if not enabled:
+        session.timer_started_at = None
+        session.timer_paused_at = None
+        session.timer_elapsed_before_pause = 0
+        update_fields.extend([
+            'timer_started_at',
+            'timer_paused_at',
+            'timer_elapsed_before_pause',
+        ])
+    session.save(update_fields=update_fields)
+    return JsonResponse({'timer_enabled': session.timer_enabled})
 
 
 # --- Guest participant flow --------------------------------------------------
-# These views allow unauthenticated participants to join a session via a QR
-# code URL that embeds the session's guest_token.  The guest is identified for
-# the duration of their visit by a key stored in the Django browser session.
 
 def guest_join(request, session_id, guest_token):
     """Show a name-entry form so unauthenticated users can join as guests.
@@ -972,8 +813,7 @@ def guest_respond(request, session_id, guest_token):
         'timer_paused_at': timer_paused_at,
         'pause_reminder_threshold_sec': threshold,
         'pause_reminder_threshold_js': pause_reminder_threshold_js,
-        'inclusive_pacing': session.inclusive_pacing,
-        'inclusive_pacing_multiplier': session.inclusive_pacing_multiplier,
+        'timer_enabled': session.timer_enabled,
     })
 
 
@@ -1038,122 +878,6 @@ def pairing_join(request, code):
         session_id=session.id,
         guest_token=session.guest_token,
     )
-
-
-# ── Multimedia Input Bridge ──────────────────────────────────────────────────
-
-@require_POST
-def session_attachment_upload(request, session_id):
-    """Upload a multimedia attachment (audio or image) for a session participant.
-
-    Accepts ``multipart/form-data`` with a single ``file`` field.  The file is
-    uploaded directly to Cloudinary via the Python SDK; only the resulting
-    ``secure_url`` is stored in the database.  Nothing is written to Heroku's
-    ephemeral local filesystem.
-
-    Accessible to authenticated users and to unauthenticated guests who hold a
-    valid ``guest_instance_id`` in their browser session (same auth pattern as
-    ``session_buffer_save``).
-
-    Supported types:
-        image/*  — PNG, JPEG, WebP, GIF — max 10 MB
-        audio/*  — WebM, OGG, MP3, MP4 audio — max 25 MB
-    """
-    session = get_object_or_404(ToolSession, id=session_id, status='open')
-
-    if request.user.is_authenticated:
-        instance = get_object_or_404(ToolInstance, session=session, user=request.user)
-    else:
-        guest_instance_id = request.session.get(f'guest_instance_{session_id}')
-        if not guest_instance_id:
-            return JsonResponse({'error': 'forbidden'}, status=403)
-        instance = get_object_or_404(ToolInstance, id=guest_instance_id, session=session)
-
-    uploaded_file = request.FILES.get('file')
-    if not uploaded_file:
-        return JsonResponse({'error': 'no file provided'}, status=400)
-
-    content_type = (uploaded_file.content_type or '').split(';')[0].strip()
-    if content_type.startswith('image/'):
-        attach_type   = 'image'
-        resource_type = 'image'
-        max_bytes     = 10 * 1024 * 1024
-    elif content_type.startswith('audio/') or content_type.startswith('video/'):
-        attach_type   = 'audio'
-        resource_type = 'video'
-        max_bytes     = 25 * 1024 * 1024
-    else:
-        return JsonResponse({'error': 'unsupported file type'}, status=400)
-
-    if uploaded_file.size > max_bytes:
-        limit_mb = max_bytes // (1024 * 1024)
-        return JsonResponse({'error': f'file too large (max {limit_mb} MB)'}, status=400)
-
-    from django.utils.timezone import now as tz_now
-    import cloudinary.uploader
-
-    timestamp = tz_now().strftime('%Y%m%d%H%M%S')
-    public_id = (
-        f'kwacart/attachments/{session_id}/'
-        f'{instance.id}_{attach_type}_{timestamp}'
-    )
-
-    try:
-        result = cloudinary.uploader.upload(
-            uploaded_file.read(),
-            resource_type=resource_type,
-            public_id=public_id,
-            overwrite=False,
-        )
-    except Exception:
-        return JsonResponse({'error': 'upload to storage failed'}, status=500)
-
-    secure_url = result.get('secure_url', '')
-    entry = {
-        'type':      attach_type,
-        'url':       secure_url,
-        'public_id': result.get('public_id', public_id),
-        'name':      uploaded_file.name or f'{attach_type}_{timestamp}',
-    }
-    attachments = list(instance.attachments or [])
-    attachments.append(entry)
-    instance.attachments = attachments
-    instance.save(update_fields=['attachments', 'updated_at'])
-
-    return JsonResponse(entry)
-
-
-@require_POST
-def session_attachment_remove(request, session_id):
-    """Remove a previously uploaded attachment from the participant's instance.
-
-    Accepts ``application/x-www-form-urlencoded`` with a ``public_id`` field
-    matching an entry in ``ToolInstance.attachments``.  The Cloudinary asset is
-    not deleted (cleanup can be handled server-side later); only the database
-    record is updated.
-    """
-    session = get_object_or_404(ToolSession, id=session_id, status='open')
-
-    if request.user.is_authenticated:
-        instance = get_object_or_404(ToolInstance, session=session, user=request.user)
-    else:
-        guest_instance_id = request.session.get(f'guest_instance_{session_id}')
-        if not guest_instance_id:
-            return JsonResponse({'error': 'forbidden'}, status=403)
-        instance = get_object_or_404(ToolInstance, id=guest_instance_id, session=session)
-
-    public_id = request.POST.get('public_id', '').strip()
-    if not public_id:
-        return JsonResponse({'error': 'public_id required'}, status=400)
-
-    attachments = list(instance.attachments or [])
-    updated = [a for a in attachments if a.get('public_id') != public_id]
-    if len(updated) == len(attachments):
-        return JsonResponse({'error': 'attachment not found'}, status=404)
-
-    instance.attachments = updated
-    instance.save(update_fields=['attachments', 'updated_at'])
-    return JsonResponse({'status': 'removed'})
 
 
 @login_required

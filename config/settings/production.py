@@ -42,19 +42,17 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # If a DATABASE_URL environment variable is present, switch from the SQLite
 # default (defined in base.py) to that database.  conn_max_age=600 enables
 # persistent connections, reducing per-request connection overhead.
-# When DATABASE_URL is absent the base.py SQLite setting is used unchanged,
-# so the application still starts correctly without the variable.
+# When DATABASE_URL is absent the base.py SQLite setting is used unchanged.
 import dj_database_url as _dj_db_url  # noqa: E402
 _db_url = os.environ.get('DATABASE_URL')
 if _db_url:
     DATABASES = {'default': _dj_db_url.parse(_db_url, conn_max_age=600)}  # noqa: F405
 
-# Django 4.2+ uses the STORAGES dict instead of the deprecated
-# STATICFILES_STORAGE / DEFAULT_FILE_STORAGE string settings.
-# Static files are served by WhiteNoise with content-hash filenames;
-# media files go to Cloudinary when CLOUDINARY_URL is set, otherwise
-# fall back to the local filesystem (development / test).
+# Optional Cloudinary for ephemeral hosts; local filesystem is the cheap default.
 _cloudinary_url = os.environ.get('CLOUDINARY_URL', '')
+if _cloudinary_url and 'cloudinary_storage' not in INSTALLED_APPS:  # noqa: F405
+    INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']  # noqa: F405
+
 _media_backend = (
     'cloudinary_storage.storage.RawMediaCloudinaryStorage'
     if _cloudinary_url
