@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ tool_title }} — Knowledge Bank{% endblock %}
+{% block title %}{{ tool_title }} — Sessions &amp; archive{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/archive_md_preview.css' %}">
@@ -10,7 +10,7 @@
 {% block content %}
 <p style="margin-bottom:0.5rem;">
     <a href="{% url 'archive:knowledge_bank' %}" style="color:var(--brand); font-size:0.9rem;">
-        &larr; Knowledge Bank
+        &larr; Sessions &amp; archive
     </a>
 </p>
 

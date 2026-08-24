@@ -12,26 +12,13 @@
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<header>
-    <nav class="nav" aria-label="Main navigation">
-        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
-        <span class="nav-spacer"></span>
-        <a href="{% url 'home' %}#when-to-use">Use cases</a>
-        <a href="{% url 'about' %}">About</a>
-        <a href="{% url 'pricing' %}">Pricing</a>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'tools:catalog' %}">All Tools</a>
-        {% else %}
-            <a href="{% url 'accounts:login' %}">Log in</a>
-        {% endif %}
-    </nav>
-</header>
+{% include "includes/public_nav.html" with nav_current="use_cases" %}
 
 <main id="main-content" class="cs-page">
     <nav class="cs-breadcrumb" aria-label="Breadcrumb">
         <a href="{% url 'home' %}">Home</a>
         <span aria-hidden="true">&rsaquo;</span>
-        <a href="{% url 'home' %}#when-to-use">Use cases</a>
+        <a href="{% url 'case_study_index' %}">Use cases</a>
         <span aria-hidden="true">&rsaquo;</span>
         <span>{{ study.title }}</span>
     </nav>
@@ -109,7 +96,7 @@
                 Start from the tool catalog
             </a>
             {% else %}
-            <a href="{% url 'accounts:signup' %}" class="btn btn-large">
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-large">
                 Register for live sessions
             </a>
             {% endif %}

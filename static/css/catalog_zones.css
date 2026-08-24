@@ -3,7 +3,49 @@
    Solo  — teal, contemplative, individual
    Live  — berry brand, energetic, group                          */
 
-/* ── Mode picker (default / no mode selected) ── */
+/* ── Browse-first filter chips ── */
+.cz-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0 0 1.25rem;
+}
+.cz-filter {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--surface-raised);
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+.cz-filter:hover { border-color: var(--border-strong); color: var(--ink); }
+.cz-filter--active {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+.cz-filter--solo.cz-filter--active {
+    border-color: var(--accent);
+    background: #f0fdfa;
+    color: var(--accent);
+}
+.cz-filter--live.cz-filter--active {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+.cz-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ── Mode picker (legacy — unused after browse-first) ── */
 .cz-intro {
     margin: 0 0 0.25rem;
     font-size: 0.9rem;

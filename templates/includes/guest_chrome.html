@@ -1,0 +1,12 @@
+{# Guest shell: logo + accessibility toggle only. #}
+<nav class="guest-nav" aria-label="Session">
+    <a href="{% url 'home' %}"><strong>KwaCart</strong></a>
+    <span class="spacer"></span>
+    <button type="button"
+            id="a11y-theme-toggle"
+            class="a11y-toggle-btn"
+            aria-pressed="false"
+            title="Toggle zero-animation, large-target, high-contrast mode">
+        Accessibility Mode
+    </button>
+</nav>

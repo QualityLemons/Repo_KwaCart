@@ -3,131 +3,27 @@
 
 {% block title %}Join session &mdash; {{ tool_meta.title }}{% endblock %}
 
+{% block body_class %}guest-shell{% endblock %}
+
+{% block site_header %}
+{% include "includes/guest_chrome.html" %}
+{% endblock %}
+
+{% block site_footer %}{% endblock %}
+
 {% block extra_css %}
-<style>
-/* ── Nickname screen ─────────────────────────────────────────────────────── */
-/* Deliberately full-height and visually dominant so a phone screen shows
-   nothing but the prompt after scanning the QR code. */
-
-#nickname-screen {
-    min-height: calc(100vh - 9rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-}
-
-.ns-card {
-    background: var(--ink);
-    color: var(--brand-wash);
-    border-radius: 14px;
-    padding: 2.5rem 2rem;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-.ns-eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin: 0 0 0.4rem;
-}
-
-.ns-session-label {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--border);
-    margin: 0 0 2rem;
-}
-
-.ns-question {
-    font-size: 1.45rem;
-    font-weight: 700;
-    color: var(--brand-wash);
-    margin: 0 0 1.5rem;
-    line-height: 1.3;
-}
-
-.ns-input {
-    display: block;
-    width: 100%;
-    padding: 0.9rem 1rem;
-    border: 2px solid var(--ink-muted);
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-family: inherit;
-    background: var(--ink);
-    color: var(--brand-wash);
-    box-sizing: border-box;
-    transition: border-color 0.15s;
-    text-align: left;
-}
-
-.ns-input:focus {
-    outline: none;
-    border-color: var(--highlight);
-    box-shadow: 0 0 0 3px rgba(240, 196, 25, 0.28);
-}
-
-.ns-input::placeholder {
-    color: var(--ink-muted);
-}
-
-.ns-error {
-    color: #fca5a5;
-    font-size: 0.875rem;
-    margin: 0.6rem 0 0;
-    text-align: left;
-}
-
-.ns-btn {
-    display: block;
-    width: 100%;
-    margin-top: 1.25rem;
-    padding: 0.9rem;
-    background: var(--highlight);
-    color: var(--highlight-ink);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background 0.15s;
-}
-
-.ns-btn:hover,
-.ns-btn:focus-visible {
-    background: #e0b50f;
-    outline: 2px solid var(--brand-wash);
-    outline-offset: 2px;
-}
-
-.ns-btn:disabled {
-    opacity: 0.6;
-    cursor: default;
-}
-
-.ns-hint {
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    margin: 1.25rem 0 0;
-    line-height: 1.55;
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/guest_shell.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css/motion.css' %}?v=1">
 {% endblock %}
 
 {% block content %}
-<div id="nickname-screen">
-    <div class="ns-card">
+<div class="guest-entry-screen" id="nickname-screen">
+    <div class="guest-entry-card motion-card-enter">
 
-        <p class="ns-eyebrow">Live facilitation session</p>
-        <p class="ns-session-label">{{ tool_meta.title }}</p>
+        <p class="guest-entry-eyebrow">Live facilitation session</p>
+        <p class="guest-entry-label">{{ tool_meta.title }}</p>
 
-        <p class="ns-question">
+        <p class="guest-entry-question">
             What should we call you<br>in this session?
         </p>
 
@@ -140,21 +36,23 @@
             <input type="text"
                    id="guest_name"
                    name="guest_name"
-                   class="ns-input"
+                   class="guest-entry-input"
                    autofocus
-                   autocomplete="off"
+                   autocomplete="name"
+                   autocapitalize="words"
+                   enterkeyhint="go"
                    maxlength="100"
-                   placeholder="e.g. Sarah &mdash; Marketing">
+                   placeholder="e.g. Sarah — Marketing">
             {% if error %}
-            <p class="ns-error" role="alert">{{ error }}</p>
+            <p class="guest-entry-error" role="alert">{{ error }}</p>
             {% endif %}
-            <button type="submit" class="ns-btn">
+            <button type="submit" class="guest-entry-btn">
                 Join session &rarr;
             </button>
         </form>
 
-        <p class="ns-hint">
-            No account needed. Your name will appear next to your contribution
+        <p class="guest-entry-hint">
+            No account needed. Your name appears next to your contribution
             in the session summary and exported results.
         </p>
 
@@ -164,16 +62,13 @@
 
 {% block extra_js %}
 <script>
-/* ── Nickname screen: sessionStorage bridge ──────────────────────────────── */
-/* If the guest previously joined a session this browser session, pre-fill
-   the field with the name they used so they don't have to retype it. */
 (function () {
     try {
         var input = document.getElementById('guest_name');
         if (!input || input.value) return;
         var saved = sessionStorage.getItem('kwacart_guest_name');
         if (saved) input.value = saved;
-    } catch (_) { /* sessionStorage unavailable (private mode, etc.) */ }
+    } catch (_) {}
 }());
 </script>
 {% endblock %}

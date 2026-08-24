@@ -3,279 +3,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>KwaCart — Liberating Structures facilitation tools</title>
     <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=noblush3">
+    <link rel="stylesheet" href="{% static 'css/motion.css' %}?v=1">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<header>
-    <nav class="nav" aria-label="Main navigation">
-        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
-        <span class="nav-spacer"></span>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'tools:catalog' %}">All Tools</a>
-            <a href="{% url 'archive:knowledge_bank' %}">Knowledge Bank</a>
-            <a href="{% url 'accounts:logout' %}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-            <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">{% csrf_token %}</form>
-        {% else %}
-            <a href="{% url 'about' %}">About</a>
-            <a href="{% url 'pricing' %}">Pricing</a>
-            <a href="{% url 'accessibility' %}">Accessibility</a>
-            <a href="{% url 'accounts:login' %}">Log in</a>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
-        {% endif %}
-    </nav>
-</header>
+{% include "includes/public_nav.html" %}
 
 <main id="main-content">
 
-<!-- ── Hero ── -->
+<!-- 1. Hero -->
 <section class="hero">
-    <div class="hero-inner">
+    <div class="hero-inner motion-hero-inner">
         <h1>Facilitation that <span>releases</span> what groups already know</h1>
         <p>
             KwaCart brings Liberating Structures to your browser.
             Run timed, structured sessions with your team — or try two tools right now, no account needed.
         </p>
         <div class="hero-actions">
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-large">Register now</a>
-            <a href="{% url 'home' %}#free-tools" class="btn btn-large">Try it free &darr;</a>
-            <a href="{% url 'pricing' %}" class="btn btn-large">Pricing</a>
+            <a href="{% url 'home' %}#free-tools" class="btn btn-primary btn-large">Try it free &darr;</a>
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-large">Register</a>
         </div>
     </div>
 </section>
 
-<!-- ── Story: who uses this ── -->
-<section class="story-who">
-    <div class="story-who-inner">
-        <div class="story-voice-col">
-            <span class="story-badge">About this toolkit</span>
-            <p class="story-intro-name">Hi, my name is John.</p>
-            <p class="story-body">
-                I want to help grow and progress the performance of teams of people who
-                do quality activities in the community. I have worked for a wide range of
-                companies and charities — serving every kind of professional you can think of.
-            </p>
-            <p class="story-thread">
-                <strong>What all these had in common:</strong> we made an impact and found
-                funding when we worked together on goals and problems.
-            </p>
-        </div>
-        <div class="sector-cloud" aria-label="Communities served">
-            <span class="sector-chip">🔧 Engineers</span>
-            <span class="sector-chip">🏥 Nurses</span>
-            <span class="sector-chip">⚕️ Doctors</span>
-            <span class="sector-chip">📐 Architects</span>
-            <span class="sector-chip">🌱 Youth workers</span>
-            <span class="sector-chip">💃 Dancers</span>
-            <span class="sector-chip">📚 Teachers</span>
-            <span class="sector-chip">🔨 Shopfitters</span>
-            <span class="sector-chip">🧠 Psychologists</span>
-            <span class="sector-chip">🏀 Basketball players</span>
-            <span class="sector-chip">⚖️ Employment lawyers</span>
-            <span class="sector-chip">+ many more</span>
-        </div>
-    </div>
-</section>
-
-<!-- ── Story: when to use it ── -->
-<section class="section" id="when-to-use">
-    <h2 class="section-title">Use this toolkit when you need to…</h2>
+<!-- 2. Product proof -->
+<section class="section product-proof motion-proof" aria-labelledby="product-proof-heading">
+    <h2 id="product-proof-heading" class="section-title">Host on one screen. Guests join on theirs.</h2>
     <p class="section-sub">
-        These are the situations where structured facilitation makes the biggest difference.
+        Share a link or QR code. Everyone works through the same structure — guests never need an account.
     </p>
-    <div class="use-case-grid">
-
-        <div class="use-case-card">
-            <div class="use-case-icon">🚀</div>
-            <h3>Train a new starter</h3>
-            <p>
-                Create a training package for a new employee so they can hit the ground
-                running — built with the team's real knowledge, not a generic template.
-            </p>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">🔄</div>
-            <h3>Plan for succession</h3>
-            <p>
-                Prepare for the handover of a senior role by surfacing the problems and
-                opportunities only the people in the room truly understand.
-            </p>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">📋</div>
-            <h3>Write a winning grant</h3>
-            <p>
-                Share evidence from community workers to make it easier to write grants
-                and find local funding — with their voices front and centre.
-            </p>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">👂</div>
-            <h3>Transform a service</h3>
-            <p>
-                Listen to service users so your activities and programmes become more
-                attractive, welcoming, engaging, and safe for the communities they serve.
-            </p>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">🏗️</div>
-            <h3>Navigate opposition</h3>
-            <p>
-                Understand the concerns of neighbours to a new building project — and move
-                past the blocks to development before they become delays.
-            </p>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">🌱</div>
-            <h3>Build a person-centred plan</h3>
-            <p>
-                Agree objectives that matter to the individual — across activity, social
-                relationships, learning, independence, health, home, employment, or any other
-                dimension of a good life.
-            </p>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">🎯</div>
-            <h3>Design a learning plan</h3>
-            <p>
-                Focus on a targeted set of skills and organise regular, structured
-                opportunities to practise them — so progress is visible and purposeful.
-            </p>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">🤝</div>
-            <h3>Support positive behaviour</h3>
-            <p>
-                Help people grow through small-group activities in new spaces, building
-                confidence and connection so the need for challenging behaviour fades
-                naturally over time.
-            </p>
-            <a href="{% url 'case_study_detail' 'supporting-positive-behaviour' %}" class="use-case-card-cta">Read the case study &rarr;</a>
-        </div>
-
-        <div class="use-case-card">
-            <div class="use-case-icon">💬</div>
-            <h3>Shape a communication plan</h3>
-            <p>
-                Meet the communication needs of people with severe learning or physical
-                disabilities and limited language — using group activities to build shared
-                understanding across the whole support team.
-            </p>
-            <a href="{% url 'case_study_detail' 'shape-a-communication-plan' %}" class="use-case-card-cta">Read the case study &rarr;</a>
-        </div>
-
-    </div>
+    <figure class="product-proof-figure">
+        <img src="{% static 'images/session-flow.svg' %}"
+             alt="Host dashboard showing a live 1-2-4-All session with timer and participant list, beside a guest phone screen for typing a response."
+             class="product-proof-img motion-proof-img"
+             width="880"
+             height="420"
+             loading="lazy"
+             decoding="async">
+    </figure>
 </section>
 
-<!-- ── AAC teaser ── -->
-<section class="section" id="aac-section">
-    <div class="aac-teaser">
-        <div class="aac-teaser-text">
-            <span class="aac-teaser-badge">Accessibility</span>
-            <h2>Built for every voice</h2>
-            <p>
-                KwaCart includes built-in support for AAC users — people who communicate
-                with eye-gaze trackers, switch-scanning systems, or apps like Grid&nbsp;3.
-            </p>
-            <ul class="aac-teaser-list">
-                <li>
-                    <span class="aac-bullet aac-bullet-green" aria-hidden="true"></span>
-                    <strong>Calm Timer</strong> — replaces ticking digits with a slow colour drift
-                </li>
-                <li>
-                    <span class="aac-bullet aac-bullet-yellow" aria-hidden="true"></span>
-                    <strong>Composition Presence Flag</strong> — tells the host you're still writing, even when your text box is empty
-                </li>
-                <li>
-                    <span class="aac-bullet aac-bullet-blue" aria-hidden="true"></span>
-                    <strong>Accessibility Mode</strong> — large targets, frozen layout, no animations
-                </li>
-            </ul>
-            <a href="{% url 'accessibility' %}" class="btn btn-primary" style="margin-top:0.75rem;">
-                See all AAC features &amp; tools &rarr;
-            </a>
-        </div>
-        <div class="aac-teaser-graphic" aria-hidden="true">
-            <div class="aac-graphic-inner">
-                <div class="aac-g-row">
-                    <div class="aac-g-label">Calm timer</div>
-                    <div class="aac-g-block aac-g-green">Plenty of time</div>
-                </div>
-                <div class="aac-g-row">
-                    <div class="aac-g-label"></div>
-                    <div class="aac-g-block aac-g-amber">Getting shorter</div>
-                </div>
-                <div class="aac-g-row">
-                    <div class="aac-g-label"></div>
-                    <div class="aac-g-block aac-g-red">Nearly done</div>
-                </div>
-                <div class="aac-g-composing">
-                    <span class="aac-g-pulse"></span>
-                    ✏ I'm composing…
-                </div>
-                <div class="aac-g-big-btn">Save my response</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ── Learn how to use KwaCart ── -->
-<!-- ── Learn teaser ── -->
-<section class="section learn-teaser">
-    <div style="max-width:720px; margin:0 auto; text-align:center; padding:0 1rem;">
-        <div style="font-size:3rem; margin-bottom:0.75rem;" aria-hidden="true">📖</div>
-        <h2 class="section-title" style="margin-bottom:0.5rem;">New to KwaCart?</h2>
-        <p class="section-sub" style="margin-bottom:1.75rem;">
-            Our step-by-step guide walks you through everything — from creating your account
-            to downloading your results and using them with AI, word processing, and publishing tools.
-        </p>
-        <a href="{% url 'learn' %}" class="btn btn-primary btn-large">
-            Learn how to use KwaCart &rarr;
-        </a>
-    </div>
-</section>
-
-<hr class="divider">
-
-<!-- ── Liberating Structures closer ── -->
-<section class="ls-band">
-    <div class="ls-band-inner">
-        <div class="ls-stat">
-            <span class="ls-stat-num">33+</span>
-            <span class="ls-stat-label">structures to explore</span>
-        </div>
-        <div class="ls-text">
-            <h2>Designed for inclusive, innovative, productive work</h2>
-            <p>
-                Liberating Structures are now widely used in improvement work. Using them
-                quickly encourages lively participation in groups of any size, boosts engagement,
-                and enables connection and collaboration in a fun and inspiring way.
-            </p>
-            <a href="{% url 'tools:catalog' %}" class="btn btn-large">Explore all structures &rarr;</a>
-        </div>
-    </div>
-</section>
-
-<hr class="divider">
-
-<!-- ── Free tools ── -->
+<!-- 3. Free tools -->
 <section class="section" id="free-tools">
     <h2 class="section-title">Two tools, free to use right now</h2>
     <p class="section-sub">No account needed. Fill in the form and see your structured output instantly.</p>
 
     <div class="free-tools-grid">
-
         <div class="tool-card">
             <div>
                 <span class="tool-card-label">Free</span>
@@ -284,11 +62,9 @@
             </div>
             <p>
                 Identify only the must-dos and must-not-dos for achieving a purpose.
-                Start with a full list of rules, then ruthlessly drop anything that could be
-                broken without losing what matters. The result is a short, enabling set of
-                constraints that guides action without micromanagement.
+                The result is a short, enabling set of constraints that guides action without micromanagement.
             </p>
-            <p><strong>Best for:</strong> governance redesign, project kick-offs, team agreements, scaling a practice.</p>
+            <p><strong>Best for:</strong> governance redesign, project kick-offs, team agreements.</p>
             <div class="card-footer">
                 <a href="{% url 'tools:tool_try' 'min-specs' %}" class="btn btn-primary">Try Min Specs &rarr;</a>
             </div>
@@ -301,57 +77,156 @@
                 <p class="tagline">What can you start doing right now, with the freedom and resources you already have?</p>
             </div>
             <p>
-                Move away from blockage and powerlessness. Each person generates a list of
-                concrete actions they can take without more resources or authority —
+                Each person generates concrete actions they can take without more resources or authority —
                 the bottom-up momentum that makes change stick.
             </p>
-            <p><strong>Best for:</strong> overcoming stuck teams, closing the knowing-doing gap, building trust through small wins.</p>
+            <p><strong>Best for:</strong> stuck teams, closing the knowing-doing gap, small wins.</p>
             <div class="card-footer">
                 <a href="{% url 'tools:tool_try' '15-percent-solutions' %}" class="btn btn-primary">Try 15% Solutions &rarr;</a>
             </div>
         </div>
-
     </div>
 </section>
 
 <hr class="divider">
 
-<!-- ── How it works ── -->
+<!-- 4. When to use (trimmed) -->
+<section class="section" id="when-to-use">
+    <h2 class="section-title">Use this toolkit when you need to…</h2>
+    <p class="section-sub">
+        Situations where structured facilitation makes the biggest difference.
+        Read a case study to see a real walkthrough.
+    </p>
+    <div class="use-case-grid use-case-grid--compact">
+
+        <div class="use-case-card">
+            <div class="use-case-icon" aria-hidden="true">🤝</div>
+            <h3>Support positive behaviour</h3>
+            <p>
+                Help people grow through small-group activities, building confidence so challenging
+                behaviour fades naturally over time.
+            </p>
+            <a href="{% url 'case_study_detail' 'supporting-positive-behaviour' %}" class="use-case-card-cta">Read the case study &rarr;</a>
+        </div>
+
+        <div class="use-case-card">
+            <div class="use-case-icon" aria-hidden="true">💬</div>
+            <h3>Shape a communication plan</h3>
+            <p>
+                Meet the communication needs of people with limited language — using group activities
+                to build shared understanding across the support team.
+            </p>
+            <a href="{% url 'case_study_detail' 'shape-a-communication-plan' %}" class="use-case-card-cta">Read the case study &rarr;</a>
+        </div>
+
+        <div class="use-case-card">
+            <div class="use-case-icon" aria-hidden="true">🚀</div>
+            <h3>Train a new starter</h3>
+            <p>
+                Create a training package built with the team&rsquo;s real knowledge, not a generic template.
+            </p>
+        </div>
+
+        <div class="use-case-card">
+            <div class="use-case-icon" aria-hidden="true">📋</div>
+            <h3>Write a winning grant</h3>
+            <p>
+                Share evidence from community workers so their voices sit front and centre in funding bids.
+            </p>
+        </div>
+
+        <div class="use-case-card">
+            <div class="use-case-icon" aria-hidden="true">👂</div>
+            <h3>Transform a service</h3>
+            <p>
+                Listen to service users so programmes become more welcoming, engaging, and safe.
+            </p>
+        </div>
+
+    </div>
+    <p class="section-more">
+        <a href="{% url 'case_study_index' %}">Browse all case studies &rarr;</a>
+    </p>
+</section>
+
+<hr class="divider">
+
+<!-- 5. How hosting works -->
 <section class="section">
-    <h2 class="section-title">How the full platform works</h2>
-    <p class="section-sub">Subscribe as an individual host to unlock live group sessions with all Liberating Structures tools.</p>
+    <h2 class="section-title">How hosting works</h2>
+    <p class="section-sub">Four steps from tool choice to a downloadable summary.</p>
 
     <div class="steps">
         <div class="step">
             <div class="step-num">1</div>
             <h3>Pick a tool</h3>
-            <p>Browse 23 Liberating Structures techniques, from 1-2-4-All to Drawing Together.</p>
+            <p>Browse 25 Liberating Structures techniques, from 1-2-4-All to Drawing Together.</p>
         </div>
         <div class="step">
             <div class="step-num">2</div>
             <h3>Start a session</h3>
-            <p>Share a link (or QR code) with participants. Everyone joins in their browser.</p>
+            <p>Share a link or QR code. Everyone joins in their browser.</p>
         </div>
         <div class="step">
             <div class="step-num">3</div>
-            <h3>Work through the phases</h3>
-            <p>A built-in timer guides each phase. Contributions are saved as participants type.</p>
+            <h3>Work the phases</h3>
+            <p>A built-in timer guides each phase. Contributions save as people type.</p>
         </div>
         <div class="step">
             <div class="step-num">4</div>
-            <h3>Review the archive</h3>
-            <p>Download a structured summary as Markdown or RTF. Every session is searchable.</p>
+            <h3>Review &amp; export</h3>
+            <p>Download a structured summary as Markdown or RTF. Every session stays searchable.</p>
         </div>
     </div>
 </section>
 
-<!-- ── CTA band ── -->
+<hr class="divider">
+
+<!-- 6. Accessibility teaser -->
+<section class="section" id="aac-section">
+    <div class="aac-teaser aac-teaser--compact">
+        <div class="aac-teaser-text">
+            <span class="aac-teaser-badge">Accessibility</span>
+            <h2>Built for every voice</h2>
+            <p>
+                Calm timers, composition presence, and Accessibility Mode support AAC users —
+                eye-gaze, switch scanning, and apps like Grid&nbsp;3.
+            </p>
+            <a href="{% url 'accessibility' %}" class="btn btn-primary" style="margin-top:0.75rem;">
+                Accessibility &amp; AAC &rarr;
+            </a>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- 7. Pricing strip -->
+<section class="section pricing-strip" id="pricing-strip" aria-labelledby="pricing-strip-heading">
+    <h2 id="pricing-strip-heading" class="section-title">Simple host pricing</h2>
+    <p class="section-sub">Guests always join free. Start Individual; upgrade when a second host needs a login.</p>
+    <div class="pricing-strip-row">
+        <div class="pricing-strip-item">
+            <span class="pricing-strip-name">Individual</span>
+            <span class="pricing-strip-price">£12<span>/mo</span></span>
+            <span class="pricing-strip-alt">or £100 / year</span>
+        </div>
+        <div class="pricing-strip-item">
+            <span class="pricing-strip-name">Organisation</span>
+            <span class="pricing-strip-price">£36<span>/mo</span></span>
+            <span class="pricing-strip-alt">or £300 / year</span>
+        </div>
+        <a href="{% url 'pricing' %}" class="btn btn-primary btn-large">See full pricing</a>
+    </div>
+</section>
+
+<!-- 8. Close CTA -->
 <section class="cta-band">
-    <h2>Interested in the full platform?</h2>
-    <p>Subscribe from £12/month — or try two tools free right now, no account needed.</p>
+    <h2>Ready to host your next session?</h2>
+    <p>Create an account to unlock live group sessions — or try a free tool first.</p>
     <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
-        <a href="{% url 'pricing' %}" class="btn btn-primary-inv btn-large">See pricing</a>
-        <a href="{% url 'accounts:signup' %}" class="btn btn-large">Register</a>
+        <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary-inv btn-large">Register</a>
+        <a href="{% url 'home' %}#free-tools" class="btn btn-large">Try it free</a>
     </div>
 </section>
 

@@ -1,0 +1,296 @@
+/* Guest phone UX — join, pairing, respond, results */
+
+body.guest-shell {
+    max-width: 100%;
+    margin: 0;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+    min-height: 100dvh;
+}
+
+body.guest-shell > main {
+    padding: 0 1rem 1.25rem;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+body.guest-shell .page-footer {
+    display: none;
+}
+
+/* Compact guest chrome */
+nav.guest-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--surface-raised);
+    margin: 0 0 0.5rem;
+    padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-top, 0));
+    border-bottom: 1px solid var(--border);
+}
+
+nav.guest-nav .a11y-toggle-btn {
+    font-size: 0.8rem;
+    padding: 0.45rem 0.65rem;
+    min-height: 44px;
+}
+
+/* ── Full-screen entry cards (nickname + pairing) ── */
+.guest-entry-screen {
+    min-height: calc(100dvh - 4.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem 0 2rem;
+}
+
+.guest-entry-card {
+    background: var(--ink);
+    color: var(--brand-wash);
+    border-radius: 14px;
+    padding: 2rem 1.5rem;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.guest-entry-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 0.4rem;
+}
+
+.guest-entry-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--border);
+    margin: 0 0 1.75rem;
+}
+
+.guest-entry-question {
+    font-size: clamp(1.25rem, 4.5vw, 1.45rem);
+    font-weight: 700;
+    color: var(--brand-wash);
+    margin: 0 0 1.25rem;
+    line-height: 1.3;
+}
+
+.guest-entry-input {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 2px solid var(--ink-muted);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    background: var(--ink);
+    color: var(--brand-wash);
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.guest-entry-input--code {
+    font-size: clamp(1.75rem, 8vw, 2rem);
+    font-weight: 700;
+    font-family: ui-monospace, Menlo, monospace;
+    text-align: center;
+    letter-spacing: 0.35em;
+}
+
+.guest-entry-input:focus {
+    outline: none;
+    border-color: var(--highlight);
+    box-shadow: 0 0 0 3px rgba(240, 196, 25, 0.28);
+}
+
+.guest-entry-input::placeholder {
+    color: var(--ink-muted);
+}
+
+.guest-entry-error {
+    color: #fca5a5;
+    font-size: 0.875rem;
+    margin: 0.6rem 0 0;
+    text-align: left;
+}
+
+.guest-entry-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.15rem;
+    padding: 0.95rem 1rem;
+    min-height: 48px;
+    background: var(--highlight);
+    color: var(--highlight-ink);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.guest-entry-btn:hover,
+.guest-entry-btn:focus-visible {
+    background: #e0b50f;
+    outline: 2px solid var(--brand-wash);
+    outline-offset: 2px;
+}
+
+.guest-entry-hint {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    margin: 1.15rem 0 0;
+    line-height: 1.55;
+}
+
+/* ── Guest respond layout ── */
+.guest-respond-header {
+    margin: 0.5rem 0 1rem;
+}
+
+.guest-respond-header h1 {
+    font-size: clamp(1.35rem, 4.5vw, 1.65rem);
+    margin: 0 0 0.35rem;
+    line-height: 1.2;
+}
+
+.guest-respond-header h1 small {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 0.2rem;
+}
+
+.guest-respond-meta {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.guest-respond-meta strong {
+    color: var(--ink);
+}
+
+.guest-respond-form textarea,
+.guest-respond-form input[type="text"],
+.guest-respond-form input[type="email"],
+.guest-respond-form input[type="number"] {
+    font-size: 16px;
+    min-height: 48px;
+}
+
+.guest-respond-form .form-field {
+    margin-bottom: 1.15rem;
+}
+
+.guest-save-bar {
+    margin-top: 1.25rem;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.guest-status-hint {
+    margin-top: 1.25rem;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.guest-untimed {
+    background: var(--brand-wash);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    margin: 0.5rem 0 1rem;
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+}
+
+.guest-untimed strong {
+    color: var(--ink-soft);
+}
+
+/* Sticky save on phones */
+@media (max-width: 640px) {
+    body.guest-shell.guest-respond-page {
+        padding-bottom: 0;
+    }
+
+    body.guest-shell.guest-respond-page > main {
+        padding-bottom: 5.5rem;
+    }
+
+    .guest-save-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+        margin: 0;
+        padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0));
+        background: var(--surface-raised);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .guest-save-bar .btn-primary {
+        flex: 1;
+        min-width: 8rem;
+        min-height: 48px;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    #buffer-status {
+        flex: 1 1 100%;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Guest results */
+.guest-results-intro {
+    padding: 0.85rem 1rem;
+    background: var(--brand-wash);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+}
+
+.guest-result-card {
+    margin-top: 1.25rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--brand-wash);
+}
+
+.guest-result-card h2 {
+    margin: 0 0 0.65rem;
+    font-size: 1.05rem;
+}
+
+.guest-not-found {
+    max-width: 420px;
+    margin: 3rem auto;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.guest-not-found h1 {
+    font-size: 1.35rem;
+    margin: 0 0 0.75rem;
+}
+
+.guest-not-found p {
+    color: var(--ink-muted);
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+}

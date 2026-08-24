@@ -11,24 +11,7 @@
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<header>
-    <nav class="nav" aria-label="Main navigation">
-        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
-        <span class="nav-spacer"></span>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'tools:catalog' %}">All Tools</a>
-            <a href="{% url 'archive:knowledge_bank' %}">Knowledge Bank</a>
-            <a href="{% url 'accounts:logout' %}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-            <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">{% csrf_token %}</form>
-        {% else %}
-            <a href="{% url 'about' %}">About</a>
-            <a href="{% url 'pricing' %}" aria-current="page" style="font-weight:600;">Pricing</a>
-            <a href="{% url 'accessibility' %}">Accessibility</a>
-            <a href="{% url 'accounts:login' %}">Log in</a>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
-        {% endif %}
-    </nav>
-</header>
+{% include "includes/public_nav.html" with nav_current="pricing" %}
 
 <main id="main-content">
 
@@ -60,7 +43,7 @@
                 <li>Session archive with Markdown &amp; RTF export</li>
                 <li>Built-in AAC-friendly pacing support</li>
             </ul>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-large pricing-cta">Start Individual</a>
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary btn-large pricing-cta">Start Individual</a>
         </article>
 
         <article class="pricing-card">
@@ -79,7 +62,7 @@
                 <li>Best when a second colleague needs to run sessions</li>
                 <li>Simple upgrade — no per-participant fees</li>
             </ul>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-large pricing-cta">Start Organisation</a>
+            <a href="{% url 'accounts:signup' %}?plan=organisation" class="btn btn-large pricing-cta">Start Organisation</a>
             <p class="pricing-note">Choose this when a second person needs a host login.</p>
         </article>
     </div>
@@ -94,7 +77,7 @@
     <h2>Ready to host your next session?</h2>
     <p>Register to get started — or try a free tool first.</p>
     <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
-        <a href="{% url 'accounts:signup' %}" class="btn btn-primary-inv btn-large">Register now</a>
+        <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary-inv btn-large">Register now</a>
         <a href="{% url 'home' %}#free-tools" class="btn btn-large">Try it free</a>
     </div>
 </section>

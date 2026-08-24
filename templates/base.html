@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{% block title %}KwaCart{% endblock %}</title>
     <!-- Apply accessibility theme before any stylesheet renders to prevent
          a flash of un-themed content when the user has it switched on. -->
@@ -21,18 +21,22 @@
     <link rel="stylesheet" href="{% static 'css/accessibility_theme.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <nav>
+
+    {% block site_header %}
+    <nav aria-label="Main navigation">
         <a href="{% url 'home' %}"><strong>KwaCart</strong></a>
         {% if request.user.is_authenticated %}
+            <a href="{% url 'tools:catalog' %}"
+               title="Browse all tools">Tools</a>
             <a href="{% url 'tools:catalog' %}?mode=solo"
                class="nav-accent"
-               title="Use tools at your own pace">Work Solo</a>
+               title="Focus on solo work">Work Solo</a>
             <a href="{% url 'tools:catalog' %}?mode=live"
-               title="Start a live session with your team">Facilitate</a>
+               title="Focus on live sessions">Facilitate</a>
             <a href="{% url 'tools:pathway_finder' %}">Find a Pathway</a>
-            <a href="{% url 'archive:knowledge_bank' %}">Knowledge Bank</a>
+            <a href="{% url 'archive:knowledge_bank' %}">Sessions &amp; archive</a>
             <span class="spacer"></span>
             <a href="{% url 'accounts:profile' %}" title="View and update your profile">Profile</a>
             <span>{{ request.user.email }}</span>
@@ -45,8 +49,8 @@
             <a href="{% url 'pricing' %}">Pricing</a>
             <a href="{% url 'accessibility' %}">Accessibility</a>
             <span class="spacer"></span>
-            <a href="{% url 'accounts:login' %}">Login</a>
-            <a href="{% url 'accounts:signup' %}">Sign up</a>
+            <a href="{% url 'accounts:login' %}">Log in</a>
+            <a href="{% url 'accounts:signup' %}?plan=individual" class="btn btn-primary">Register</a>
         {% endif %}
         <button type="button"
                 id="a11y-theme-toggle"
@@ -56,6 +60,7 @@
             Accessibility Mode
         </button>
     </nav>
+    {% endblock %}
 
     {% if messages %}
         <ul class="messages">
@@ -67,10 +72,12 @@
         {% block content %}{% endblock %}
     </main>
 
+    {% block site_footer %}
     <footer class="page-footer">
         KwaCart &mdash; a Liberating Structures facilitation platform.
         Built as part of a Level&nbsp;5 Diploma project.
     </footer>
+    {% endblock %}
 
     <script src="{% static 'js/aria_wiring.js' %}"></script>
     <script src="{% static 'js/form_submit.js' %}"></script>

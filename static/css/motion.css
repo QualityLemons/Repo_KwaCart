@@ -1,0 +1,38 @@
+/* Intentional marketing motion — disabled for prefers-reduced-motion and .a11y-theme */
+
+@media (prefers-reduced-motion: no-preference) {
+    html:not(.a11y-theme) .motion-hero-inner {
+        animation: kw-fade-up 0.65s ease-out both;
+    }
+    html:not(.a11y-theme) .motion-proof {
+        animation: kw-fade-up 0.7s ease-out 0.12s both;
+    }
+    html:not(.a11y-theme) .motion-proof-img {
+        animation: kw-fade-up 0.75s ease-out 0.2s both;
+    }
+    html:not(.a11y-theme) .motion-card-enter {
+        animation: kw-scale-in 0.5s ease-out both;
+    }
+}
+
+@keyframes kw-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes kw-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

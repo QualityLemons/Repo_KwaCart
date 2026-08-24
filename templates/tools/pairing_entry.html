@@ -3,117 +3,26 @@
 
 {% block title %}Join a session &mdash; KwaCart{% endblock %}
 
+{% block body_class %}guest-shell{% endblock %}
+
+{% block site_header %}
+{% include "includes/guest_chrome.html" %}
+{% endblock %}
+
+{% block site_footer %}{% endblock %}
+
 {% block extra_css %}
-<style>
-/* ── Companion pairing entry screen ──────────────────────────────────────── */
-#pairing-screen {
-    min-height: calc(100vh - 9rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-}
-
-.ps-card {
-    background: var(--ink);
-    color: var(--brand-wash);
-    border-radius: 14px;
-    padding: 2.5rem 2rem;
-    width: 100%;
-    max-width: 380px;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-.ps-eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin: 0 0 1rem;
-}
-
-.ps-question {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--brand-wash);
-    margin: 0 0 1.75rem;
-    line-height: 1.3;
-}
-
-.ps-input {
-    display: block;
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid var(--ink-muted);
-    border-radius: 8px;
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: ui-monospace, Menlo, monospace;
-    background: var(--ink);
-    color: var(--brand-wash);
-    box-sizing: border-box;
-    text-align: center;
-    letter-spacing: 0.4em;
-    transition: border-color 0.15s;
-}
-
-.ps-input:focus {
-    outline: none;
-    border-color: var(--highlight);
-    box-shadow: 0 0 0 3px rgba(240, 196, 25, 0.28);
-}
-
-.ps-input::placeholder {
-    color: var(--ink-soft);
-    letter-spacing: 0.2em;
-}
-
-.ps-error {
-    color: #fca5a5;
-    font-size: 0.875rem;
-    margin: 0.6rem 0 0;
-}
-
-.ps-btn {
-    display: block;
-    width: 100%;
-    margin-top: 1.25rem;
-    padding: 0.9rem;
-    background: var(--highlight);
-    color: var(--highlight-ink);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.05rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background 0.15s;
-}
-
-.ps-btn:hover,
-.ps-btn:focus-visible {
-    background: #e0b50f;
-    outline: 2px solid var(--brand-wash);
-    outline-offset: 2px;
-}
-
-.ps-hint {
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    margin: 1.25rem 0 0;
-    line-height: 1.55;
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/guest_shell.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css/motion.css' %}?v=1">
 {% endblock %}
 
 {% block content %}
-<div id="pairing-screen">
-    <div class="ps-card">
+<div class="guest-entry-screen" id="pairing-screen">
+    <div class="guest-entry-card motion-card-enter">
 
-        <p class="ps-eyebrow">Companion device pairing</p>
+        <p class="guest-entry-eyebrow">Companion device pairing</p>
 
-        <p class="ps-question">
+        <p class="guest-entry-question">
             Enter the 3-digit<br>session code
         </p>
 
@@ -125,22 +34,22 @@
             <input type="text"
                    id="pairing-code"
                    name="code"
-                   class="ps-input"
+                   class="guest-entry-input guest-entry-input--code"
                    autofocus
-                   autocomplete="off"
+                   autocomplete="one-time-code"
                    inputmode="numeric"
+                   enterkeyhint="go"
                    maxlength="3"
                    pattern="[0-9]{1,3}"
-                   placeholder="0 0 0">
+                   placeholder="000">
             {% if error %}
-            <p class="ps-error" role="alert">{{ error }}</p>
+            <p class="guest-entry-error" role="alert">{{ error }}</p>
             {% endif %}
-            <button type="submit" class="ps-btn">Join session &rarr;</button>
+            <button type="submit" class="guest-entry-btn">Join session &rarr;</button>
         </form>
 
-        <p class="ps-hint">
-            Ask your host or support worker for the 3-digit code shown
-            next to the QR code on their screen.
+        <p class="guest-entry-hint">
+            Ask your host for the 3-digit code shown next to the QR code on their screen.
         </p>
 
     </div>
@@ -149,7 +58,6 @@
 
 {% block extra_js %}
 <script>
-/* Auto-submit once 3 digits are entered, so users don't need to press Join. */
 (function () {
     var input = document.getElementById('pairing-code');
     var form = input && input.closest('form');

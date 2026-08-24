@@ -3,19 +3,29 @@
 
 {% block title %}Session &mdash; {{ tool_meta.title }}{% endblock %}
 
+{% block body_class %}guest-shell guest-respond-page{% endblock %}
+
+{% block site_header %}
+{% include "includes/guest_chrome.html" %}
+{% endblock %}
+
+{% block site_footer %}{% endblock %}
+
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/guest_shell.css' %}?v=1">
 <link rel="stylesheet" href="{% static 'css/timer.css' %}">
 <link rel="stylesheet" href="{% static 'css/session_waiting.css' %}">
 {% if tool_meta.show_canvas %}<link rel="stylesheet" href="{% static 'css/drawing_canvas.css' %}">{% endif %}
 {% endblock %}
 
 {% block content %}
-<h1>{{ tool_meta.title }} <small style="color:var(--ink-muted);">— live session</small></h1>
-
-<p style="color:var(--ink-muted);">
-    You're joining as <strong>{{ instance.guest_name }}</strong>.
-    Fill in the form below and save your response before the host closes the session.
-</p>
+<header class="guest-respond-header">
+    <h1>{{ tool_meta.title }} <small>Live session</small></h1>
+    <p class="guest-respond-meta">
+        You're joining as <strong>{{ instance.guest_name }}</strong>.
+        Fill in the form and save before the host closes the session.
+    </p>
+</header>
 
 {% include "tools/info_box.html" %}
 
@@ -25,22 +35,22 @@
 </div>
 <div id="untimed-session-banner"
      {% if timer_enabled %}hidden{% endif %}
-     style="background:var(--brand-wash); border:1px solid var(--border-strong); border-radius:6px;
-            padding:0.85rem 1rem; margin:0.5rem 0 1rem;"
+     class="guest-untimed"
      role="status"
      aria-live="polite">
-    <strong style="color:var(--ink-soft);">Untimed session</strong>
-    <span style="color:var(--ink-muted);"> — take the time you need. The host will close the session when everyone is ready.</span>
+    <strong>Untimed session</strong>
+    <span> — take the time you need. The host will close the session when everyone is ready.</span>
 </div>
 {% endif %}
 
-<h2>Your response</h2>
+<h2 class="sr-only">Your response</h2>
 
 <div id="session-buffer"
      data-buffer-url="{% url 'tools:session_buffer_save' session.id %}"></div>
 
 {% if form %}
 <form method="post"
+      class="guest-respond-form"
       data-disable-on-submit
       data-loading-text="Saving&hellip;">
     {% csrf_token %}
@@ -54,9 +64,11 @@
             {% elif field.is_hidden %}
                 {{ field }}
             {% else %}
-                <p>{{ field.label_tag }} {{ field }}
-                {% if field.errors %}<span id="{{ field.auto_id }}-error" class="field-error">{{ field.errors|join:", " }}</span>{% endif %}
-                </p>
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}<span id="{{ field.auto_id }}-error" class="field-error">{{ field.errors|join:", " }}</span>{% endif %}
+                </div>
             {% endif %}
         {% endfor %}
     {% else %}
@@ -64,7 +76,7 @@
             {% if field.is_hidden %}
                 {{ field }}
             {% else %}
-                <div style="margin-bottom:1.25rem;">
+                <div class="form-field">
                     {{ field.label_tag }}
                     {{ field }}
                     {% if field.errors %}<p id="{{ field.auto_id }}-error" class="field-error">{{ field.errors|join:", " }}</p>{% endif %}
@@ -72,11 +84,9 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+    <div class="guest-save-bar">
         <button type="submit" class="btn btn-primary">Save my response</button>
-        <span id="buffer-status"
-              style="font-size:0.8rem; color:var(--ink-muted);"
-              aria-live="polite"></span>
+        <span id="buffer-status" aria-live="polite"></span>
     </div>
 </form>
 {% else %}
@@ -86,7 +96,7 @@
 <div class="sr-only" aria-live="polite" aria-atomic="true" id="session-announcer"
      data-status-url="{% url 'tools:session_status' session.id %}"></div>
 
-<p style="margin-top:1.5rem; color:var(--ink-muted);">
+<p class="guest-status-hint">
     The host will close the session when everyone is done.
     This page will refresh automatically once that happens.
 </p>
@@ -123,7 +133,7 @@
 (function () {
     try {
         sessionStorage.setItem('kwacart_guest_name', '{{ instance.guest_name|escapejs }}');
-    } catch (_) { /* sessionStorage unavailable */ }
+    } catch (_) {}
 }());
 </script>
 <script src="{% static 'js/timer.js' %}"></script>

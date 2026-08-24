@@ -24,6 +24,19 @@ nav a { color: var(--brand); text-decoration: none; }
 nav a.nav-accent { color: var(--accent); font-weight: 600; }
 nav .spacer { flex: 1; }
 
+/* Guest join / respond: logo + a11y only */
+nav.guest-nav {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+body.guest-shell {
+    max-width: 720px;
+    margin-top: 1rem;
+}
+body.guest-shell .page-footer {
+    display: none;
+}
+
 /* ── Flash messages ── */
 .messages li {
     list-style: none;

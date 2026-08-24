@@ -12,24 +12,7 @@
 </head>
 <body>
 
-<header>
-    <nav class="nav">
-        <a href="{% url 'home' %}" class="nav-brand">KwaCart</a>
-        <span class="nav-spacer"></span>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'tools:catalog' %}">All Tools</a>
-            <a href="{% url 'archive:dashboard' %}">My Archive</a>
-            <a href="{% url 'accounts:logout' %}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-            <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display:none;">{% csrf_token %}</form>
-        {% else %}
-            <a href="{% url 'about' %}">About</a>
-            <a href="{% url 'pricing' %}">Pricing</a>
-            <a href="{% url 'accessibility' %}" style="font-weight:600;">Accessibility</a>
-            <a href="{% url 'accounts:login' %}">Log in</a>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.9rem;">Register</a>
-        {% endif %}
-    </nav>
-</header>
+{% include "includes/public_nav.html" with nav_current="accessibility" %}
 
 <!-- ── Skip to content ── -->
 <a class="skip-link" href="#main-content">Skip to main content</a>

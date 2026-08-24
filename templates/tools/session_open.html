@@ -6,220 +6,221 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/timer.css' %}">
 <link rel="stylesheet" href="{% static 'css/session_waiting.css' %}">
+<link rel="stylesheet" href="{% static 'css/session_host.css' %}">
 {% if tool_meta.show_canvas %}<link rel="stylesheet" href="{% static 'css/drawing_canvas.css' %}">{% endif %}
 {% endblock %}
 
 {% block content %}
 <h1>{{ tool_meta.title }} <small style="color:var(--ink-muted);">— live session</small></h1>
 
-<!-- ── Signed-in participant share link ── -->
-<div style="background:#eef6ff; border:1px solid #cfe2ff; padding:0.8rem 1rem;
-            border-radius:6px; margin: 0.5rem 0 0.75rem;">
-    <strong>Share with signed-in participants:</strong>
-    <input type="text" readonly value="{{ share_url }}"
-           aria-label="Session invite link (requires login)"
-           onclick="this.select()"
-           style="width:100%; padding:0.4rem; margin-top:0.4rem;
-                  font-family: ui-monospace, Menlo, monospace; box-sizing:border-box;">
-    <p style="margin:0.4rem 0 0;"><small>Anyone already signed in who opens this link can join.</small></p>
-</div>
+{% if is_host %}
+<nav class="sh-tabs" role="tablist" aria-label="Session panels">
+    <button type="button" class="sh-tab" role="tab" id="tab-invite"
+            aria-controls="panel-invite" aria-selected="true" data-panel="invite">Invite</button>
+    <button type="button" class="sh-tab" role="tab" id="tab-run"
+            aria-controls="panel-run" aria-selected="false" data-panel="run">Run</button>
+    <button type="button" class="sh-tab" role="tab" id="tab-settings"
+            aria-controls="panel-settings" aria-selected="false" data-panel="settings">Settings</button>
+</nav>
+{% endif %}
 
-<!-- ── Guest share link, QR code, and companion pairing code ── -->
-<div style="background:#f0fdf4; border:1px solid #86efac; padding:0.8rem 1rem;
-            border-radius:6px; margin: 0 0 1rem;">
-    <strong>Guest link (no account needed):</strong>
-    <input type="text" readonly value="{{ guest_join_url }}"
-           aria-label="Guest join link — no login required"
-           onclick="this.select()"
-           style="width:100%; padding:0.4rem; margin-top:0.4rem;
-                  font-family: ui-monospace, Menlo, monospace; box-sizing:border-box;">
-    <details style="margin-top:0.6rem; display:inline-block;" id="guest-qr-details"
-             data-guest-url="{{ guest_join_url|escapejs }}">
-        <summary style="cursor:pointer; color:#15803d; font-size:0.875rem; list-style:none;">
-            &#9654; Show guest QR code
-        </summary>
-        <div id="guest-qrcode" role="img" aria-label="QR code for the guest join link"
-             style="margin-top:0.5rem; line-height:0;"></div>
-    </details>
-    <p style="margin:0.5rem 0 0;"><small>Participants who scan this QR code can join by entering their name — no account required.</small></p>
+{# ── Invite ── #}
+<section class="sh-panel{% if is_host %} sh-panel--active{% endif %}"
+         id="panel-invite"
+         role="{% if is_host %}tabpanel{% else %}region{% endif %}"
+         aria-labelledby="{% if is_host %}tab-invite{% else %}invite-heading{% endif %}"
+         {% if not is_host %}hidden{% endif %}>
 
-    {% if session.pairing_code %}
-    <!-- ── Companion pairing code (secondary device entry) ── -->
-    <div style="margin-top:0.9rem; padding:0.75rem 1rem;
-                background:#052e16; border-radius:8px; display:flex;
-                align-items:center; gap:1rem; flex-wrap:wrap;">
-        <div>
-            <p style="margin:0 0 0.2rem; font-size:0.72rem; letter-spacing:0.07em;
-                      text-transform:uppercase; color:#86efac; font-weight:600;">
-                Companion pairing code
-            </p>
-            <p style="margin:0; font-size:2.4rem; font-weight:700; letter-spacing:0.45em;
-                      color:#4ade80; font-family:ui-monospace,Menlo,monospace;
-                      line-height:1;">
-                {{ session.pairing_code }}
+    {% if is_host %}
+    <h2 id="invite-heading" class="sh-panel-title">Invite participants</h2>
+    <p class="sh-panel-lead">Share the guest link or pairing code first — guests never need an account.</p>
+
+    <div class="sh-invite-card sh-invite-card--guest">
+        <strong>Guest link (no account needed)</strong>
+        <input type="text" readonly value="{{ guest_join_url }}"
+               class="sh-invite-input"
+               aria-label="Guest join link — no login required"
+               onclick="this.select()">
+        <details class="sh-qr-details" id="guest-qr-details"
+                 data-guest-url="{{ guest_join_url|escapejs }}">
+            <summary>Show guest QR code</summary>
+            <div id="guest-qrcode" role="img" aria-label="QR code for the guest join link"></div>
+        </details>
+        <p class="sh-invite-hint">Participants scan the QR or open the link, enter a name, and join.</p>
+
+        {% if session.pairing_code %}
+        <div class="sh-pairing">
+            <div>
+                <p class="sh-pairing-label">Companion pairing code</p>
+                <p class="sh-pairing-code">{{ session.pairing_code }}</p>
+            </div>
+            <p class="sh-pairing-help">
+                On a second device, go to
+                <strong>{{ request.get_host }}/join/</strong>
+                and type this code.
             </p>
         </div>
-        <p style="margin:0; font-size:0.78rem; color:#86efac; line-height:1.55; flex:1; min-width:160px;">
-            On a second device, go to
-            <strong style="font-family:ui-monospace,Menlo,monospace;">
-                {{ request.get_host }}/join/
-            </strong>
-            and type this code. No URL needed.
-        </p>
+        {% endif %}
+    </div>
+
+    <details class="sh-advanced">
+        <summary>Advanced — signed-in participant link</summary>
+        <div class="sh-invite-card sh-invite-card--signed">
+            <strong>Share with signed-in participants</strong>
+            <input type="text" readonly value="{{ share_url }}"
+                   class="sh-invite-input"
+                   aria-label="Session invite link (requires login)"
+                   onclick="this.select()">
+            <p class="sh-invite-hint">Anyone already signed in who opens this link can join.</p>
+        </div>
+    </details>
+    {% endif %}
+</section>
+
+{# ── Run ── #}
+<section class="sh-panel{% if not is_host %} sh-panel--active{% endif %}"
+         id="panel-run"
+         role="{% if is_host %}tabpanel{% else %}region{% endif %}"
+         aria-labelledby="{% if is_host %}tab-run{% else %}run-heading{% endif %}"
+         {% if is_host %}hidden{% endif %}>
+
+    <h2 id="run-heading" class="sh-panel-title{% if not is_host %} sr-only{% endif %}">Run the session</h2>
+
+    {% include "tools/info_box.html" %}
+
+    {% if tool_meta.phases or tool_meta.timer_seconds %}
+    <div id="session-timer-region"{% if not timer_enabled %} hidden{% endif %}>
+    {% include "tools/_timer.html" with timer_session_id=session.id is_host=is_host timer_started_at=timer_started_at timer_paused_at=timer_paused_at pause_reminder_threshold_sec=pause_reminder_threshold_sec pause_reminder_threshold_js=pause_reminder_threshold_js %}
+    </div>
+    <div id="untimed-session-banner"
+         {% if timer_enabled %}hidden{% endif %}
+         class="sh-untimed"
+         role="status"
+         aria-live="polite">
+        <strong>Untimed session</strong>
+        <span> — take the time you need. The host will close the session when everyone is ready.</span>
     </div>
     {% endif %}
-</div>
 
-{% include "tools/info_box.html" %}
+    <h3 class="sh-subheading">Your response</h3>
 
-{% if tool_meta.phases or tool_meta.timer_seconds %}
-<div id="session-timer-region"{% if not timer_enabled %} hidden{% endif %}>
-{% include "tools/_timer.html" with timer_session_id=session.id is_host=is_host timer_started_at=timer_started_at timer_paused_at=timer_paused_at pause_reminder_threshold_sec=pause_reminder_threshold_sec pause_reminder_threshold_js=pause_reminder_threshold_js %}
-</div>
-<div id="untimed-session-banner"
-     {% if timer_enabled %}hidden{% endif %}
-     style="background:var(--brand-wash); border:1px solid var(--border-strong); border-radius:6px;
-            padding:0.85rem 1rem; margin:0.5rem 0 1rem;"
-     role="status"
-     aria-live="polite">
-    <strong style="color:var(--ink-soft);">Untimed session</strong>
-    <span style="color:var(--ink-muted);"> — take the time you need. The host will close the session when everyone is ready.</span>
-</div>
-{% endif %}
+    <div id="session-buffer"
+         data-buffer-url="{% url 'tools:session_buffer_save' session.id %}"></div>
 
-<!-- ── Participant response form ── -->
-<h2>Your response</h2>
-
-<!-- Buffer autosave anchor — session_autosave.js reads data-buffer-url to
-     know where to POST in-progress form state every few seconds. -->
-<div id="session-buffer"
-     data-buffer-url="{% url 'tools:session_buffer_save' session.id %}"></div>
-
-{% if form %}
-<form method="post"
-      data-disable-on-submit
-      data-loading-text="Saving&hellip;">
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-    <p class="non-field-errors">{{ form.non_field_errors|join:" " }}</p>
-    {% endif %}
-    {% if tool_meta.show_canvas %}
-        {% for field in form %}
-            {% if field.name == 'canvas_data' %}
-                {% include "tools/_drawing_canvas.html" %}
-                {{ field }}
-            {% elif field.is_hidden %}
-                {{ field }}
-            {% else %}
-                <p>{{ field.label_tag }} {{ field }}
-                {% if field.errors %}<span id="{{ field.auto_id }}-error" class="field-error">{{ field.errors|join:", " }}</span>{% endif %}
-                </p>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        {% for field in form %}
-            {% if field.is_hidden %}
-                {{ field }}
-            {% else %}
-                <div style="margin-bottom:1.25rem;">
-                    {{ field.label_tag }}
+    {% if form %}
+    <form method="post"
+          data-disable-on-submit
+          data-loading-text="Saving&hellip;">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <p class="non-field-errors">{{ form.non_field_errors|join:" " }}</p>
+        {% endif %}
+        {% if tool_meta.show_canvas %}
+            {% for field in form %}
+                {% if field.name == 'canvas_data' %}
+                    {% include "tools/_drawing_canvas.html" %}
                     {{ field }}
-                    {% if field.errors %}<p id="{{ field.auto_id }}-error" class="field-error">{{ field.errors|join:", " }}</p>{% endif %}
-                </div>
-            {% endif %}
-        {% endfor %}
+                {% elif field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    <p>{{ field.label_tag }} {{ field }}
+                    {% if field.errors %}<span id="{{ field.auto_id }}-error" class="field-error">{{ field.errors|join:", " }}</span>{% endif %}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% for field in form %}
+                {% if field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    <div style="margin-bottom:1.25rem;">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}<p id="{{ field.auto_id }}-error" class="field-error">{{ field.errors|join:", " }}</p>{% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+            <button type="submit" class="btn btn-primary">Save my response</button>
+            <span id="buffer-status"
+                  style="font-size:0.8rem; color:var(--ink-muted);"
+                  aria-live="polite"></span>
+        </div>
+    </form>
+    {% else %}
+    <p><em>This tool has no input form configured yet.</em></p>
     {% endif %}
-    <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-        <button type="submit" class="btn btn-primary">Save my response</button>
-        <span id="buffer-status"
-              style="font-size:0.8rem; color:var(--ink-muted);"
-              aria-live="polite"></span>
-    </div>
-</form>
-{% else %}
-<p><em>This tool has no input form configured yet.</em></p>
-{% endif %}
 
-<!-- ── Screen-reader live region for poll announcements ── -->
-<div class="sr-only" aria-live="polite" aria-atomic="true" id="session-announcer"
-     data-status-url="{% url 'tools:session_status' session.id %}"
-     data-is-host="{{ is_host|yesno:'true,false' }}"></div>
-{{ initial_responder_names|json_script:"initial-responders-data" }}
+    <div class="sr-only" aria-live="polite" aria-atomic="true" id="session-announcer"
+         data-status-url="{% url 'tools:session_status' session.id %}"
+         data-is-host="{{ is_host|yesno:'true,false' }}"></div>
+    {{ initial_responder_names|json_script:"initial-responders-data" }}
 
-<!-- ── Participants list ── -->
-<h2 style="margin-top:2rem;">
-    Participants
-    (<span id="participant-count">{{ participants|length }}</span>)
-    <small style="color:var(--ink-muted); font-weight:normal;">
-        — <span id="poll-status">live</span>
-    </small>
-</h2>
-<ul id="participant-list">
-    {% for p in participants %}
-    <li>
-        {% if p.user_id %}{{ p.user.email }}{% else %}{{ p.guest_name|default:"Guest" }} <span style="color:var(--ink-muted);">(guest)</span>{% endif %}
-        {% if p.user_id == session.host_id %}<span style="color:var(--ink-muted);">(host)</span>{% endif %}
-        {% if p.payload_input %} &mdash; <span style="color:#15803d;">response saved</span>{% endif %}
-    </li>
-    {% endfor %}
-</ul>
+    <h3 class="sh-subheading" style="margin-top:2rem;">
+        Participants
+        (<span id="participant-count">{{ participants|length }}</span>)
+        <small style="color:var(--ink-muted); font-weight:normal;">
+            — <span id="poll-status">live</span>
+        </small>
+    </h3>
+    <ul id="participant-list">
+        {% for p in participants %}
+        <li>
+            {% if p.user_id %}{{ p.user.email }}{% else %}{{ p.guest_name|default:"Guest" }} <span style="color:var(--ink-muted);">(guest)</span>{% endif %}
+            {% if p.user_id == session.host_id %}<span style="color:var(--ink-muted);">(host)</span>{% endif %}
+            {% if p.payload_input %} &mdash; <span style="color:#15803d;">response saved</span>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
 
+    {% if not is_host %}
+    <p style="margin-top:2rem; color:var(--ink-muted);">
+        The host will close the session when everyone is done.
+        The page will refresh automatically once that happens.
+    </p>
+    {% endif %}
+</section>
+
+{# ── Settings (host only) ── #}
 {% if is_host %}
-{% if tool_meta.phases or tool_meta.timer_seconds %}
-<!-- ── Timer on/off (host only) ── -->
-<details id="timer-enabled-settings"
-         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border);"
-         open>
-    <summary style="cursor:pointer; font-size:0.9rem; color:var(--brand); font-weight:600;">
-        Session timer
-    </summary>
-    <div style="margin-top:0.75rem;">
-        <p style="font-size:0.875rem; color:var(--ink-muted); margin:0 0 0.6rem;">
+<section class="sh-panel" id="panel-settings" role="tabpanel"
+         aria-labelledby="tab-settings" hidden>
+
+    <h2 class="sh-panel-title">Session settings</h2>
+    <p class="sh-panel-lead">Timer options and closing the room.</p>
+
+    {% if tool_meta.phases or tool_meta.timer_seconds %}
+    <div id="timer-enabled-settings" class="sh-settings-block">
+        <h3 class="sh-subheading">Session timer</h3>
+        <p class="sh-invite-hint">
             Turn the countdown off when people need more time, or when a timed
             structure does not fit the room. You can turn it back on later.
         </p>
-        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-            <label style="display:flex; align-items:center; gap:0.4rem;
-                          font-size:0.875rem; font-weight:600; color:var(--ink); cursor:pointer;">
+        <div class="sh-settings-row">
+            <label class="sh-check-label">
                 <input type="checkbox" id="timer-enabled-toggle"
-                       {% if timer_enabled %}checked{% endif %}
-                       style="width:1rem; height:1rem; cursor:pointer;">
+                       {% if timer_enabled %}checked{% endif %}>
                 Use session timer
             </label>
-            <button type="button" id="timer-enabled-save"
-                    style="padding:0.4rem 0.9rem; background:var(--brand); color:#fff;
-                           border:none; border-radius:5px; font-size:0.875rem;
-                           cursor:pointer; font-family:inherit;"
+            <button type="button" id="timer-enabled-save" class="btn btn-primary"
                     data-save-url="{% url 'tools:session_set_timer_enabled' session.id %}">
                 Save
             </button>
-            <span id="timer-enabled-status"
-                  aria-live="polite"
-                  style="font-size:0.85rem; color:#15803d; display:none;"></span>
+            <span id="timer-enabled-status" class="sh-save-status" aria-live="polite"></span>
         </div>
     </div>
-</details>
-{% endif %}
 
-<!-- ── Pause reminder settings (host only) ── -->
-<details id="pause-reminder-settings"
-         style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border);"{% if not timer_enabled %} hidden{% endif %}>
-    <summary style="cursor:pointer; font-size:0.9rem; color:var(--brand); font-weight:600;">
-        Pause reminder settings
-    </summary>
-    <div style="margin-top:0.75rem;">
-        <p style="font-size:0.875rem; color:var(--ink-muted); margin:0 0 0.6rem;">
-            The timer shows a visual reminder to the host when the session has been
-            paused for too long. Adjust or disable it for this session.
+    <div id="pause-reminder-settings" class="sh-settings-block"{% if not timer_enabled %} hidden{% endif %}>
+        <h3 class="sh-subheading">Pause reminder</h3>
+        <p class="sh-invite-hint">
+            Show a visual reminder when the session has been paused too long.
         </p>
-        <label for="pause-reminder-select"
-               style="font-size:0.875rem; font-weight:600; color:var(--ink);">
-            Remind me after:
+        <label for="pause-reminder-select" class="sh-check-label" style="margin-bottom:0.4rem;">
+            Remind me after
         </label>
-        <div style="display:flex; align-items:center; gap:0.75rem; margin-top:0.4rem; flex-wrap:wrap;">
-            <select id="pause-reminder-select"
-                    style="padding:0.4rem 0.6rem; border:1px solid var(--border-strong); border-radius:5px;
-                           font-size:0.9rem; font-family:inherit; background:#fff;">
+        <div class="sh-settings-row">
+            <select id="pause-reminder-select" class="sh-select">
                 <option value="">Disabled</option>
                 <option value="60">1 minute</option>
                 <option value="120">2 minutes</option>
@@ -227,44 +228,35 @@
                 <option value="300">5 minutes (default)</option>
                 <option value="600">10 minutes</option>
             </select>
-            <button type="button" id="pause-reminder-save"
-                    style="padding:0.4rem 0.9rem; background:var(--brand); color:#fff;
-                           border:none; border-radius:5px; font-size:0.875rem;
-                           cursor:pointer; font-family:inherit;"
+            <button type="button" id="pause-reminder-save" class="btn btn-primary"
                     data-save-url="{% url 'tools:session_set_pause_reminder' session.id %}"
                     data-current-threshold="{{ pause_reminder_threshold_sec|default:'' }}">
                 Save
             </button>
-            <span id="pause-reminder-status"
-                  aria-live="polite"
-                  style="font-size:0.85rem; color:#15803d; display:none;">Saved.</span>
+            <span id="pause-reminder-status" class="sh-save-status" aria-live="polite"></span>
         </div>
     </div>
-</details>
+    {% endif %}
 
-<!-- ── Close session form ── -->
-<form method="post" action="{% url 'tools:session_close' session.id %}"
-      style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border);"
-      data-confirm="Close the session? Participants will no longer be able to edit, and the combined results will be revealed to everyone with the link."
-      data-loading-text="Closing&hellip;">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Close session and reveal results</button>
-</form>
-
-{% else %}
-<p style="margin-top:2rem; color:var(--ink-muted);">
-    The host will close the session when everyone is done.
-    The page will refresh automatically once that happens.
-</p>
+    <div class="sh-settings-block sh-settings-block--danger">
+        <h3 class="sh-subheading">Close session</h3>
+        <p class="sh-invite-hint">
+            Participants will no longer be able to edit. Combined results are revealed
+            to everyone with the link.
+        </p>
+        <form method="post" action="{% url 'tools:session_close' session.id %}"
+              data-confirm="Close the session? Participants will no longer be able to edit, and the combined results will be revealed to everyone with the link."
+              data-loading-text="Closing&hellip;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Close session and reveal results</button>
+        </form>
+    </div>
+</section>
 {% endif %}
 
 <p style="margin-top:1.5rem;"><a href="{% url 'tools:catalog' %}">&larr; Back to catalog</a></p>
 
 {% if not is_host %}
-<!-- ── Session-closed waiting overlay (non-host participants only) ──
-     Hidden until session_poll.js detects data.status === 'closed'.
-     Shown instead of an abrupt page reload so participants see a calm
-     holding state while the facilitator prepares the next steps. -->
 <div id="session-waiting-overlay"
      class="session-waiting-overlay"
      hidden
@@ -296,6 +288,7 @@
 {% block extra_js %}
 <script src="{% static 'js/libraries/qrcode.min.js' %}"></script>
 <script src="{% static 'js/qrcode_init.js' %}"></script>
+{% if is_host %}<script src="{% static 'js/session_panels.js' %}"></script>{% endif %}
 <script src="{% static 'js/timer.js' %}"></script>
 {% if tool_meta.show_canvas %}<script src="{% static 'js/drawing_canvas.js' %}"></script>{% endif %}
 {% if is_host %}<script src="{% static 'js/pause_reminder.js' %}"></script>{% endif %}

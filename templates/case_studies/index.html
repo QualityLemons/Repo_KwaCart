@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case studies — KwaCart</title>
+    <link rel="stylesheet" href="{% static 'css/brand.css' %}?v=noblush">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=noblush2">
+    <link rel="stylesheet" href="{% static 'css/case_study.css' %}?v=index">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+{% include "includes/public_nav.html" with nav_current="use_cases" %}
+
+<main id="main-content" class="cs-page cs-index">
+    <header class="cs-index-header">
+        <p class="cs-index-eyebrow">Use cases</p>
+        <h1>Case studies</h1>
+        <p class="cs-index-lead">
+            Real facilitation walkthroughs — see how a Liberating Structure plays out
+            step by step, then try the tool yourself.
+        </p>
+    </header>
+
+    <ul class="cs-index-list">
+        {% for study in case_studies %}
+        <li>
+            <a href="{% url 'case_study_detail' study.slug %}" class="cs-index-card">
+                <span class="cs-index-icon" aria-hidden="true">{{ study.use_case_icon }}</span>
+                <span class="cs-index-body">
+                    <span class="cs-index-tool">{{ study.tool_title }}</span>
+                    <span class="cs-index-title">{{ study.title }}</span>
+                    <span class="cs-index-sub">{{ study.subtitle }}</span>
+                </span>
+                <span class="cs-index-cta" aria-hidden="true">Read &rarr;</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p class="cs-index-foot">
+        <a href="{% url 'home' %}#free-tools">Try a free tool</a>
+        &middot;
+        <a href="{% url 'accounts:signup' %}?plan=individual">Register to host live sessions</a>
+    </p>
+</main>
+
+<footer class="footer">
+    KwaCart &mdash; a Liberating Structures facilitation platform.
+    Built as part of a Level&nbsp;5 Diploma project.
+</footer>
+
+</body>
+</html>

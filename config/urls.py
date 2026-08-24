@@ -8,6 +8,10 @@ URL map
 -------
 ``/``                   → landing page (home)
 ``/about/``             → about page
+``/learn/``              → how-to guide
+``/case-studies/``       → case study index
+``/case-studies/<slug>/`` → case study detail
+``/pricing/``            → pricing page
 ``/admin/``             → Django admin
 ``/accounts/``          → accounts app (login, logout, sign-up)
 ``/tools/``             → tools app (catalog, draft, session, guest flows)
@@ -23,7 +27,7 @@ from django.urls import include, path
 
 from tools.views import pairing_entry, pairing_join
 
-from .case_study_views import case_study_detail
+from .case_study_views import case_study_detail, case_study_index
 
 
 # home and about are simple template-only views.  Defining them inline here
@@ -54,6 +58,7 @@ urlpatterns = [
     path('pricing/', pricing, name='pricing'),
     path('accessibility/', accessibility, name='accessibility'),
     path('learn/', learn, name='learn'),
+    path('case-studies/', case_study_index, name='case_study_index'),
     path('case-studies/<slug:slug>/', case_study_detail, name='case_study_detail'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
